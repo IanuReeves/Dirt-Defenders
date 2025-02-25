@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfjdogfx64gtl"]
+
+[ext_resource type="PackedScene" uid="uid://6s3hfdcvwbxr" path="res://scenes/player.tscn" id="1_3wq0y"]
+[ext_resource type="Script" path="res://scripts/weapon.gd" id="2_4g78g"]
+[ext_resource type="PackedScene" uid="uid://lf7iyos0k68w" path="res://scenes/gravity_well.tscn" id="3_uh7nf"]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_3wq0y")]
+
+[node name="Weapon" type="Node2D" parent="Player"]
+script = ExtResource("2_4g78g")
+
+[node name="Gravity Well" parent="." instance=ExtResource("3_uh7nf")]
+position = Vector2(76, 90)
