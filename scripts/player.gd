@@ -5,6 +5,7 @@ class_name Player
 @export var weapon: Weapon
 @export var top_speed:float = 400
 @export var rotation_speed:float = 180
+@export var brake_strength:float = .25
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,9 +30,11 @@ func rotate_to_mouse() -> void:
 
 func movement_input() -> void:
 	if Input.is_action_pressed("forward"):
+		# accelerate
 		velocity += transform.x * acceleration
 	if Input.is_action_pressed("brake"):
-		velocity -= velocity.normalized()*Vector2(acceleration/1.75,acceleration/1.75)
+		# subtract a fraction of base acceleration from current velocity
+		velocity -= velocity.normalized()*Vector2(acceleration*brake_strength,acceleration*brake_strength)
 	velocity = velocity.clampf(-top_speed,top_speed)
 
 func _physics_process(delta: float) -> void:
