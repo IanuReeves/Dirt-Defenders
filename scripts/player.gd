@@ -32,11 +32,13 @@ func movement_input() -> void:
 	if Input.is_action_pressed("forward"):
 		# accelerate
 		velocity += transform.x * acceleration
+		
 	if Input.is_action_pressed("brake"):
 		# subtract a fraction of base acceleration from current velocity
-		velocity -= velocity.normalized()*Vector2(acceleration*brake_strength,acceleration*brake_strength)
+		var brake_mod = velocity.normalized()*Vector2(acceleration*brake_strength,acceleration*brake_strength)
+		velocity -= brake_mod
 	velocity = velocity.clampf(-top_speed,top_speed)
-
+	
 func _physics_process(delta: float) -> void:
 	rotate_to_mouse()
 	movement_input()
