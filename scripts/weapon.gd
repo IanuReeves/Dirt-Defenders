@@ -1,13 +1,11 @@
 extends Node2D
 class_name Weapon
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-func fire():
-	pass
+@export var bullet:PackedScene
+#fire bullet out of weapon
+func fire(speedmod:Vector2):
+	var b = bullet.instantiate()
+	b.position = global_position
+	b.rotation = global_rotation
+	b.SPEED += speedmod.length()
+	get_tree().root.add_child(b)
