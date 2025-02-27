@@ -1,15 +1,22 @@
 extends Node
-var MAX_HP:float = 100
-var current_hp:float:
+class_name HealthComponent
+
+@export var max:float
+var current:float:
 	set(value):
-		current_hp = clamp(value, 0, MAX_HP)
+		current = clamp(value, 0, max)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	current_hp = MAX_HP
+	current = max
 
 func damage(amount:float):
-	current_hp -= amount
+	current -= amount
+	if current <= 0:
+		if get_parent().has_method("die"):
+			get_parent().die()
+		else:
+			get_parent().queue_free()
 	
 func heal(amount:float):
 	damage(-amount)

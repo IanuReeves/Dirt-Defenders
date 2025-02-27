@@ -13,11 +13,8 @@
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
 script = ExtResource("1_clxn1")
-acceleration = null
 weapon = NodePath("Weapon")
-top_speed = null
 rotation_speed = 200.0
-brake_strength = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rsghh")
@@ -36,10 +33,8 @@ shape = SubResource("CircleShape2D_yeip2")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_6bx4a")
-max = 100.0
 
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource("5_wg7bi")
 bullet = ExtResource("6_gqqmd")
-damage = 10.0
 target_layer = 2

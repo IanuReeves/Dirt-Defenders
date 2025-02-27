@@ -2,8 +2,8 @@ extends Area2D
 class_name Projectile
 @export var SPEED:float = 500
 @export var LIFETIME:float = 10
+@export var damage:float
 var time:float = 0
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -15,3 +15,8 @@ func _physics_process(delta: float) -> void:
 	if time >= LIFETIME:
 		time = 0
 		queue_free()
+
+
+func _on_area_entered(area: HitBoxComponent) -> void:
+	area.damage(damage)
+	queue_free()
