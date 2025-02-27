@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfjdogfx64gtl"]
+[gd_scene load_steps=7 format=3 uid="uid://bfjdogfx64gtl"]
 
 [ext_resource type="PackedScene" uid="uid://6s3hfdcvwbxr" path="res://scenes/player.tscn" id="1_3wq0y"]
+[ext_resource type="Script" path="res://scenes/World.gd" id="1_6nfqq"]
 [ext_resource type="Script" path="res://scripts/weapon.gd" id="2_4g78g"]
 [ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="3_7c51f"]
 [ext_resource type="PackedScene" uid="uid://lf7iyos0k68w" path="res://scenes/gravity_well.tscn" id="3_uh7nf"]
+[ext_resource type="Texture2D" uid="uid://dq46mkccnpqdi" path="res://icon.svg" id="6_3e7at"]
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_6nfqq")
 
 [node name="Player" parent="." node_paths=PackedStringArray("weapon") instance=ExtResource("1_3wq0y")]
 weapon = NodePath("Weapon")
@@ -14,5 +17,13 @@ weapon = NodePath("Weapon")
 script = ExtResource("2_4g78g")
 bullet = ExtResource("3_7c51f")
 
+[node name="Camera" type="Camera2D" parent="Player"]
+
 [node name="Gravity Well" parent="." instance=ExtResource("3_uh7nf")]
 position = Vector2(572, 314)
+
+[node name="Worldcam" type="Camera2D" parent="Gravity Well"]
+position = Vector2(-572, -314)
+
+[node name="Sprite2D" type="Sprite2D" parent="Gravity Well"]
+texture = ExtResource("6_3e7at")
