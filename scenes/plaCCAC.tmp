@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://6s3hfdcvwbxr"]
+[gd_scene load_steps=7 format=3 uid="uid://6s3hfdcvwbxr"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_clxn1"]
 [ext_resource type="Texture2D" uid="uid://b32ttb3l4m8p8" path="res://textures/player.png" id="2_2hljg"]
 [ext_resource type="Script" path="res://scripts/components/hitboxcomponent.gd" id="3_xelip"]
 [ext_resource type="Script" path="res://scripts/components/healthcomponent.gd" id="4_6bx4a"]
-[ext_resource type="Script" path="res://scripts/weapon.gd" id="5_wg7bi"]
-[ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="6_gqqmd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsghh"]
 
@@ -13,11 +11,8 @@
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
 script = ExtResource("1_clxn1")
-acceleration = null
-weapon = NodePath("Weapon")
-top_speed = null
+weapon = NodePath("")
 rotation_speed = 200.0
-brake_strength = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rsghh")
@@ -36,10 +31,3 @@ shape = SubResource("CircleShape2D_yeip2")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_6bx4a")
-max = 100.0
-
-[node name="Weapon" type="Node2D" parent="."]
-script = ExtResource("5_wg7bi")
-bullet = ExtResource("6_gqqmd")
-damage = 10.0
-target_layer = 2
