@@ -1,23 +1,82 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfjdogfx64gtl"]
+[gd_scene load_steps=11 format=3 uid="uid://bfjdogfx64gtl"]
 
 [ext_resource type="PackedScene" uid="uid://6s3hfdcvwbxr" path="res://scenes/player.tscn" id="1_3wq0y"]
 [ext_resource type="Script" path="res://scenes/World.gd" id="1_6nfqq"]
 [ext_resource type="Script" path="res://scripts/weapon.gd" id="2_4g78g"]
 [ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="3_7c51f"]
+[ext_resource type="Script" path="res://scenes/statemachine.gd" id="3_gewmj"]
 [ext_resource type="PackedScene" uid="uid://lf7iyos0k68w" path="res://scenes/gravity_well.tscn" id="3_uh7nf"]
 [ext_resource type="Texture2D" uid="uid://dq46mkccnpqdi" path="res://icon.svg" id="6_3e7at"]
+[ext_resource type="Script" path="res://scenes/speedpart.gd" id="6_o14rk"]
+[ext_resource type="Script" path="res://scenes/attackpart.gd" id="7_ikth5"]
+[ext_resource type="Script" path="res://scenes/ui.gd" id="8_51hx6"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_6nfqq")
 
-[node name="Player" parent="." node_paths=PackedStringArray("weapon") instance=ExtResource("1_3wq0y")]
-weapon = NodePath("Weapon")
+[node name="Player" parent="." instance=ExtResource("1_3wq0y")]
+
+[node name="STATEMACHINE" type="LimboHSM" parent="Player"]
+script = ExtResource("3_gewmj")
+
+[node name="Weapon1" type="Node2D" parent="Player/STATEMACHINE"]
+script = ExtResource("2_4g78g")
+bullet = ExtResource("3_7c51f")
+
+[node name="Weapon2" type="Node2D" parent="Player/STATEMACHINE"]
+script = ExtResource("2_4g78g")
+bullet = ExtResource("3_7c51f")
+
+[node name="Speedpart" type="Node2D" parent="Player/STATEMACHINE"]
+script = ExtResource("6_o14rk")
+speed = 20.0
+
+[node name="Attackpart" type="Node2D" parent="Player/STATEMACHINE"]
+script = ExtResource("7_ikth5")
+attack = 10.0
+defense = 5.0
 
 [node name="Camera" type="Camera2D" parent="Player"]
 
-[node name="Weapon" type="Node2D" parent="Player"]
-script = ExtResource("2_4g78g")
-bullet = ExtResource("3_7c51f")
+[node name="UIL" type="CanvasLayer" parent="Player"]
+
+[node name="UI" type="Control" parent="Player/UIL"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_51hx6")
+
+[node name="turbo" type="Label" parent="Player/UIL/UI"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 26.0
+offset_right = 86.0
+offset_bottom = 49.0
+text = "TURBO"
+
+[node name="spedometer" type="Label" parent="Player/UIL/UI"]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 40.0
+text = "spedometer"
+
+[node name="acceleration" type="Label" parent="Player/UIL/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="defense" type="Label" parent="Player/UIL/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="HP" type="Label" parent="Player/UIL/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Gravity Well" parent="." instance=ExtResource("3_uh7nf")]
 position = Vector2(572, 314)

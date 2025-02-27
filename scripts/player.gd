@@ -1,8 +1,10 @@
 extends CharacterBody2D
 class_name Player
 
+
+@onready var SM = $STATEMACHINE
 @export var acceleration: float = 7.0
-@export var weapon: Weapon
+@onready var primary: Weapon = SM.weapon1
 @export var top_speed:float = 400
 @export var rotation_speed:float = 180
 
@@ -41,4 +43,4 @@ func _physics_process(delta: float) -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire"):
-		weapon.fire(velocity)
+		primary.fire(velocity)
