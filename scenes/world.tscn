@@ -1,22 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfjdogfx64gtl"]
+[gd_scene load_steps=4 format=3 uid="uid://bfjdogfx64gtl"]
 
 [ext_resource type="PackedScene" uid="uid://6s3hfdcvwbxr" path="res://scenes/player.tscn" id="1_3wq0y"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_vrqln"]
-[ext_resource type="Script" path="res://scripts/weapon.gd" id="2_4g78g"]
-[ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="3_7c51f"]
 [ext_resource type="PackedScene" uid="uid://lf7iyos0k68w" path="res://scenes/gravity_well.tscn" id="3_uh7nf"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_vrqln")
 
-[node name="Player" parent="." node_paths=PackedStringArray("weapon") instance=ExtResource("1_3wq0y")]
-weapon = NodePath("Weapon")
+[node name="Player" parent="." instance=ExtResource("1_3wq0y")]
 rotation_speed = 230.0
 brake_strength = 0.8
-
-[node name="Weapon" type="Node2D" parent="Player"]
-script = ExtResource("2_4g78g")
-bullet = ExtResource("3_7c51f")
 
 [node name="Gravity Well" parent="." instance=ExtResource("3_uh7nf")]
 position = Vector2(572, 314)
