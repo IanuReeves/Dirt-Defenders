@@ -1,6 +1,6 @@
 extends Area2D
 @export var strength:float = 10.0
-@export var size:float = 100.0
+@export var size:float = 700.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

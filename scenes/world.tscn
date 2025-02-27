@@ -13,17 +13,18 @@ script = ExtResource("1_6nfqq")
 [node name="Player" parent="." node_paths=PackedStringArray("weapon") instance=ExtResource("1_3wq0y")]
 weapon = NodePath("Weapon")
 
+[node name="Camera" type="Camera2D" parent="Player"]
+
 [node name="Weapon" type="Node2D" parent="Player"]
 script = ExtResource("2_4g78g")
 bullet = ExtResource("3_7c51f")
 
-[node name="Camera" type="Camera2D" parent="Player"]
-
 [node name="Gravity Well" parent="." instance=ExtResource("3_uh7nf")]
 position = Vector2(572, 314)
+size = 100.0
 
 [node name="Worldcam" type="Camera2D" parent="Gravity Well"]
-position = Vector2(-572, -314)
+position = Vector2(-9, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Gravity Well"]
 texture = ExtResource("6_3e7at")
