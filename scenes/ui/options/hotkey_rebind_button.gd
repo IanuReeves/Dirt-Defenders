@@ -33,3 +33,9 @@ func set_key_text() -> void:
 	
 	button.text = "%s" % action_event
 	
+
+func _on_button_toggled(toggled_on: bool) -> void:
+	if button.button_pressed:
+		button.text = "press any key..."
+	else:
+		set_key_text()

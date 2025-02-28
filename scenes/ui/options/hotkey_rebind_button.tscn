@@ -39,3 +39,5 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 toggle_mode = true
 text = "ACTION_KEY"
+
+[connection signal="toggled" from="HBoxContainer/Button" to="." method="_on_button_toggled"]
