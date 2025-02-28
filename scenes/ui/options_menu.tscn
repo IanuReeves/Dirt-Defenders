@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://vpv7ukmhg3ur" path="res://scenes/ui/options/options_tab_container.tscn" id="2_4kbcf"]
 
 [sub_resource type="SystemFont" id="SystemFont_uistj"]
+subpixel_positioning = 0
 
 [node name="options_menu" type="Control"]
 layout_mode = 3
