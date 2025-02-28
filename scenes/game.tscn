@@ -12,5 +12,5 @@ rotation_speed = 230.0
 brake_strength = 0.8
 
 [node name="Gravity Well" parent="." instance=ExtResource("3_uh7nf")]
-position = Vector2(572, 314)
-strength = 25.0
+position = Vector2(618, 244)
+size = 150.0

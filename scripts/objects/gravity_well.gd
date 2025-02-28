@@ -1,4 +1,6 @@
 extends Area2D
+class_name GravityWell
+
 @export var strength:float = 10.0
 @export var size:float = 100.0
 

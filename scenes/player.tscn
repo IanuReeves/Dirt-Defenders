@@ -13,11 +13,7 @@
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
 script = ExtResource("1_clxn1")
-acceleration = null
 weapon = NodePath("Weapon")
-top_speed = null
-rotation_speed = 200.0
-brake_strength = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rsghh")
