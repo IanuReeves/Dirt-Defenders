@@ -1,11 +1,20 @@
 extends CharacterBody2D
 class_name Player
 
-@export var acceleration: float = 7.0
+#weapon stats
 @export var weapon: Weapon
+@export var power:float
+@export var attack:float
+@export var bullet_speed:float
+@export var bullet_spread:float
+#movement stats
+@export var acceleration: float = 7.0
 @export var top_speed:float = 400
-@export var rotation_speed:float = 180
 @export var brake_strength:float = .25
+@export var max_turbo:float
+@export var rotation_speed:float = 200
+#other stats
+@export var defense:float
 
 
 # Called when the node enters the scene tree for the first time.

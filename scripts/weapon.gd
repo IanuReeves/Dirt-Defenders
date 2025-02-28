@@ -4,6 +4,8 @@ class_name Weapon
 @export var bullet:PackedScene
 @export var damage:float
 @export var target_layer:int
+@export var bullet_amount:int
+@export var bullet_spread:float
 #fire bullet out of weapon
 func fire(speedmod:Vector2):
 	var b = bullet.instantiate()

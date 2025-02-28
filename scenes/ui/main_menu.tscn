@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtfjoatv00vqu"]
+[gd_scene load_steps=3 format=3 uid="uid://dtfjoatv00vqu"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_fhh2t"]
+[ext_resource type="PackedScene" uid="uid://cnw08jg3nei33" path="res://scenes/ui/options_menu.tscn" id="2_rv0w5"]
 
 [node name="main_meu" type="Control"]
 layout_mode = 3
@@ -32,6 +33,11 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
 text = "Quit Game"
 
+[node name="options_menu" parent="." instance=ExtResource("2_rv0w5")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="exit_options_menu" from="options_menu" to="." method="_on_options_menu_exit_options_menu"]
