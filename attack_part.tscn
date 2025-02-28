@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmixmx7cjkwfd"]
+
+[ext_resource type="Script" path="res://scenes/attackpart.gd" id="1_kebgr"]
+
+[node name="attack part" type="Node2D"]
+script = ExtResource("1_kebgr")
