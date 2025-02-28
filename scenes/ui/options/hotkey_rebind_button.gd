@@ -7,10 +7,11 @@ class_name HotkeyRebindButton
 
 @export var actionname: String = "forward"
 
-# Ignores non-recognized inputs. Calls label naming
+# Ignores non-recognized inputs; Calls label and button naming
 func _ready():
 	set_process_unhandled_input(false)
 	set_action_name()
+	set_key_text()
 	
 # Makes unassigned keys say "Unassigned", and translation key
 func set_action_name() -> void:
@@ -24,3 +25,11 @@ func set_action_name() -> void:
 			label.text = "Brake"
 		"fire":
 			label.text = "Fire"
+
+
+func set_key_text() -> void:
+	var action_events = InputMap.action_get_events(actionname)
+	var action_event = action_events[0]
+	var action_keycode = OS.get_keycode_string(action_event.physical_keycode)
+	
+	print(action_keycode)
