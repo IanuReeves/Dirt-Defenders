@@ -9,13 +9,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.	
 func _on_start_button_pressed() -> void:
 	print("Game Started. Loading World...")
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/main.tscn")
 
 
 
 func _on_options_button_pressed() -> void:
 	print("Opening options menu...")
-	get_tree().change_scene_to_file("res://scenes/options_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/options_menu.tscn")
 
 
 
