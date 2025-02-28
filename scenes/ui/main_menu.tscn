@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_fhh2t"]
 [ext_resource type="PackedScene" uid="uid://cnw08jg3nei33" path="res://scenes/ui/options_menu.tscn" id="2_rv0w5"]
 
-[node name="main_meu" type="Control"]
+[node name="main_meu2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
