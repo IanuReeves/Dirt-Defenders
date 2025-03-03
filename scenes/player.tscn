@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://6s3hfdcvwbxr"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_clxn1"]
+[ext_resource type="Script" path="res://textures/ui/scripts/player.gd" id="1_clxn1"]
 [ext_resource type="Texture2D" uid="uid://b32ttb3l4m8p8" path="res://textures/player.png" id="2_2hljg"]
-[ext_resource type="Script" path="res://scripts/components/hitboxcomponent.gd" id="3_xelip"]
-[ext_resource type="Script" path="res://scripts/components/healthcomponent.gd" id="4_6bx4a"]
-[ext_resource type="Script" path="res://scripts/weapon.gd" id="5_wg7bi"]
+[ext_resource type="Script" path="res://textures/ui/scripts/components/hitboxcomponent.gd" id="3_xelip"]
+[ext_resource type="Script" path="res://textures/ui/scripts/components/healthcomponent.gd" id="4_6bx4a"]
+[ext_resource type="Script" path="res://textures/ui/scripts/weapon.gd" id="5_wg7bi"]
 [ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="6_gqqmd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsghh"]
@@ -28,14 +28,21 @@ script = ExtResource("3_xelip")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+visible = false
 shape = SubResource("CircleShape2D_yeip2")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_6bx4a")
-max = 100.0
 
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource("5_wg7bi")
 bullet = ExtResource("6_gqqmd")
-damage = 10.0
 target_layer = 2
+
+[node name="tick" type="Timer" parent="."]
+wait_time = 0.15
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]
