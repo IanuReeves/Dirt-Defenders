@@ -14,8 +14,10 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yeip2"]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("parts", "health")]
 script = ExtResource("1_clxn1")
+parts = NodePath("PartHandler")
+health = NodePath("HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rsghh")
@@ -52,6 +54,3 @@ bullet = ExtResource("6_gqqmd")
 script = ExtResource("9_s5o61")
 texture = ExtResource("2_2hljg")
 stats = ExtResource("10_er60a")
-
-[connection signal="stats_changed" from="PartHandler" to="." method="_on_part_handler_stats_changed"]
-[connection signal="stats_changed" from="PartHandler" to="HealthComponent" method="_on_part_handler_stats_changed"]

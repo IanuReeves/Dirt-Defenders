@@ -2,12 +2,16 @@ extends CharacterBody2D
 class_name Player
 
 var current_stats:PlayerStats = PlayerStats.new()
+@export var parts:PartHandler
+@export var health:HealthComponent
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-	
-func _on_part_handler_stats_changed(stats: PlayerStats) -> void:
-	current_stats = stats
+	current_stats = parts.stats
+	health.max = current_stats.max_hp
+	health.current = current_stats.max_hp
+func _process(delta: float) -> void:
+	current_stats = parts.stats
+	health.max = current_stats.max_hp
 func rotate_to_mouse() -> void:
 	#smooth rotation stol--ADAPTED from reddit
 	# get vector from mouse to ship
@@ -42,4 +46,4 @@ func _physics_process(delta: float) -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire"):
-		$PartHandler.fire_primary()
+		parts.fire_primary()

@@ -10,15 +10,9 @@ var stats:PlayerStats = PlayerStats.new()
 @export var primary_weapon:Weapon
 @export var secondary_weapon:Weapon
 @export var hull:Hull
-# signal that stats changed (too lazy to change name to update_stats bc the names are very similar)
-signal stats_changed(stats:PlayerStats)
 # on ready configure sprite and HP if they exist
 func _ready() -> void:
-	if healthcomponent:
-		healthcomponent.max = fetch_stats().max_hp
-		healthcomponent.current = healthcomponent.max
-	if hull:
-		sprite.texture = hull.texture
+	stats = fetch_stats()
 # fetch current player velocity
 func get_velocity() -> Vector2:
 	return get_parent().velocity
@@ -40,7 +34,6 @@ func fetch_stats() -> PlayerStats:
 
 func _process(delta: float) -> void:
 	stats = fetch_stats()
-	stats_changed.emit(stats)
 	if hull:
 		sprite.texture = hull.texture
 # fire primary weapon

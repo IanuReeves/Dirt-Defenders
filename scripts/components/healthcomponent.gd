@@ -8,6 +8,7 @@ var current:float:
 signal health_changed(amount:float,component:HealthComponent)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	current = max
 func damage(amount:float):
 	current -= amount
@@ -20,7 +21,3 @@ func damage(amount:float):
 	
 func heal(amount:float):
 	damage(-amount)
-
-
-func _on_part_handler_stats_changed(stats: PlayerStats) -> void:
-	max = stats.max_hp
