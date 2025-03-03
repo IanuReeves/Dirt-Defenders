@@ -8,8 +8,6 @@
 script = ExtResource("1_vrqln")
 
 [node name="Player" parent="." instance=ExtResource("1_3wq0y")]
-rotation_speed = 230.0
-brake_strength = 0.8
 
 [node name="Gravity Well" parent="." instance=ExtResource("3_uh7nf")]
 position = Vector2(618, 244)

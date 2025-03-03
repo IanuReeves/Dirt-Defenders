@@ -2,12 +2,12 @@ extends Control
 class_name MainMenu
 
 # Variables for buttons and menus for signals
-@onready var start_button: Button = $VBoxContainer/StartButton
-@onready var options_button: Button = $VBoxContainer/OptionsButton
-@onready var quit_button: Button = $VBoxContainer/QuitButton
+@onready var start_button: Button = $MarginContainer/VBoxContainer/StartButton
+@onready var options_button: Button = $MarginContainer/VBoxContainer/OptionsButton
+@onready var quit_button: Button = $MarginContainer/VBoxContainer/QuitButton
 
 @onready var options_menu: OptionsMenu = $options_menu
-@onready var v_box_container: VBoxContainer = $VBoxContainer
+@onready var v_box_container: VBoxContainer = $MarginContainer/VBoxContainer
 # Pre-lods game for optimization (tie shit)
 @onready var start_level: PackedScene = preload("res://scenes/main.tscn")
 
@@ -19,7 +19,7 @@ class_name MainMenu
 # Self-expanatory function; grabs focus for arrow key emulation
 func _ready() -> void:
 	handle_connecting_signals()
-	$VBoxContainer/StartButton.grab_focus()
+	$MarginContainer/VBoxContainer/StartButton.grab_focus()
 
 
 # Loads the preloaded gameply when start button pressed
