@@ -12,6 +12,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	current_stats = parts.stats
 	health.max = current_stats.max_hp
+	$Sprite2D.texture = parts.hull.texture
 func rotate_to_mouse() -> void:
 	#smooth rotation stol--ADAPTED from reddit
 	# get vector from mouse to ship

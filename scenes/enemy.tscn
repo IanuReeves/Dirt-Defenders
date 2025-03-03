@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://couo1khqen27m"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_p5fhr"]
+[ext_resource type="Script" path="res://scripts/components/hitboxcomponent.gd" id="2_y5xxq"]
+[ext_resource type="Script" path="res://scripts/components/healthcomponent.gd" id="3_u5clh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r7wrm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efvhy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gr0u8"]
+radius = 50.1597
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_p5fhr")
+state = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_r7wrm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="HitBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("2_y5xxq")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("CircleShape2D_efvhy")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_u5clh")
+
+[node name="Detection_range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection_range"]
+shape = SubResource("CircleShape2D_gr0u8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
