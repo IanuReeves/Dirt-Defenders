@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfjdogfx64gtl"]
+[gd_scene load_steps=5 format=3 uid="uid://bfjdogfx64gtl"]
 
 [ext_resource type="PackedScene" uid="uid://6s3hfdcvwbxr" path="res://scenes/player.tscn" id="1_3wq0y"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_vrqln"]
 [ext_resource type="PackedScene" uid="uid://lf7iyos0k68w" path="res://scenes/objects/gravity_well.tscn" id="3_uh7nf"]
+[ext_resource type="Script" path="res://scenes/Worldcam.gd" id="4_jlvyt"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_vrqln")
@@ -12,3 +13,7 @@ script = ExtResource("1_vrqln")
 [node name="Gravity Well" parent="." instance=ExtResource("3_uh7nf")]
 position = Vector2(618, 244)
 size = 150.0
+
+[node name="Camera2D" type="Camera2D" parent="Gravity Well"]
+position = Vector2(0, 1)
+script = ExtResource("4_jlvyt")

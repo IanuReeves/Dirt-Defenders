@@ -2,7 +2,7 @@ extends Resource
 class_name PlayerStats
 #weapon stats
 @export var power:float
-@export var damage:float
+@export var attack:float
 @export var bullet_speed:float
 @export var bullet_amount:int
 @export var bullet_spread:float

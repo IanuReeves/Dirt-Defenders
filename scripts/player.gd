@@ -4,6 +4,14 @@ class_name Player
 var current_stats:PlayerStats = PlayerStats.new()
 @export var parts:PartHandler
 @export var health:HealthComponent
+
+
+var turbo : float 
+var HP : float
+
+func miniturbo():
+	return turbo/2
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_stats = parts.stats
@@ -12,6 +20,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	current_stats = parts.stats
 	health.max = current_stats.max_hp
+	HP = health.current
 func rotate_to_mouse() -> void:
 	#smooth rotation stol--ADAPTED from reddit
 	# get vector from mouse to ship
@@ -37,6 +46,8 @@ func movement_input() -> void:
 		# subtract a fraction of base acceleration from current velocity
 		var brake_mod = velocity.normalized()*Vector2(current_stats.acceleration*current_stats.brake_strength,current_stats.acceleration*current_stats.brake_strength)
 		velocity -= brake_mod
+		if velocity.length() > 10:
+			turbo += 1
 	velocity = velocity.clampf(-current_stats.top_speed,current_stats.top_speed)
 	
 func _physics_process(delta: float) -> void:
@@ -45,5 +56,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _input(event: InputEvent) -> void:
+	if event.is_action("dash"):
+		if turbo > 50:
+			velocity += transform.x * ((current_stats.acceleration * 50) + miniturbo())
+			turbo -= miniturbo()
+	dashcheck = true 
 	if event.is_action_pressed("fire"):
 		parts.fire_primary()
+
+func _on_timer_timeout() -> void:
+	if turbo > 0:
+		turbo -= 1
