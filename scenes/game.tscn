@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfjdogfx64gtl"]
+[gd_scene load_steps=9 format=3 uid="uid://bfjdogfx64gtl"]
 
 [ext_resource type="PackedScene" uid="uid://6s3hfdcvwbxr" path="res://scenes/player.tscn" id="1_3wq0y"]
 [ext_resource type="Script" uid="uid://fs0was2cff3c" path="res://scripts/world.gd" id="1_vrqln"]
@@ -9,9 +9,14 @@
 [sub_resource type="Resource" id="Resource_6yf32"]
 script = ExtResource("5_hq2ji")
 max_health = 0.0
-speed = 1000.0
+speed = 100.0
 follow_dist = 0.0
 attack = 0.0
+desired_distance_from_target = 0.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_iywne"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p57ef"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_vrqln")
@@ -22,7 +27,28 @@ script = ExtResource("1_vrqln")
 position = Vector2(618, 244)
 size = 150.0
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_t4h6g")]
+[node name="Enemy" parent="." instance=ExtResource("4_t4h6g")]
 position = Vector2(142, 121)
 stats = SubResource("Resource_6yf32")
-target = NodePath("../Player")
+
+[node name="World Border" type="StaticBody2D" parent="."]
+collision_layer = 3
+
+[node name="South" type="CollisionShape2D" parent="World Border"]
+position = Vector2(0, 2000)
+shape = SubResource("WorldBoundaryShape2D_iywne")
+
+[node name="North" type="CollisionShape2D" parent="World Border"]
+position = Vector2(0, -2000)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_p57ef")
+
+[node name="East" type="CollisionShape2D" parent="World Border"]
+position = Vector2(2000, 0)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_p57ef")
+
+[node name="West" type="CollisionShape2D" parent="World Border"]
+position = Vector2(-2000, 0)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_p57ef")

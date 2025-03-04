@@ -4,3 +4,4 @@ class_name EnemyStats
 @export var speed:float
 @export var follow_dist:float
 @export var attack:float
+@export var desired_distance_from_target:float
