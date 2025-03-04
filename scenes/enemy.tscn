@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://couo1khqen27m"]
+[gd_scene load_steps=9 format=3 uid="uid://couo1khqen27m"]
 
 [ext_resource type="Script" uid="uid://kh6m7mqj0nti" path="res://scripts/enemy.gd" id="1_p5fhr"]
 [ext_resource type="Script" uid="uid://dey1m8xlvxcex" path="res://scripts/components/hitboxcomponent.gd" id="2_y5xxq"]
 [ext_resource type="Script" uid="uid://bl8in5wan3vpi" path="res://scripts/components/healthcomponent.gd" id="3_u5clh"]
+[ext_resource type="Script" uid="uid://fhe1tgaq6f0x" path="res://scripts/components/weapon.gd" id="4_c4w8v"]
+[ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="5_xwavj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r7wrm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_efvhy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gr0u8"]
-radius = 50.1597
+radius = 244.632
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
@@ -36,3 +38,8 @@ script = ExtResource("3_u5clh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection_range"]
 shape = SubResource("CircleShape2D_gr0u8")
+
+[node name="Weapon" type="Node2D" parent="."]
+script = ExtResource("4_c4w8v")
+bullet = ExtResource("5_xwavj")
+metadata/_custom_type_script = "uid://fhe1tgaq6f0x"

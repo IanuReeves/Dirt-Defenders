@@ -12,7 +12,7 @@ max_health = 0.0
 speed = 100.0
 follow_dist = 0.0
 attack = 0.0
-desired_distance_from_target = 0.0
+desired_distance_from_target = 100.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_iywne"]
 
