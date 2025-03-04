@@ -8,7 +8,7 @@ var current_stats:PlayerStats = PlayerStats.new()
 
 var turbo : float 
 var HP : float
-
+var dashcheck : bool
 func miniturbo():
 	return turbo/2
 
