@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://d1bgrf3id5r48"]
 
-[ext_resource type="Script" path="res://scripts/resources/player_stats_resource.gd" id="1_ijnem"]
+[ext_resource type="Script" uid="uid://cwq25hyhkfwyj" path="res://scripts/resources/player_stats_resource.gd" id="1_ijnem"]
 
 [resource]
 script = ExtResource("1_ijnem")
@@ -15,4 +15,5 @@ top_speed = 0.0
 brake_strength = 0.0
 max_turbo = 0.0
 rotation_speed = 0.0
+max_hp = 0.0
 defense = 0.0
