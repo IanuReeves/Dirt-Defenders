@@ -16,26 +16,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1042.0
-offset_bottom = -603.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="Control/MarginContainer"]
-unique_name_in_owner = true
+[node name="ColorRect" type="ColorRect" parent="Control"]
 layout_mode = 2
-size_flags_vertical = 0
-text = "Score: 0"
-label_settings = SubResource("LabelSettings_a01yc")
+offset_left = 134.0
+offset_top = 8.0
+offset_right = 147.0
+offset_bottom = 22.0
+
+[node name="Timer" type="Timer" parent="Control/ColorRect"]
+wait_time = 0.25
+
+[node name="dashinglabel" type="Label" parent="Control/ColorRect"]
+layout_mode = 2
+offset_left = -131.0
+offset_top = -5.0
+offset_right = -14.0
+offset_bottom = 18.0
+text = "Dash indicator:"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -70,3 +67,16 @@ vertical_alignment = 1
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Score" type="Label" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 5.0
+offset_top = 33.0
+offset_right = 118.0
+offset_bottom = 67.0
+size_flags_vertical = 0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_a01yc")
+
+[connection signal="timeout" from="Control/ColorRect/Timer" to="." method="_on_timer_timeout"]

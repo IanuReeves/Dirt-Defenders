@@ -8,6 +8,7 @@ radius = 70.214
 [node name="Gravity Well" type="Area2D"]
 script = ExtResource("1_0hk3u")
 strength = 15.0
+size = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gjdgk")

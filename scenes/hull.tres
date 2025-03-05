@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://bli73b0piybvx"]
+
+[ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="1_e15b3"]
+
+[resource]
+script = ExtResource("1_e15b3")
+power = 0.0
+attack = 100.0
+bullet_speed = 5.0
+bullet_amount = 1
+bullet_spread = 1.0
+bullet_lifetime = 4.0
+acceleration = 10.0
+top_speed = 300.0
+brake_strength = 1.0
+max_turbo = 0.0
+rotation_speed = 250.0
+max_hp = 100.0
+defense = 10.0
+metadata/_custom_type_script = "uid://clpd50adeck85"

@@ -6,9 +6,15 @@ var current_stats:PlayerStats = PlayerStats.new()
 @export var health:HealthComponent
 
 
+# checks for actions
+
+signal dashed
+var accelerating : bool
+# add "taken damage" action here
+
 var turbo : float 
 var HP : float
-var dashcheck : bool
+
 func miniturbo():
 	return turbo/2
 
@@ -41,7 +47,9 @@ func movement_input() -> void:
 	if Input.is_action_pressed("forward"):
 		# accelerate
 		velocity += transform.x * current_stats.acceleration
-		
+		accelerating = true
+	if Input.is_action_just_released("forward"):
+		accelerating = false
 	if Input.is_action_pressed("brake"):
 		# subtract a fraction of base acceleration from current velocity
 		var brake_mod = velocity.normalized()*Vector2(current_stats.acceleration*current_stats.brake_strength,current_stats.acceleration*current_stats.brake_strength)
@@ -62,7 +70,7 @@ func _input(event: InputEvent) -> void:
 		if turbo > 50:
 			velocity += transform.x * ((current_stats.acceleration * 100) + miniturbo())
 			turbo -= miniturbo()
-	dashcheck = true 
+			dashed.emit()
 	if event.is_action_pressed("fire"):
 		parts.fire_primary()
 
