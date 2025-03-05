@@ -11,7 +11,7 @@ class_name UI
 @onready var dashind = $Control/ColorRect
 
 @onready var player : Player = get_parent()
-@onready var PARTS = player.current_stats
+@onready var PARTS = player.stats
 var score = 0
 var maxScore = 10000 
 
@@ -23,7 +23,7 @@ func update_score(value):
 	update_score_label()
 
 func _physics_process(delta: float) -> void:
-	PARTS = player.current_stats
+	PARTS = player.stats
 	turbo.text = "TURBO: " + str(round(player.turbo))
 	attack.text = "ATK: " + str(PARTS.attack)
 	defense.text = "DEF" + str(PARTS.defense)
@@ -35,9 +35,9 @@ func update_score_label():
 	score_label.text = "Score " + str(score)
 
 
-func _on_player_dashed() -> void:
+func _on_player_dashed(cdtime:float) -> void:
 	dashind.color = Color(1, 0, 0, 1)
-	dashingtimer.start()
+	dashingtimer.start(cdtime)
 	
 func _on_timer_timeout() -> void:
 	dashind.color = Color(0, 1, 0, 1)

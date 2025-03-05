@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://w87vxtedle5q"]
+
+[ext_resource type="Script" uid="uid://cyimvh47kd1cp" path="res://scripts/planet.gd" id="1_ggt7d"]
+[ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="2_0k1rn"]
+[ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_48b8c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3s4jt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wmcx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ggt7d"]
+
+[node name="RigidBody2D" type="RigidBody2D"]
+
+[node name="Planet" type="Area2D" parent="."]
+script = ExtResource("1_ggt7d")
+metadata/_custom_type_script = "uid://ykhl3a1mrqd2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet"]
+shape = SubResource("CircleShape2D_3s4jt")
+
+[node name="HealthComponent" type="Node" parent="Planet"]
+script = ExtResource("2_0k1rn")
+metadata/_custom_type_script = "uid://wy7pwks6axut"
+
+[node name="HitBoxComponent" type="Area2D" parent="Planet"]
+script = ExtResource("3_48b8c")
+metadata/_custom_type_script = "uid://bu27sw7avjeew"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/HitBoxComponent"]
+shape = SubResource("CircleShape2D_1wmcx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ggt7d")

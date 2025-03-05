@@ -39,4 +39,7 @@ func _process(delta: float) -> void:
 # fire primary weapon
 func fire_primary():
 	primary_weapon.fire(get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread)
-	
+
+func _on_child_entered_tree(node: Node) -> void:
+	if node is Part:
+		node.player = get_parent()

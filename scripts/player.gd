@@ -1,32 +1,40 @@
 extends CharacterBody2D
 class_name Player
 
-var current_stats:PlayerStats = PlayerStats.new()
+var stats:PlayerStats = PlayerStats.new()
 @export var parts:PartHandler
 @export var health:HealthComponent
+# turbo cooldown timer is made in the player because fuck node shenanigains
+# I guess player.gd is a mom now, all of it's other children are adopted but this one is home grown
+var turbo_cooldown_timer: Timer = Timer.new()
 
-
-# checks for actions
-
-signal dashed
+# checks for actions:
+# signal emitted on dash for ui shenanigains
+signal dashed(cdtime:float)
+# why the fuck does this exist, oh well
 var accelerating : bool
-# add "taken damage" action here
+# add "taken damage" action here -> already done (see health_changed signal in HealthComponent) 
+# and a LOT is already handled by HealthComponent.damage() (also playerHP is stored in HealthComponent)
+var turbo : float
 
-var turbo : float 
-var HP : float
-
+# where else is this function used?? I question it's purpose
+# it can't just be to divide turbo by two in this ONE SCRIPT that would be perposterous
 func miniturbo():
 	return turbo/2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	current_stats = parts.stats
-	health.max = current_stats.max_hp
-	health.current = current_stats.max_hp
+	# init health and stats so it doesn't scream at me
+	stats = parts.stats
+	health.max = stats.max_hp
+	health.current = stats.max_hp
+	# init turbo cooldown timer (please don't hate me)
+	turbo_cooldown_timer.one_shot = true
+	add_child(turbo_cooldown_timer)
 func _process(delta: float) -> void:
-	current_stats = parts.stats
-	health.max = current_stats.max_hp
-	HP = health.current
+	# update stats and health each frame
+	stats = parts.stats
+	health.max = stats.max_hp
 func rotate_to_mouse() -> void:
 	#smooth rotation stol--ADAPTED from reddit
 	# get vector from mouse to ship
@@ -35,7 +43,7 @@ func rotate_to_mouse() -> void:
 	var angle = v.angle()
 	var r = global_rotation
 	# get rotation allowed this frame
-	var angle_delta = deg_to_rad(current_stats.rotation_speed) * get_physics_process_delta_time()
+	var angle_delta = deg_to_rad(stats.rotation_speed) * get_physics_process_delta_time()
 	# get complete rotation to ship
 	angle = lerp_angle(r, angle, 0.3)
 	# limit that rotation to what is allowed this frame
@@ -46,19 +54,20 @@ func rotate_to_mouse() -> void:
 func movement_input() -> void:
 	if Input.is_action_pressed("forward"):
 		# accelerate
-		velocity += transform.x * current_stats.acceleration
+		velocity += transform.x * stats.acceleration
 		accelerating = true
 	if Input.is_action_just_released("forward"):
 		accelerating = false
 	if Input.is_action_pressed("brake"):
-		# subtract a fraction of base acceleration from current velocity
-		var brake_mod = velocity.normalized()*Vector2(current_stats.acceleration*current_stats.brake_strength,current_stats.acceleration*current_stats.brake_strength)
+		# subtract brake strength*accel from velocity (in other words, brake)
+		var brake_mod = velocity.normalized()*Vector2(stats.acceleration*stats.brake_strength,stats.acceleration*stats.brake_strength)
 		velocity -= brake_mod
+		# gain turbo
 		if velocity.length() > 5:
 			turbo += 5
 		elif velocity.length() < 5:
 			velocity = Vector2(0,0) 
-	velocity = velocity.clampf(-current_stats.top_speed,current_stats.top_speed)
+	velocity = velocity.clampf(-stats.top_speed,stats.top_speed)
 	
 func _physics_process(delta: float) -> void:
 	rotate_to_mouse()
@@ -66,14 +75,21 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_released("dash"):
+	# dash if cooldown isn't a little shit
+	if event.is_action_released("dash") and turbo_cooldown_timer.time_left == 0:
 		if turbo > 50:
-			velocity += transform.x * ((current_stats.acceleration * 100) + miniturbo())
+			# why even add miniturbo to this?
+			velocity += transform.x * ((stats.acceleration * 100) + miniturbo())
+			# turbo /= 2 lol
 			turbo -= miniturbo()
-			dashed.emit()
+			# emit gui shenanigains
+			dashed.emit(stats.turbo_cooldown)
+			
+			turbo_cooldown_timer.start(stats.turbo_cooldown)
 	if event.is_action_pressed("fire"):
 		parts.fire_primary()
 
 func _on_timer_timeout() -> void:
 	if turbo > 0:
 		turbo -= 1
+		turbo = clamp(turbo, 0, INF)
