@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cccfurky2d5ek"]
 
-[ext_resource type="Script" uid="uid://b2ntexhodv61w" path="res://scenes/Dasheffect.gd" id="1_idns1"]
+[ext_resource type="Script" uid="uid://cldfn74vlsbit" path="res://parts/dashpart.gd" id="1_5wucs"]
 
 [node name="dashpart" type="Node2D"]
-script = ExtResource("1_idns1")
+script = ExtResource("1_5wucs")

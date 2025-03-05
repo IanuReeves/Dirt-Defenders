@@ -11,9 +11,10 @@ class_name PlayerStats
 @export var acceleration: float
 @export var top_speed:float
 @export var brake_strength:float
-@export var max_turbo:float
 @export var rotation_speed:float
+@export var max_turbo:float
 @export var turbo_cooldown:float
+@export var turbo_strength:float
 #other
 @export var max_hp:float
 @export var defense:float

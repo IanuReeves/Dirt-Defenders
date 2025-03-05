@@ -4,9 +4,10 @@ class_name Player
 var stats:PlayerStats = PlayerStats.new()
 @export var parts:PartHandler
 @export var health:HealthComponent
-# turbo cooldown timer is made in the player because fuck node shenanigains
-# I guess player.gd is a mom now, all of it's other children are adopted but this one is home grown
-var turbo_cooldown_timer: Timer = Timer.new()
+# turbo cooldown timer is no longer made in the player because fuck node shenanigains
+# I guess player.gd used to be a mom now, all of it's other children are adopted, and this one was murdered
+# she adopted another child to replace the hole in her heart
+@onready var turbo_cooldown_timer: Timer = $TurboCooldown
 
 # checks for actions:
 # signal emitted on dash for ui shenanigains
@@ -29,8 +30,6 @@ func _ready() -> void:
 	health.max = stats.max_hp
 	health.current = stats.max_hp
 	# init turbo cooldown timer (please don't hate me)
-	turbo_cooldown_timer.one_shot = true
-	add_child(turbo_cooldown_timer)
 func _process(delta: float) -> void:
 	# update stats and health each frame
 	stats = parts.stats
@@ -63,8 +62,8 @@ func movement_input() -> void:
 		var brake_mod = velocity.normalized()*Vector2(stats.acceleration*stats.brake_strength,stats.acceleration*stats.brake_strength)
 		velocity -= brake_mod
 		# gain turbo
-		if velocity.length() > 5:
-			turbo += 5
+		if velocity.length() > 5 and not Input.is_action_pressed("forward"):
+			turbo += 2.5
 		elif velocity.length() < 5:
 			velocity = Vector2(0,0) 
 	velocity = velocity.clampf(-stats.top_speed,stats.top_speed)
@@ -84,7 +83,6 @@ func _input(event: InputEvent) -> void:
 			turbo -= miniturbo()
 			# emit gui shenanigains
 			dashed.emit(stats.turbo_cooldown)
-			
 			turbo_cooldown_timer.start(stats.turbo_cooldown)
 	if event.is_action_pressed("fire"):
 		parts.fire_primary()
