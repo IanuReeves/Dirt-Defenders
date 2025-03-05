@@ -6,9 +6,10 @@ class_name GravityWell
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$CollisionShape2D.shape.radius = size
+	pass
+	#$CollisionShape2D.shape.radius = size
 
 func _physics_process(delta: float) -> void:
 	for body in get_overlapping_bodies():
 		if body is Player:
-			body.velocity += strength * body.position.direction_to(position)
+			body.velocity += strength * body.global_position.direction_to(to_global(position))

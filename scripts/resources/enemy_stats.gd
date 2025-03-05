@@ -4,3 +4,4 @@ class_name EnemyStats
 @export var max_hp:float
 @export var attack:float
 @export var detect_range:float
+@export var desired_target_distance:float

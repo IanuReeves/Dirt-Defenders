@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b03d85g3b64k7"]
+[gd_scene load_steps=7 format=3 uid="uid://b03d85g3b64k7"]
 
 [ext_resource type="Script" uid="uid://cv4j3girky82k" path="res://scripts/enemy.gd" id="1_5uy6h"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="1_md0e3"]
 [ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="2_4ra3w"]
-[ext_resource type="Script" uid="uid://bg1t3w3oq0fho" path="res://scripts/components/state_machine.gd" id="4_c4w8v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
 
@@ -35,6 +34,3 @@ metadata/_custom_type_script = "uid://wy7pwks6axut"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_xwavj")
-
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource("4_c4w8v")
