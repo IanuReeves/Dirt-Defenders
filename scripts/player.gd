@@ -46,8 +46,10 @@ func movement_input() -> void:
 		# subtract a fraction of base acceleration from current velocity
 		var brake_mod = velocity.normalized()*Vector2(current_stats.acceleration*current_stats.brake_strength,current_stats.acceleration*current_stats.brake_strength)
 		velocity -= brake_mod
-		if velocity.length() > 10:
-			turbo += 1
+		if velocity.length() > 5:
+			turbo += 5
+		elif velocity.length() < 5:
+			velocity = Vector2(0,0) 
 	velocity = velocity.clampf(-current_stats.top_speed,current_stats.top_speed)
 	
 func _physics_process(delta: float) -> void:
@@ -56,9 +58,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action("dash"):
+	if event.is_action_released("dash"):
 		if turbo > 50:
-			velocity += transform.x * ((current_stats.acceleration * 50) + miniturbo())
+			velocity += transform.x * ((current_stats.acceleration * 100) + miniturbo())
 			turbo -= miniturbo()
 	dashcheck = true 
 	if event.is_action_pressed("fire"):

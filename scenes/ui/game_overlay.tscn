@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://e6iuym7bl3xi"]
 
-[ext_resource type="Script" path="res://scripts/ui/game_overlay.gd" id="1_5gflo"]
+[ext_resource type="Script" uid="uid://8fhu8cc6ngcc" path="res://scripts/ui/game_overlay.gd" id="1_5gflo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_a01yc"]
 font_size = 24

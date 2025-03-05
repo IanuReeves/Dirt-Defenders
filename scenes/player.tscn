@@ -1,24 +1,96 @@
-[gd_scene load_steps=13 format=3 uid="uid://6s3hfdcvwbxr"]
+[gd_scene load_steps=19 format=3 uid="uid://6s3hfdcvwbxr"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_clxn1"]
+[ext_resource type="Script" uid="uid://d07bhxyosh33i" path="res://scripts/player.gd" id="1_clxn1"]
 [ext_resource type="Texture2D" uid="uid://b32ttb3l4m8p8" path="res://textures/player.png" id="2_2hljg"]
-[ext_resource type="Script" path="res://scripts/components/hitboxcomponent.gd" id="3_xelip"]
-[ext_resource type="Script" path="res://scripts/components/healthcomponent.gd" id="4_6bx4a"]
-[ext_resource type="Script" path="res://scripts/weapon.gd" id="5_wg7bi"]
+[ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_xelip"]
+[ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="4_6bx4a"]
+[ext_resource type="Script" uid="uid://c5on0n684j21r" path="res://scripts/weapon.gd" id="5_wg7bi"]
 [ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="6_gqqmd"]
-[ext_resource type="Script" path="res://scripts/components/parthandler.gd" id="7_xkvgj"]
-[ext_resource type="Script" path="res://scripts/components/part.gd" id="8_2uxwq"]
-[ext_resource type="Script" path="res://scenes/Dasheffect.gd" id="8_v4kvs"]
-[ext_resource type="Script" path="res://scripts/components/hull.gd" id="9_s5o61"]
+[ext_resource type="Script" uid="uid://ig830hyaojuf" path="res://scripts/components/parthandler.gd" id="7_xkvgj"]
+[ext_resource type="Script" uid="uid://dkfjus4yds0xd" path="res://scripts/components/part.gd" id="8_2uxwq"]
+[ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="8_d2wvv"]
+[ext_resource type="Script" uid="uid://b2ntexhodv61w" path="res://scenes/Dasheffect.gd" id="8_v4kvs"]
+[ext_resource type="Script" uid="uid://caeioa2lwlb8r" path="res://scripts/components/hull.gd" id="9_s5o61"]
+[ext_resource type="PackedScene" uid="uid://e6iuym7bl3xi" path="res://scenes/ui/game_overlay.tscn" id="12_3v2ag"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsghh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yeip2"]
 
+[sub_resource type="Resource" id="Resource_3v2ag"]
+script = ExtResource("8_d2wvv")
+power = 0.0
+attack = 0.0
+bullet_speed = 0.0
+bullet_amount = 0
+bullet_spread = 0.0
+bullet_lifetime = 0.0
+acceleration = 0.0
+top_speed = 0.0
+brake_strength = 0.0
+max_turbo = 0.0
+rotation_speed = 0.0
+max_hp = 0.0
+defense = 0.0
+metadata/_custom_type_script = "uid://clpd50adeck85"
+
+[sub_resource type="Resource" id="Resource_d2wvv"]
+script = ExtResource("8_d2wvv")
+power = 0.0
+attack = 0.0
+bullet_speed = 900.0
+bullet_amount = 0
+bullet_spread = 0.0
+bullet_lifetime = 0.0
+acceleration = 0.0
+top_speed = 0.0
+brake_strength = 0.0
+max_turbo = 0.0
+rotation_speed = 0.0
+max_hp = 0.0
+defense = 0.0
+metadata/_custom_type_script = "uid://clpd50adeck85"
+
+[sub_resource type="Resource" id="Resource_jej6c"]
+script = ExtResource("8_d2wvv")
+power = 0.0
+attack = 100.0
+bullet_speed = 5.0
+bullet_amount = 1
+bullet_spread = 1.0
+bullet_lifetime = 4.0
+acceleration = 10.0
+top_speed = 300.0
+brake_strength = 1.0
+max_turbo = 0.0
+rotation_speed = 250.0
+max_hp = 100.0
+defense = 10.0
+metadata/_custom_type_script = "uid://clpd50adeck85"
+
+[sub_resource type="Resource" id="Resource_f1ej7"]
+script = ExtResource("8_d2wvv")
+power = 0.0
+attack = 0.0
+bullet_speed = 0.0
+bullet_amount = 0
+bullet_spread = 0.0
+bullet_lifetime = 0.0
+acceleration = 0.0
+top_speed = 0.0
+brake_strength = 0.0
+max_turbo = 0.0
+rotation_speed = 0.0
+max_hp = 0.0
+defense = 0.0
+metadata/_custom_type_script = "uid://clpd50adeck85"
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("parts", "health")]
 script = ExtResource("1_clxn1")
 parts = NodePath("PartHandler")
 health = NodePath("HealthComponent")
+
+[node name="UI" parent="." instance=ExtResource("12_3v2ag")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rsghh")
@@ -51,16 +123,20 @@ hull = NodePath("Hull")
 [node name="Weapon" type="Node2D" parent="PartHandler"]
 script = ExtResource("5_wg7bi")
 bullet = ExtResource("6_gqqmd")
+stats = SubResource("Resource_3v2ag")
 
 [node name="dashpart" type="Node2D" parent="PartHandler"]
 script = ExtResource("8_v4kvs")
+stats = SubResource("Resource_d2wvv")
 
 [node name="Hull" type="Node2D" parent="PartHandler"]
 script = ExtResource("9_s5o61")
 texture = ExtResource("2_2hljg")
+stats = SubResource("Resource_jej6c")
 
 [node name="Part" type="Node2D" parent="PartHandler"]
 script = ExtResource("8_2uxwq")
+stats = SubResource("Resource_f1ej7")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.15

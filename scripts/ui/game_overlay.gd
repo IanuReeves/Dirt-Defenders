@@ -8,7 +8,7 @@ class_name UI
 @onready var defense: Label = $Control/VBoxContainer/DEFENSE
 
 
-@onready var player : Player = get_parent().get_node("Player")
+@onready var player : Player = get_parent()
 @onready var PARTS = player.current_stats
 var score = 0
 var maxScore = 10000 
@@ -18,12 +18,13 @@ func update_score(value):
 	update_score_label()
 
 func _physics_process(delta: float) -> void:
-
+	PARTS = player.current_stats
 	turbo.text = "TURBO: " + str(round(player.turbo))
-	spedometer.text = "SPEED: " + str(round(player.velocity.length()))
 	attack.text = "ATK: " + str(PARTS.attack)
 	defense.text = "DEF" + str(PARTS.defense)
-	
-
+	if player.velocity.length() < 10:
+		spedometer.text = "SPEED: " + str(0)
+	else:
+		spedometer.text = "SPEED: " + str(round(player.velocity.length()))
 func update_score_label():
 	score_label.text = "Score " + str(score)
