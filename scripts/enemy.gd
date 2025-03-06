@@ -12,6 +12,7 @@ func _ready() -> void:
 	health.max = stats.max_hp
 	health.current = stats.max_hp
 
+
 func sort_distance(a,b):
 	if a.length() > b.length():
 		return true
