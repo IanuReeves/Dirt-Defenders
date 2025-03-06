@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://tp5ycsg3wvka"]
+
+[ext_resource type="Script" uid="uid://d0w0r110w3ccd" path="res://part_timer.gd" id="1_kxals"]
+[ext_resource type="Texture2D" uid="uid://dq46mkccnpqdi" path="res://icon.svg" id="2_3fb6d"]
+
+[node name="PartTimer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kxals")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(36, 37)
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("2_3fb6d")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 19.0
+offset_right = 161.0
+offset_bottom = 55.0
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="timelabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 20.0
+offset_right = 207.0
+offset_bottom = 56.0
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

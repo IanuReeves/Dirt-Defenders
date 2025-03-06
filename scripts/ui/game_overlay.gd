@@ -7,11 +7,18 @@ class_name UI
 @onready var attack: Label = $Control/VBoxContainer/ATTACK
 @onready var defense: Label = $Control/VBoxContainer/DEFENSE
 
+
+
+@onready var statemachine = get_parent().get_node("PartHandler")
 @onready var dashingtimer = $Control/ColorRect/Timer
 @onready var dashind = $Control/ColorRect
 
+
 @onready var player : Player = get_parent()
 @onready var PARTS = player.stats
+
+@onready var part2check : Part 
+
 var score = 0
 var maxScore = 10000 
 

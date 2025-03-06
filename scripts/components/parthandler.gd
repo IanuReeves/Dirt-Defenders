@@ -10,6 +10,8 @@ var stats:PlayerStats = PlayerStats.new()
 @export var primary_weapon:Weapon
 @export var secondary_weapon:Weapon
 @export var hull:Hull
+
+@onready var ui = get_parent().get_node("UI")
 # on ready configure sprite and HP if they exist
 func _ready() -> void:
 	stats = fetch_stats()
@@ -43,3 +45,8 @@ func fire_primary():
 func _on_child_entered_tree(node: Node) -> void:
 	if node is Part:
 		node.player = get_parent()
+
+func setUI():
+	for child in get_children():
+		if child is Part:
+			ui.part2check = child

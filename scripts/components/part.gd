@@ -4,5 +4,13 @@ class_name Part
 
 var player:Player
 
-var icon : Sprite2D
-var descriptor : String
+@export var icon : ViewportTexture 
+@export var descriptor : String
+
+
+var cooldown : float = 0.0
+# cooltime is the amount of cooldown time left, cooldown is the max cooltime. 
+var cooltime : float 
+
+func _ready() -> void:
+	cooltime = cooldown

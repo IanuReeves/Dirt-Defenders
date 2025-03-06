@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://e6iuym7bl3xi"]
+[gd_scene load_steps=3 format=3 uid="uid://e6iuym7bl3xi"]
 
 [ext_resource type="Script" uid="uid://8fhu8cc6ngcc" path="res://scripts/ui/game_overlay.gd" id="1_5gflo"]
-[ext_resource type="Script" uid="uid://bqakejm51g4qk" path="res://scenes/ui/partind.gd" id="2_yhx2g"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_a01yc"]
 font_size = 24
@@ -85,17 +84,5 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="VBoxcontainer" type="VBoxContainer" parent="cooldowns"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("2_yhx2g")
-
-[node name="Sprite2D" type="Sprite2D" parent="cooldowns/VBoxcontainer"]
-z_index = 1
-
-[node name="ColorRect" type="ColorRect" parent="cooldowns/VBoxcontainer"]
-layout_mode = 2
 
 [connection signal="timeout" from="Control/ColorRect/Timer" to="." method="_on_timer_timeout"]

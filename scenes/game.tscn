@@ -1,10 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfjdogfx64gtl"]
+[gd_scene load_steps=8 format=3 uid="uid://bfjdogfx64gtl"]
 
 [ext_resource type="PackedScene" uid="uid://6s3hfdcvwbxr" path="res://scenes/player.tscn" id="1_3wq0y"]
 [ext_resource type="Script" uid="uid://wol241yxawos" path="res://scripts/world.gd" id="1_vrqln"]
 [ext_resource type="PackedScene" uid="uid://w87vxtedle5q" path="res://scenes/planet.tscn" id="4_iywne"]
 [ext_resource type="Script" uid="uid://dfpumv1ys3rqw" path="res://scenes/Worldcam.gd" id="4_jlvyt"]
+[ext_resource type="Script" uid="uid://bqs8g8lkjasxa" path="res://scripts/resources/enemy_stats.gd" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://b03d85g3b64k7" path="res://scenes/enemy.tscn" id="5_iywne"]
+
+[sub_resource type="Resource" id="Resource_p57ef"]
+script = ExtResource("4_p57ef")
+speed = 100.0
+max_hp = 0.0
+attack = 0.0
+detect_range = 400.0
+desired_target_distance = 0.0
+metadata/_custom_type_script = "uid://bqs8g8lkjasxa"
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_vrqln")
@@ -12,10 +22,11 @@ script = ExtResource("1_vrqln")
 [node name="Player" parent="." instance=ExtResource("1_3wq0y")]
 
 [node name="Enemy" parent="." instance=ExtResource("5_iywne")]
-position = Vector2(-49, 44)
+position = Vector2(400, 3)
+stats = SubResource("Resource_p57ef")
 
-[node name="RigidBody2D" parent="." instance=ExtResource("4_iywne")]
+[node name="planet" parent="." instance=ExtResource("4_iywne")]
 position = Vector2(385, 291)
 
-[node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
+[node name="Camera2D" type="Camera2D" parent="planet"]
 script = ExtResource("4_jlvyt")

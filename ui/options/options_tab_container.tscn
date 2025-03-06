@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://vpv7ukmhg3ur"]
 
-[ext_resource type="PackedScene" uid="uid://csug0lil444wf" path="res://scenes/ui/options/hotkey_rebind_button.tscn" id="1_ur3xq"]
+[ext_resource type="PackedScene" uid="uid://csug0lil444wf" path="res://ui/options/hotkey_rebind_button.tscn" id="1_ur3xq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ln86"]
 

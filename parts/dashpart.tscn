@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cccfurky2d5ek"]
+[gd_scene load_steps=4 format=3 uid="uid://cccfurky2d5ek"]
 
 [ext_resource type="Script" uid="uid://cldfn74vlsbit" path="res://parts/dashpart.gd" id="1_5wucs"]
 [ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="2_f4quf"]
@@ -22,14 +22,10 @@ max_hp = -10.0
 defense = 10.0
 metadata/_custom_type_script = "uid://clpd50adeck85"
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f4quf"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 98, 0)
-
 [node name="dashpart" type="Node2D"]
 script = ExtResource("1_5wucs")
 stats = SubResource("Resource_rguvs")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-emitting = false
-process_material = SubResource("ParticleProcessMaterial_f4quf")
+[node name="cooldowntimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
