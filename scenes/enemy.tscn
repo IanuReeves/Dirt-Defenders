@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b03d85g3b64k7"]
+[gd_scene load_steps=12 format=3 uid="uid://b03d85g3b64k7"]
 
 [ext_resource type="Script" uid="uid://b1gxf3fyppalx" path="res://scripts/ENEMY2.gd" id="1_4ra3w"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="1_md0e3"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://bqs8g8lkjasxa" path="res://scripts/resources/enemy_stats.gd" id="2_xwavj"]
 [ext_resource type="PackedScene" uid="uid://blvrw4btub433" path="res://scenes/weapon.tscn" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://c1q6l12tx5fnq" path="res://scenes/detector.gd" id="4_c4w8v"]
+[ext_resource type="Script" uid="uid://c5on0n684j21r" path="res://scripts/weapon.gd" id="7_nenq2"]
+[ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="8_md484"]
 
 [sub_resource type="Resource" id="Resource_nenq2"]
 script = ExtResource("2_xwavj")
@@ -13,6 +15,7 @@ speed = 200.0
 max_hp = 50.0
 attack = 0.0
 detect_range = 300.0
+bullet_speed = 0.0
 desired_target_distance = 0.0
 metadata/_custom_type_script = "uid://bqs8g8lkjasxa"
 
@@ -22,6 +25,8 @@ metadata/_custom_type_script = "uid://bqs8g8lkjasxa"
 radius = 12.0416
 
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
 script = ExtResource("1_4ra3w")
 stats = SubResource("Resource_nenq2")
 
@@ -67,3 +72,12 @@ target_position = Vector2(-35, -34)
 target_position = Vector2(34, -32)
 
 [node name="Weapon" parent="Detector" instance=ExtResource("4_5uy6h")]
+
+[node name="Weapon" type="Node2D" parent="."]
+script = ExtResource("7_nenq2")
+bullet = ExtResource("8_md484")
+metadata/_custom_type_script = "uid://c5on0n684j21r"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.289
+one_shot = true
