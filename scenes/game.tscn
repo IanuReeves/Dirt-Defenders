@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://6s3hfdcvwbxr" path="res://scenes/player.tscn" id="1_3wq0y"]
 [ext_resource type="Script" uid="uid://wol241yxawos" path="res://scripts/world.gd" id="1_vrqln"]
 [ext_resource type="PackedScene" uid="uid://w87vxtedle5q" path="res://scenes/planet.tscn" id="4_iywne"]
-[ext_resource type="Script" uid="uid://dfpumv1ys3rqw" path="res://scenes/Worldcam.gd" id="4_jlvyt"]
-[ext_resource type="Script" uid="uid://bqs8g8lkjasxa" path="res://scripts/resources/enemy_stats.gd" id="4_p57ef"]
+[ext_resource type="Script" path="res://scenes/Worldcam.gd" id="4_jlvyt"]
+[ext_resource type="Script" path="res://scripts/resources/enemy_stats.gd" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://b03d85g3b64k7" path="res://scenes/enemy.tscn" id="5_iywne"]
 
 [sub_resource type="Resource" id="Resource_p57ef"]

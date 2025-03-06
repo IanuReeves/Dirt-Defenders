@@ -1,47 +1,57 @@
 [gd_scene load_steps=3 format=3 uid="uid://2rdt1g7kquyn"]
 
-[ext_resource type="Script" uid="uid://bpnid2oiljt51" path="res://scripts/ui/main_menu.gd" id="1_fhh2t"]
+[ext_resource type="Script" uid="uid://2ooopu2laehc" path="res://scripts/ui/pause_menu.gd" id="1_ejwgg"]
 [ext_resource type="PackedScene" uid="uid://cnw08jg3nei33" path="res://ui/options_menu.tscn" id="2_rv0w5"]
 
-[node name="main_meu" type="Control"]
+[node name="pause_menu" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = -17.0
-offset_right = 4.0
-offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fhh2t")
+script = ExtResource("1_ejwgg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-offset_left = 40.0
-offset_top = 490.0
-offset_right = 267.0
-offset_bottom = 599.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 483.0
+offset_right = 331.0
+offset_bottom = 624.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../QuitButton")
+
+[node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitToMainMenuButton")
 text = "Resume"
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Options"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitToMainMenuButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../ResumeButton")
+text = "Quit to Main Menu
+"
+
+[node name="QuitToDesktopButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../ResumeButton")
 text = "Quit Game"
 
 [node name="options_menu" parent="." instance=ExtResource("2_rv0w5")]
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="exit_options_menu" from="options_menu" to="." method="_on_options_menu_exit_options_menu"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitToMainMenuButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitToDesktopButton" to="." method="_on_quit_button_pressed"]
