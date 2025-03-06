@@ -1,10 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://t6cowhnhfscd"]
+[gd_scene load_steps=5 format=3 uid="uid://t6cowhnhfscd"]
 
 [ext_resource type="PackedScene" uid="uid://e6iuym7bl3xi" path="res://scenes/ui/game_overlay.tscn" id="1_xvhad"]
 [ext_resource type="PackedScene" uid="uid://bfjdogfx64gtl" path="res://scenes/game.tscn" id="2_hen23"]
+[ext_resource type="PackedScene" uid="uid://gwtcggvk6nrt" path="res://scenes/ui/pause_menu.tscn" id="2_tbgi4"]
+
+[sub_resource type="GDScript" id="GDScript_sugp2"]
+script/source = "extends Node2D
+
+@onready var pause_menu = $UI/pause_menu
+var paused = false
+
+func _process(delta: float):
+	if Input.is_action_just_pressed(\"pause_menu\"):
+		pauseMenu()
+
+func pauseMenu():
+	if paused:
+		pause_menu.hide()
+		Engine.time_scale = 1
+	else:
+		pause_menu.show()
+		Engine.time_scale = 0
+
+	paused = !paused
+"
 
 [node name="Main Game" type="Node2D"]
+script = SubResource("GDScript_sugp2")
 
 [node name="UI" parent="." instance=ExtResource("1_xvhad")]
+
+[node name="pause_menu" parent="UI" instance=ExtResource("2_tbgi4")]
 
 [node name="World" parent="." instance=ExtResource("2_hen23")]

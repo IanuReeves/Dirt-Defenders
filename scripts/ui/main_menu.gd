@@ -1,6 +1,8 @@
 extends Control
 class_name MainMenu
 
+@onready var main = $"../../"
+
 # Variables for buttons and menus for signals
 @onready var start_button: Button = $MarginContainer/VBoxContainer/StartButton
 @onready var options_button: Button = $MarginContainer/VBoxContainer/OptionsButton
