@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 		sprite.texture = hull.texture
 # fire primary weapon
 func fire_primary():
-	primary_weapon.fire(get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread)
+	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread)
 
 func _on_child_entered_tree(node: Node) -> void:
 	if node is Part:
