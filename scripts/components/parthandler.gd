@@ -6,7 +6,7 @@ class_name PartHandler
 var stats:PlayerStats = PlayerStats.new()
 #refs to other (player) components
 @export var healthcomponent:HealthComponent
-@export var sprite:Sprite2D
+@onready var sprite:AnimatedSprite2D
 @export var primary_weapon:Weapon 
 @export var secondary_weapon:Weapon
 @export var hull:Hull
@@ -46,8 +46,6 @@ func fetch_stats() -> PlayerStats:
 
 func _process(delta: float) -> void:
 	stats = fetch_stats()
-	if hull:
-		sprite.texture = hull.texture
 # fire primary weapon
 func fire_primary():
 	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread)

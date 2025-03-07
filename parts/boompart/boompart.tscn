@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4e76l4qf8ye7"]
 
-[ext_resource type="Script" uid="uid://vfrg4i4muojd" path="res://soundpart.gd" id="1_8lcd5"]
+[ext_resource type="Script" uid="uid://vfrg4i4muojd" path="res://parts/boompart/soundpart.gd" id="1_8lcd5"]
 [ext_resource type="AudioStream" uid="uid://clcjexv3o7v0v" path="res://parts/boompart/boom_x.wav" id="2_c3vlt"]
 
 [node name="boompart" type="Node2D"]

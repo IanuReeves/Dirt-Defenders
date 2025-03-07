@@ -16,8 +16,7 @@ func damage(amount:float):
 	if current <= 0:
 		if get_parent().has_method("die"):
 			get_parent().die()
-		else:
-			get_parent().queue_free()
+
 	
 func heal(amount:float):
 	damage(-amount)

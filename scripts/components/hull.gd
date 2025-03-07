@@ -1,6 +1,6 @@
 extends Part
 class_name Hull
-@export var texture:Texture
+@export var texture: SpriteFrames
 signal set_texture(texture:Texture)
 
 # Called when the node enters the scene tree for the first time.

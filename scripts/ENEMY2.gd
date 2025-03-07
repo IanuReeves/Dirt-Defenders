@@ -21,17 +21,18 @@ func _physics_process(delta: float) -> void:
 
 
 func statecheck():	
-	if player.position.distance_to(position) < stats.detect_range:
-		if player.position.distance_to(position) <= stats.desired_target_distance:
-			shootstate()
-		else:
-			chasingstate()
-	elif player.position.distance_to(position) > stats.detect_range:
-		invadingstate()
-		if planet and planet.position.distance_to(position) <= stats.desired_target_distance:
-			if $Timer.time_left <= 0:
-				$Timer.start(1)
-				planet.health.damage(stats.attack)
+	if player:
+		if player.position.distance_to(position) < stats.detect_range:
+			if player.position.distance_to(position) <= stats.desired_target_distance:
+				shootstate()
+			else:
+				chasingstate()
+		elif player.position.distance_to(position) > stats.detect_range:
+			invadingstate()
+			if planet and planet.position.distance_to(position) <= stats.desired_target_distance:
+				if $Timer.time_left <= 0:
+					$Timer.start(1)
+					planet.health.damage(stats.attack)
 
 
 func chasingstate():
@@ -49,8 +50,11 @@ func shootstate() -> void:
 		weapon.fire(1,Vector2(0,0),stats.attack,stats.bullet_speed)
 		$Timer.start()
 
-func movetowards(target) -> void:
-	targetpos = to_local(target.position)
-	targetangle = position.direction_to(target.position)
-	velocity = targetangle*stats.speed
-	move_and_slide()
+func movetowards(target:Node2D) -> void:
+	if target:
+		targetpos = to_local(target.position)
+		targetangle = position.direction_to(target.position)
+		velocity = targetangle*stats.speed
+		move_and_slide()
+	else:
+		pass

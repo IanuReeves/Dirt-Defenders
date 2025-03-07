@@ -13,19 +13,25 @@ class_name MainMenu
 
 @onready var tab_container: TabContainer = $TabContainer
 
+#handles soundloop
+@onready var gamemusic: AudioStreamPlayer2D = $GameMusic
 
-
+@onready var sound : AudioStreamPlayer2D = $AudioStreamPlayer2D
+var playsound : bool
+var playmusic : bool
 # ------------------------------------------ #
 # Self-expanatory function; grabs focus for arrow key emulation
 func _ready() -> void:
 	handle_connecting_signals()
 	$MarginContainer/VBoxContainer/StartButton.grab_focus()
+	
 
 
 # Loads the preloaded gameply when start button pressed
 func on_start_button_pressed() -> void:
 	print("Game Started. Loading scene...")
 	get_tree().change_scene_to_packed(start_level)
+	sound.stop()
 	
 
 # Hides main menu; Shows options menu
@@ -53,3 +59,8 @@ func handle_connecting_signals() -> void:
 	options_button.button_down.connect(on_options_button_pressed)
 	quit_button.button_down.connect(on_quit_button_pressed)
 	options_menu.exit_options_menu.connect(on_exit_options_menu)
+
+
+func _on_audio_stream_player_2d_finished() -> void:
+	if playsound:
+		sound.play()

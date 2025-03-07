@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxit7gq1yda63"]
+
+[ext_resource type="Script" uid="uid://bqakejm51g4qk" path="res://ui/partind.gd" id="1_8aqr6"]
+[ext_resource type="PackedScene" uid="uid://tp5ycsg3wvka" path="res://scenes/part_timer.tscn" id="2_ox2p6"]
+
+[node name="VBoxcontainer" type="VBoxContainer"]
+anchors_preset = -1
+anchor_right = 1.659
+anchor_bottom = 3.734
+offset_left = 1.0
+offset_top = 63.0
+offset_right = 23.64
+offset_bottom = 143.64
+script = ExtResource("1_8aqr6")
+
+[node name="PartTimer1" parent="." instance=ExtResource("2_ox2p6")]
+layout_mode = 2
+
+[node name="PartTimer2" parent="." instance=ExtResource("2_ox2p6")]
+layout_mode = 2
+
+[node name="PartTimer3" parent="." instance=ExtResource("2_ox2p6")]
+layout_mode = 2
+
+[node name="PartTimer4" parent="." instance=ExtResource("2_ox2p6")]
+layout_mode = 2

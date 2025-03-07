@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var deathscreen: CanvasLayer = $deathscreen
+@onready var camera: Camera2D = $deathscreen/Camera2D
 @onready var pause_menu: Control = $Player/UI/pause_menu
 var paused = false
 
@@ -16,3 +18,11 @@ func pauseMenu():
 		Engine.time_scale = 0
 		
 	paused = !paused
+
+func death():
+	deathscreen.show()
+	camera.make_current()
+
+
+func restart() -> void:
+	get_tree().change_scene_to_file("res://ui/main_menu.tscn")

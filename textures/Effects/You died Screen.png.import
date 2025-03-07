@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c85d2ogxfgxq"
-path="res://.godot/imported/particles_flipbook_example.webp-d8c629fe982e38c0f488c393d71b9688.ctex"
+uid="uid://dqbokywe742aq"
+path="res://.godot/imported/You died Screen.png-b1689bc1430579b4ffa961e8e0ed9566.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/particles_flipbook_example.webp"
-dest_files=["res://.godot/imported/particles_flipbook_example.webp-d8c629fe982e38c0f488c393d71b9688.ctex"]
+source_file="res://textures/Effects/You died Screen.png"
+dest_files=["res://.godot/imported/You died Screen.png-b1689bc1430579b4ffa961e8e0ed9566.ctex"]
 
 [params]
 

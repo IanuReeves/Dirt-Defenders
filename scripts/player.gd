@@ -4,10 +4,16 @@ class_name Player
 var stats:PlayerStats = PlayerStats.new()
 @export var parts:PartHandler
 @export var health:HealthComponent
+@onready var deathscreen: CanvasLayer = $deathscreen
+@onready var world = get_parent()
+const DEATHSCREEN = preload("res://scenes/deathscreen.tscn")
 # turbo cooldown timer is no longer made in the player because fuck node shenanigains
 # I guess player.gd used to be a mom now, all of it's other children are adopted, and this one was murdered
 # she adopted another child to replace the hole in her heart
 @onready var turbo_cooldown_timer: Timer = $TurboCooldown
+
+
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # checks for actions:
 # signal emitted on dash for ui shenanigains
@@ -93,3 +99,7 @@ func _on_timer_timeout() -> void:
 	if turbo > 0:
 		turbo -= 1
 		turbo = clamp(turbo, 0, INF)
+
+func die():
+	queue_free()
+	get_tree().change_scene_to_packed(DEATHSCREEN)
