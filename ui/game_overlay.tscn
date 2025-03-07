@@ -82,6 +82,7 @@ text = "Score: 0"
 label_settings = SubResource("LabelSettings_a01yc")
 
 [node name="cooldowns" parent="." instance=ExtResource("2_wriux")]
+visible = false
 
 [node name="Partmenu" parent="." instance=ExtResource("3_ff03c")]
 

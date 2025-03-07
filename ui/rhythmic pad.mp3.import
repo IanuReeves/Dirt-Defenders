@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dpo6utyqi2k3f"
+path="res://.godot/imported/rhythmic pad.mp3-02205953bc67bccd792fb747fdaa3e2e.mp3str"
+
+[deps]
+
+source_file="res://ui/rhythmic pad.mp3"
+dest_files=["res://.godot/imported/rhythmic pad.mp3-02205953bc67bccd792fb747fdaa3e2e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

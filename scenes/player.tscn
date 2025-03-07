@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="8_d2wvv"]
 [ext_resource type="Script" uid="uid://caeioa2lwlb8r" path="res://scripts/components/hull.gd" id="9_s5o61"]
 [ext_resource type="PackedScene" uid="uid://e6iuym7bl3xi" path="res://ui/game_overlay.tscn" id="12_3v2ag"]
-[ext_resource type="PackedScene" uid="uid://cccfurky2d5ek" path="res://parts/dashpart.tscn" id="12_jej6c"]
+[ext_resource type="PackedScene" uid="uid://cccfurky2d5ek" path="res://parts/dashpart/dashpart.tscn" id="12_jej6c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsghh"]
 
@@ -56,6 +56,7 @@ defense = 0.0
 metadata/_custom_type_script = "uid://clpd50adeck85"
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("parts", "health")]
+motion_mode = 1
 script = ExtResource("1_clxn1")
 parts = NodePath("PartHandler")
 health = NodePath("HealthComponent")
@@ -83,7 +84,7 @@ shape = SubResource("CircleShape2D_yeip2")
 script = ExtResource("4_6bx4a")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.2, 1.2)
+position_smoothing_enabled = true
 
 [node name="PartHandler" type="Node2D" parent="." node_paths=PackedStringArray("healthcomponent", "sprite", "primary_weapon", "hull")]
 script = ExtResource("7_xkvgj")

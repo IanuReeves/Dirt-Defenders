@@ -14,7 +14,7 @@ max_hp = 50.0
 attack = 20.0
 detect_range = 1000.0
 bullet_speed = 400.0
-desired_target_distance = 200.0
+desired_target_distance = 500.0
 metadata/_custom_type_script = "uid://bqs8g8lkjasxa"
 
 [node name="World" type="Node2D"]

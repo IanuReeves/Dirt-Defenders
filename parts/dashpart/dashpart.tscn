@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cccfurky2d5ek"]
 
-[ext_resource type="Script" uid="uid://cldfn74vlsbit" path="res://parts/dashpart.gd" id="1_5wucs"]
-[ext_resource type="Resource" uid="uid://n43c35t2wjlp" path="res://parts/dashpart.tres" id="2_f4quf"]
+[ext_resource type="Script" uid="uid://cldfn74vlsbit" path="res://parts/dashpart/dashpart.gd" id="1_5wucs"]
+[ext_resource type="Resource" uid="uid://n43c35t2wjlp" path="res://parts/dashpart/dashpart.tres" id="2_f4quf"]
 
 [node name="dashpart" type="Node2D"]
 script = ExtResource("1_5wucs")

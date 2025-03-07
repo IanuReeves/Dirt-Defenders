@@ -12,19 +12,19 @@ func _process(delta: float) -> void:
 		show()
 
 func _on_spam_boom_sound_pressed() -> void:
-	var boompart = preload("res://parts/boompart.tscn").instantiate()
+	var boompart = preload("res://parts/boompart/boompart.tscn").instantiate()
 	parts.add_child(boompart)
 	hide()
 
 
 
 func _on_dashbooster_pressed() -> void:
-	var dashpart = preload("res://parts/dashpart.tscn").instantiate()
+	var dashpart = preload("res://parts/dashpart/dashpart.tscn").instantiate()
 	parts.add_child(dashpart)
 	hide()
 
 
 func _on_attackbooster_pressed() -> void:
-	var dashpart = preload("res://parts/exhaustpart.tscn").instantiate()
+	var dashpart = preload("res://parts/exhaustpart/exhaustpart.tscn").instantiate()
 	parts.add_child(dashpart)
 	hide()
