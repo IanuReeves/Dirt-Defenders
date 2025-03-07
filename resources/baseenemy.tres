@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3 uid="uid://bqvpnqf6wsgxo"]
+
+[ext_resource type="Script" uid="uid://bqs8g8lkjasxa" path="res://scripts/resources/enemy_stats.gd" id="1_snhma"]
+
+[resource]
+script = ExtResource("1_snhma")
+speed = 100.0
+max_hp = 50.0
+attack = 20.0
+detect_range = 1000.0
+bullet_speed = 400.0
+desired_target_distance = 500.0
+metadata/_custom_type_script = "uid://bqs8g8lkjasxa"

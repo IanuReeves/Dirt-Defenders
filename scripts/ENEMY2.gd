@@ -17,6 +17,7 @@ var state
 @export var stats : EnemyStats
 
 func _physics_process(delta: float) -> void:
+	player = get_parent().get_node("Player")
 	statecheck()
 
 
@@ -48,13 +49,14 @@ func shootstate() -> void:
 	# get angle of that vectors
 	if $Timer.time_left <= 0:
 		weapon.fire(1,Vector2(0,0),stats.attack,stats.bullet_speed)
-		$Timer.start()
+		$Timer.start(3.5)
 
 func movetowards(target:Node2D) -> void:
 	if target:
 		targetpos = to_local(target.position)
 		targetangle = position.direction_to(target.position)
 		velocity = targetangle*stats.speed
+		look_at(target.position)
 		move_and_slide()
 	else:
 		pass

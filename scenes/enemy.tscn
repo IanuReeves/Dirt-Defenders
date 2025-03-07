@@ -1,24 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://b03d85g3b64k7"]
+[gd_scene load_steps=14 format=3 uid="uid://b03d85g3b64k7"]
 
 [ext_resource type="Script" uid="uid://b1gxf3fyppalx" path="res://scripts/ENEMY2.gd" id="1_4ra3w"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="1_md0e3"]
 [ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="2_4ra3w"]
-[ext_resource type="Script" uid="uid://bqs8g8lkjasxa" path="res://scripts/resources/enemy_stats.gd" id="2_xwavj"]
+[ext_resource type="Resource" uid="uid://bqvpnqf6wsgxo" path="res://resources/baseenemy.tres" id="2_ipns3"]
 [ext_resource type="PackedScene" uid="uid://blvrw4btub433" path="res://scenes/weapon.tscn" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://c1q6l12tx5fnq" path="res://scenes/detector.gd" id="4_c4w8v"]
 [ext_resource type="Script" uid="uid://c5on0n684j21r" path="res://scripts/weapon.gd" id="7_nenq2"]
 [ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="8_md484"]
 [ext_resource type="Texture2D" uid="uid://b6njmc0qkwi44" path="res://textures/sprites/ships/Enemies/Weed Killer.png" id="9_ipns3"]
-
-[sub_resource type="Resource" id="Resource_nenq2"]
-script = ExtResource("2_xwavj")
-speed = 200.0
-max_hp = 50.0
-attack = 0.0
-detect_range = 1000.0
-bullet_speed = 0.0
-desired_target_distance = 0.0
-metadata/_custom_type_script = "uid://bqs8g8lkjasxa"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
 
@@ -44,7 +34,7 @@ animations = [{
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_4ra3w")
-stats = SubResource("Resource_nenq2")
+stats = ExtResource("2_ipns3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5uy6h")
