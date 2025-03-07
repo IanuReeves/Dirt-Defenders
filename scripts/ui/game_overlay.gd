@@ -15,9 +15,7 @@ class_name UI
 
 
 @onready var player : Player = get_parent()
-@onready var PARTS = player.stats
-
-@onready var part2check : Part 
+@onready var stats = player.stats
 
 var score = 0
 var maxScore = 10000 
@@ -30,10 +28,10 @@ func update_score(value):
 	update_score_label()
 
 func _physics_process(delta: float) -> void:
-	PARTS = player.stats
+	stats = player.stats
 	turbo.text = "TURBO: " + str(round(player.turbo))
-	attack.text = "ATK: " + str(PARTS.attack)
-	defense.text = "DEF" + str(PARTS.defense)
+	attack.text = "ATK: " + str(stats.attack)
+	defense.text = "DEF" + str(stats.defense)
 	if player.velocity.length() < 10:
 		spedometer.text = "SPEED: " + str(0)
 	else:

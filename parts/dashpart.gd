@@ -1,15 +1,17 @@
 extends Part
 class_name DashPart
-@onready var sign: GPUParticles2D = $GPUParticles2D
+@onready var sign: CPUParticles2D = $CPUParticles2D
+
 
 func _ready() -> void:
 	cooldown = 0
+	sign.emitting = false
 func _process(delta: float) -> void:
-	if player.velocity.length() > 150: 
+	if player.velocity.length() > 400: 
 		stats.turbo_cooldown = -2
 		stats.turbo_strength = 50
 		sign.emitting = true 
-	if player.dashed or player.velocity.length() < 200:
+	if player.boosted or player.velocity.length() < 375:
 		stats.turbo_strength = 0
 		stats.turbo_cooldown = 0
 		sign.emitting = false

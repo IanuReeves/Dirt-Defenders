@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://e6iuym7bl3xi"]
+[gd_scene load_steps=5 format=3 uid="uid://e6iuym7bl3xi"]
 
 [ext_resource type="Script" uid="uid://8fhu8cc6ngcc" path="res://scripts/ui/game_overlay.gd" id="1_5gflo"]
+[ext_resource type="PackedScene" uid="uid://bxit7gq1yda63" path="res://cooldowndisplay.tscn" id="2_wriux"]
+[ext_resource type="PackedScene" uid="uid://dcp5qcq14st1i" path="res://scenes/partmenu.tscn" id="3_ff03c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_a01yc"]
 font_size = 24
@@ -79,10 +81,8 @@ size_flags_vertical = 0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_a01yc")
 
-[node name="cooldowns" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="cooldowns" parent="." instance=ExtResource("2_wriux")]
+
+[node name="Partmenu" parent="." instance=ExtResource("3_ff03c")]
 
 [connection signal="timeout" from="Control/ColorRect/Timer" to="." method="_on_timer_timeout"]

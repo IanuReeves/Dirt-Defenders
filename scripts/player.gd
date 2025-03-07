@@ -12,6 +12,7 @@ var stats:PlayerStats = PlayerStats.new()
 # checks for actions:
 # signal emitted on dash for ui shenanigains
 signal dashed(cdtime:float)
+signal boosted
 # why the fuck does this exist, oh well
 var accelerating : bool
 # add "taken damage" action here -> already done (see health_changed signal in HealthComponent) 
@@ -84,6 +85,7 @@ func _input(event: InputEvent) -> void:
 			# emit gui shenanigains
 			dashed.emit(stats.turbo_cooldown)
 			turbo_cooldown_timer.start(stats.turbo_cooldown)
+			boosted.emit()
 	if event.is_action_pressed("fire"):
 		parts.fire_primary()
 

@@ -7,11 +7,21 @@ var stats:PlayerStats = PlayerStats.new()
 #refs to other (player) components
 @export var healthcomponent:HealthComponent
 @export var sprite:Sprite2D
-@export var primary_weapon:Weapon
+@export var primary_weapon:Weapon 
 @export var secondary_weapon:Weapon
 @export var hull:Hull
 
-@onready var ui = get_parent().get_node("UI")
+@onready var ui = get_parent().get_node("UI/cooldowns")
+
+@onready var part1 : Part
+@onready var part2 : Part
+@onready var part3 : Part 
+@onready var part4 : Part
+
+var partsloaded : bool = false
+
+var partslots : Array = [part1, part2, part3, part4]
+var partcount : int
 # on ready configure sprite and HP if they exist
 func _ready() -> void:
 	stats = fetch_stats()
@@ -23,7 +33,8 @@ func fetch_stats() -> PlayerStats:
 	# init empty statsheet
 	var value = PlayerStats.new()
 	# for each part (child) that has stats
-	for node in get_children():
+	partcount = -1
+	for node in get_children(): 
 		if node is Part and node.stats:
 			# sum/add each common stat to empty statsheet if they are numbers (int, float)
 			for property in node.stats.get_property_list():
@@ -31,7 +42,6 @@ func fetch_stats() -> PlayerStats:
 				and typeof(value[property.name]) & (TYPE_INT|TYPE_FLOAT)\
 				and typeof(value[property.name]) & (TYPE_INT|TYPE_FLOAT):
 					value[property.name] += node.stats[property.name]
-	# return the total stats
 	return value
 
 func _process(delta: float) -> void:
@@ -45,8 +55,3 @@ func fire_primary():
 func _on_child_entered_tree(node: Node) -> void:
 	if node is Part:
 		node.player = get_parent()
-
-func setUI():
-	for child in get_children():
-		if child is Part:
-			ui.part2check = child

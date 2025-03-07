@@ -14,3 +14,6 @@ var cooltime : float
 
 func _ready() -> void:
 	cooltime = cooldown
+
+func _process(delta: float) -> void:
+	clampf(cooltime, 0, cooldown)

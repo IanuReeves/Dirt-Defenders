@@ -4,7 +4,7 @@ class_name Alien
 @onready var detector: Detector = $Detector
 var targeting : bool = false
 var targetpos : Vector2
-var targetangle 
+var targetangle  
 var playerdir : Vector2
 
 
