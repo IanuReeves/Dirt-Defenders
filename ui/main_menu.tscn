@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dpo6utyqi2k3f" path="res://music/rhythmic pad.mp3" id="3_wk0pr"]
 [ext_resource type="Texture2D" uid="uid://das8yl2mxoxw0" path="res://textures/sprites/stars.jpg" id="4_rmr83"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8uxxo"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rmr83"]
 texture = ExtResource("4_rmr83")
 0:0/0 = 0
 1:0/0 = 0
@@ -189,7 +189,7 @@ texture = ExtResource("4_rmr83")
 17:9/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_ei257"]
-sources/0 = SubResource("TileSetAtlasSource_8uxxo")
+sources/0 = SubResource("TileSetAtlasSource_rmr83")
 
 [node name="main_menu" type="Control"]
 layout_mode = 3

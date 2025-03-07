@@ -8,5 +8,7 @@ extends AnimatedSprite2D
 func _ready() -> void:
 	player.boosted.connect(ondash)
 
+
+
 func ondash():
 	boostsprite.boost()

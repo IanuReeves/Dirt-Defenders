@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://6s3hfdcvwbxr"]
+[gd_scene load_steps=29 format=3 uid="uid://6s3hfdcvwbxr"]
 
 [ext_resource type="Script" uid="uid://d07bhxyosh33i" path="res://scripts/player.gd" id="1_clxn1"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_xelip"]
@@ -16,9 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://cjoblvn5i0va7" path="res://textures/Effects/Thruster Sprite.png" id="15_fulsm"]
 [ext_resource type="Script" uid="uid://b14sgx6nv58ip" path="res://scenes/boost.gd" id="16_4r5pv"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rsghh"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oprun"]
+height = 30.0327
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yeip2"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a8ls1"]
 
 [sub_resource type="Resource" id="Resource_3v2ag"]
 script = ExtResource("8_d2wvv")
@@ -104,6 +105,10 @@ region = Rect2(17, 0, 17, 17)
 atlas = ExtResource("15_fulsm")
 region = Rect2(0, 17, 17, 17)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("15_fulsm")
+region = Rect2(17, 17, 17, 17)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_31cv2"]
 animations = [{
 "frames": [{
@@ -120,7 +125,10 @@ animations = [{
 "name": &"boosting",
 "speed": 8.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}],
 "loop": true,
 "name": &"default",
 "speed": 5.0
@@ -137,7 +145,9 @@ health = NodePath("HealthComponent")
 [node name="pause_menu" parent="UI" instance=ExtResource("6_3v2ag")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_rsghh")
+position = Vector2(11, 1)
+rotation = -1.55172
+shape = SubResource("CapsuleShape2D_oprun")
 
 [node name="HitBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_mask = 3
@@ -145,7 +155,9 @@ script = ExtResource("3_xelip")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
-shape = SubResource("CircleShape2D_yeip2")
+position = Vector2(12, 1)
+rotation = -1.57255
+shape = SubResource("CapsuleShape2D_a8ls1")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_6bx4a")
@@ -179,7 +191,7 @@ autostart = true
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-10.9532, -1.3318e-07)
+position = Vector2(11, 0)
 rotation = -1.5708
 scale = Vector2(2.38258, 2.4914)
 sprite_frames = SubResource("SpriteFrames_4ni07")

@@ -61,9 +61,11 @@ func movement_input() -> void:
 	if Input.is_action_pressed("forward"):
 		# accelerate
 		velocity += transform.x * stats.acceleration
+		sprite.play("moving")
 		accelerating = true
 	if Input.is_action_just_released("forward"):
 		accelerating = false
+		sprite.play("default")
 	if Input.is_action_pressed("brake"):
 		# subtract brake strength*accel from velocity (in other words, brake)
 		var brake_mod = velocity.normalized()*Vector2(stats.acceleration*stats.brake_strength,stats.acceleration*stats.brake_strength)
