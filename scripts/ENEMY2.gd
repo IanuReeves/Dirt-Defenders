@@ -28,6 +28,10 @@ func statecheck():
 			chasingstate()
 	elif player.position.distance_to(position) > stats.detect_range:
 		invadingstate()
+		if planet and planet.position.distance_to(position) <= stats.desired_target_distance:
+			if $Timer.time_left <= 0:
+				$Timer.start(1)
+				planet.health.damage(stats.attack)
 
 
 func chasingstate():
@@ -39,10 +43,10 @@ func invadingstate():
 
 func shootstate() -> void:
 	velocity = Vector2(0,0)
-	look_at((sqrt(player.velocity.length())*(player.velocity.normalized()))+player.position)
+	look_at(player.position + player.velocity/PI)
 	# get angle of that vectors
 	if $Timer.time_left <= 0:
-		weapon.fire(5,Vector2(0,0),stats.attack,stats.bullet_speed)
+		weapon.fire(1,Vector2(0,0),stats.attack,stats.bullet_speed)
 		$Timer.start()
 
 func movetowards(target) -> void:
