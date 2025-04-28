@@ -1,0 +1,253 @@
+[gd_scene load_steps=32 format=3 uid="uid://6s3hfdcvwbxr"]
+
+[ext_resource type="Script" uid="uid://d07bhxyosh33i" path="res://scripts/player.gd" id="1_clxn1"]
+[ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_xelip"]
+[ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="4_6bx4a"]
+[ext_resource type="Script" uid="uid://c5on0n684j21r" path="res://scripts/weapon.gd" id="5_wg7bi"]
+[ext_resource type="PackedScene" uid="uid://2rdt1g7kquyn" path="res://ui/pause_menu.tscn" id="6_3v2ag"]
+[ext_resource type="Script" uid="uid://ig830hyaojuf" path="res://scripts/components/parthandler.gd" id="7_xkvgj"]
+[ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="8_d2wvv"]
+[ext_resource type="PackedScene" uid="uid://drpiul5a33b3f" path="res://scenes/bullets/wave_attack.tscn" id="8_oprun"]
+[ext_resource type="Script" uid="uid://caeioa2lwlb8r" path="res://scripts/components/hull.gd" id="9_s5o61"]
+[ext_resource type="PackedScene" uid="uid://e6iuym7bl3xi" path="res://ui/game_overlay.tscn" id="12_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://bc6bhmxbn1lt3" path="res://parts/cannonability/cannon.tscn" id="12_a8ls1"]
+[ext_resource type="PackedScene" uid="uid://cccfurky2d5ek" path="res://parts/dashpart/dashpart.tscn" id="12_jej6c"]
+[ext_resource type="Texture2D" uid="uid://d05o0hs6blill" path="res://textures/sprites/ships/SHips/Ships.png" id="13_a8ls1"]
+[ext_resource type="Script" uid="uid://dfpkwyqm8loqs" path="res://scenes/wave_cannon.gd" id="13_qfm1y"]
+[ext_resource type="Script" uid="uid://cjg4t651gvsb3" path="res://scripts/animater.gd" id="14_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://cjoblvn5i0va7" path="res://textures/Effects/Thruster Sprite.png" id="15_fulsm"]
+[ext_resource type="Script" uid="uid://b14sgx6nv58ip" path="res://scenes/boost.gd" id="16_4r5pv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oprun"]
+height = 30.0327
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a8ls1"]
+
+[sub_resource type="Resource" id="Resource_3v2ag"]
+script = ExtResource("8_d2wvv")
+power = 0.0
+attack = 0.0
+bullet_speed = 0.0
+bullet_amount = 0
+bullet_spread = 0.0
+bullet_lifetime = 0.0
+pierce = 0
+cooldown_reduction = 0.0
+acceleration = 0.0
+top_speed = 0.0
+brake_strength = 0.0
+rotation_speed = 0.0
+max_turbo = 0.0
+turbo_cooldown = 0.0
+turbo_strength = 0.0
+max_hp = 0.0
+defense = 0.0
+metadata/_custom_type_script = "uid://clpd50adeck85"
+
+[sub_resource type="Resource" id="Resource_d2wvv"]
+script = ExtResource("8_d2wvv")
+power = 40.0
+attack = 10.0
+bullet_speed = 300.0
+bullet_amount = 1
+bullet_spread = 0.0
+bullet_lifetime = 10.0
+pierce = 4
+cooldown_reduction = 0.0
+acceleration = 7.0
+top_speed = 500.0
+brake_strength = 0.75
+rotation_speed = 250.0
+max_turbo = 10.0
+turbo_cooldown = 5.0
+turbo_strength = 0.0
+max_hp = 100.0
+defense = 10.0
+metadata/_custom_type_script = "uid://clpd50adeck85"
+
+[sub_resource type="Resource" id="Resource_qfm1y"]
+script = ExtResource("8_d2wvv")
+power = 30.0
+attack = 5.0
+bullet_speed = 0.0
+bullet_amount = 0
+bullet_spread = 0.0
+bullet_lifetime = 0.0
+pierce = 0
+cooldown_reduction = 0.0
+acceleration = 0.0
+top_speed = -10.0
+brake_strength = 0.0
+rotation_speed = 0.0
+max_turbo = 0.0
+turbo_cooldown = 0.0
+turbo_strength = 0.0
+max_hp = 0.0
+defense = 0.0
+metadata/_custom_type_script = "uid://clpd50adeck85"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("13_a8ls1")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
+atlas = ExtResource("13_a8ls1")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
+atlas = ExtResource("13_a8ls1")
+region = Rect2(34, 0, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ni07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4ail")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a38lo")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l71n6"]
+atlas = ExtResource("15_fulsm")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
+atlas = ExtResource("15_fulsm")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujl30"]
+atlas = ExtResource("15_fulsm")
+region = Rect2(0, 17, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("15_fulsm")
+region = Rect2(17, 17, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_31cv2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l71n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ke2ow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujl30")
+}],
+"loop": true,
+"name": &"boosting",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("parts", "health")]
+motion_mode = 1
+script = ExtResource("1_clxn1")
+parts = NodePath("PartHandler")
+health = NodePath("HealthComponent")
+
+[node name="UI" parent="." instance=ExtResource("12_3v2ag")]
+
+[node name="pause_menu" parent="UI" instance=ExtResource("6_3v2ag")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(11, 1)
+rotation = -1.55172
+shape = SubResource("CapsuleShape2D_oprun")
+
+[node name="HitBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_mask = 3
+script = ExtResource("3_xelip")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(12, 1)
+rotation = -1.57255
+shape = SubResource("CapsuleShape2D_a8ls1")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_6bx4a")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="PartHandler" type="Node2D" parent="." node_paths=PackedStringArray("healthcomponent", "primary_weapon", "hull")]
+script = ExtResource("7_xkvgj")
+healthcomponent = NodePath("../HealthComponent")
+primary_weapon = NodePath("Weapon")
+hull = NodePath("Hull")
+
+[node name="Weapon" type="Node2D" parent="PartHandler"]
+script = ExtResource("5_wg7bi")
+bullet = ExtResource("8_oprun")
+stats = SubResource("Resource_3v2ag")
+
+[node name="RateOfFire" type="Timer" parent="PartHandler/Weapon"]
+one_shot = true
+
+[node name="Hull" type="Node2D" parent="PartHandler"]
+script = ExtResource("9_s5o61")
+stats = SubResource("Resource_d2wvv")
+
+[node name="dashpart" parent="PartHandler" instance=ExtResource("12_jej6c")]
+script = null
+
+[node name="cannon" parent="PartHandler" instance=ExtResource("12_a8ls1")]
+stats = SubResource("Resource_qfm1y")
+
+[node name="wave cannon" type="Node2D" parent="PartHandler"]
+script = ExtResource("13_qfm1y")
+target_layer = null
+descriptor = null
+metadata/_custom_type_script = "uid://c5on0n684j21r"
+
+[node name="TurboDecay" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="TurboCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(11, 0)
+rotation = -1.5708
+scale = Vector2(2.38258, 2.4914)
+sprite_frames = SubResource("SpriteFrames_4ni07")
+animation = &"moving"
+script = ExtResource("14_qfm1y")
+
+[node name="Boost" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+position = Vector2(-0.419712, -9.65193)
+scale = Vector2(0.598944, 0.672596)
+sprite_frames = SubResource("SpriteFrames_31cv2")
+script = ExtResource("16_4r5pv")
+
+[node name="Timer" type="Timer" parent="AnimatedSprite2D/Boost"]
+
+[connection signal="dashed" from="." to="UI" method="_on_player_dashed"]
+[connection signal="damaged" from="HealthComponent" to="UI" method="_on_health_component_damaged"]
+[connection signal="child_entered_tree" from="PartHandler" to="PartHandler" method="_on_child_entered_tree"]
+[connection signal="timeout" from="PartHandler/Weapon/RateOfFire" to="PartHandler/Weapon" method="_on_timer_timeout"]
+[connection signal="timeout" from="TurboDecay" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AnimatedSprite2D/Boost/Timer" to="AnimatedSprite2D/Boost" method="_on_timer_timeout"]

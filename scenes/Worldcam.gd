@@ -14,10 +14,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if player:
-		PPdist = player.position.distance_to(planet.position)
-		zoomneeded = 300/PPdist 
-		zoom = Vector2(zoomneeded, zoomneeded)
+	PPdist = player.position.distance_to(planet.position)
+	zoomneeded = 300/PPdist 
+	zoom = Vector2(zoomneeded, zoomneeded)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("zoom"):

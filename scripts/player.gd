@@ -6,7 +6,12 @@ var stats:PlayerStats = PlayerStats.new()
 @export var health:HealthComponent
 @onready var deathscreen: CanvasLayer = $deathscreen
 @onready var world = get_parent()
+
+
+
+var isloaded : bool = false
 const DEATHSCREEN = preload("res://scenes/deathscreen.tscn")
+
 # turbo cooldown timer is no longer made in the player because fuck node shenanigains
 # I guess player.gd used to be a mom now, all of it's other children are adopted, and this one was murdered
 # she adopted another child to replace the hole in her heart
@@ -36,6 +41,7 @@ func _ready() -> void:
 	stats = parts.stats
 	health.max = stats.max_hp
 	health.current = stats.max_hp
+	isloaded = true
 	# init turbo cooldown timer (please don't hate me)
 func _process(delta: float) -> void:
 	# update stats and health each frame
@@ -48,7 +54,6 @@ func rotate_to_mouse() -> void:
 	# get angle of that vector
 	var angle = v.angle()
 	var r = global_rotation
-	# get rotation allowed this frame
 	var angle_delta = deg_to_rad(stats.rotation_speed) * get_physics_process_delta_time()
 	# get complete rotation to ship
 	angle = lerp_angle(r, angle, 0.3)
@@ -96,6 +101,8 @@ func _input(event: InputEvent) -> void:
 			boosted.emit()
 	if event.is_action_pressed("fire"):
 		parts.fire_primary()
+	if event.is_action_pressed("ability"):
+		parts.ability1()
 
 func _on_timer_timeout() -> void:
 	if turbo > 0:

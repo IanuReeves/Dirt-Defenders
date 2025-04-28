@@ -12,16 +12,13 @@ var stats:PlayerStats = PlayerStats.new()
 @export var hull:Hull
 
 @onready var ui = get_parent().get_node("UI/cooldowns")
+@onready var ABILITY1 : Part = $"wave cannon"
 
-@onready var part1 : Part
-@onready var part2 : Part
-@onready var part3 : Part 
-@onready var part4 : Part
+var timerlist : VBoxContainer
+#handles cooldowns
 
 var partsloaded : bool = false
 
-var partslots : Array = [part1, part2, part3, part4]
-var partcount : int
 # on ready configure sprite and HP if they exist
 func _ready() -> void:
 	stats = fetch_stats()
@@ -33,7 +30,6 @@ func fetch_stats() -> PlayerStats:
 	# init empty statsheet
 	var value = PlayerStats.new()
 	# for each part (child) that has stats
-	partcount = -1
 	for node in get_children(): 
 		if node is Part and node.stats:
 			# sum/add each common stat to empty statsheet if they are numbers (int, float)
@@ -42,13 +38,19 @@ func fetch_stats() -> PlayerStats:
 				and typeof(value[property.name]) & (TYPE_INT|TYPE_FLOAT)\
 				and typeof(value[property.name]) & (TYPE_INT|TYPE_FLOAT):
 					value[property.name] += node.stats[property.name]
+	
+				
 	return value
 
 func _process(delta: float) -> void:
 	stats = fetch_stats()
 # fire primary weapon
 func fire_primary():
-	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread)
+	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread, stats.pierce, stats.power)
+
+func ability1():
+	ABILITY1.fire(2,get_velocity(),40, stats.bullet_speed,1,stats.bullet_spread,3, 50)
+
 
 func _on_child_entered_tree(node: Node) -> void:
 	if node is Part:

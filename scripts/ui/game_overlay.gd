@@ -7,6 +7,9 @@ class_name UI
 @onready var attack: Label = $Control/VBoxContainer/ATTACK
 @onready var defense: Label = $Control/VBoxContainer/DEFENSE
 
+@onready var hplabel: Label = $hplabel
+
+
 
 
 @onready var statemachine = get_parent().get_node("PartHandler")
@@ -27,6 +30,11 @@ func update_score(value):
 	score += value
 	update_score_label()
 
+
+
+func update_health() -> void:
+	hplabel.text = str(player.health.current)
+
 func _physics_process(delta: float) -> void:
 	stats = player.stats
 	turbo.text = "TURBO: " + str(round(player.turbo))
@@ -39,6 +47,8 @@ func _physics_process(delta: float) -> void:
 func update_score_label():
 	score_label.text = "Score " + str(score)
 
+func _process(delta: float) -> void:
+	update_health()
 
 func _on_player_dashed(cdtime:float) -> void:
 	dashind.color = Color(1, 0, 0, 1)
@@ -46,3 +56,7 @@ func _on_player_dashed(cdtime:float) -> void:
 	
 func _on_timer_timeout() -> void:
 	dashind.color = Color(0, 1, 0, 1)
+
+
+func _on_health_component_damaged() -> void:
+	update_health()

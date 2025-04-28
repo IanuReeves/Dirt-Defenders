@@ -1,19 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://b03d85g3b64k7"]
+[gd_scene load_steps=11 format=3 uid="uid://b03d85g3b64k7"]
 
 [ext_resource type="Script" uid="uid://b1gxf3fyppalx" path="res://scripts/ENEMY2.gd" id="1_4ra3w"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="1_md0e3"]
 [ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="2_4ra3w"]
 [ext_resource type="Resource" uid="uid://bqvpnqf6wsgxo" path="res://resources/baseenemy.tres" id="2_ipns3"]
-[ext_resource type="PackedScene" uid="uid://blvrw4btub433" path="res://scenes/weapon.tscn" id="4_5uy6h"]
-[ext_resource type="Script" uid="uid://c1q6l12tx5fnq" path="res://scenes/detector.gd" id="4_c4w8v"]
-[ext_resource type="Script" uid="uid://c5on0n684j21r" path="res://scripts/weapon.gd" id="7_nenq2"]
-[ext_resource type="PackedScene" uid="uid://cp82a32j63e0j" path="res://scenes/bullets/bullet.tscn" id="8_md484"]
+[ext_resource type="PackedScene" uid="uid://byxf5adsayotl" path="res://parts/enemyweapon.tscn" id="5_xwavj"]
 [ext_resource type="Texture2D" uid="uid://b6njmc0qkwi44" path="res://textures/sprites/ships/Enemies/Weed Killer.png" id="9_ipns3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
+radius = 13.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c4w8v"]
-radius = 12.0416
+radius = 15.0333
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qclf"]
 atlas = ExtResource("9_ipns3")
@@ -32,6 +30,7 @@ animations = [{
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_4ra3w")
 stats = ExtResource("2_ipns3")
@@ -41,7 +40,7 @@ shape = SubResource("CircleShape2D_5uy6h")
 
 [node name="HitBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("1_md0e3")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://bu27sw7avjeew"
@@ -53,45 +52,17 @@ shape = SubResource("CircleShape2D_c4w8v")
 script = ExtResource("2_4ra3w")
 metadata/_custom_type_script = "uid://wy7pwks6axut"
 
-[node name="Detector" type="Node2D" parent="."]
-script = ExtResource("4_c4w8v")
-
-[node name="LEFT" type="RayCast2D" parent="Detector"]
-target_position = Vector2(-52, 0)
-
-[node name="UP" type="RayCast2D" parent="Detector"]
-target_position = Vector2(1, -45)
-
-[node name="DOWN" type="RayCast2D" parent="Detector"]
-
-[node name="RIGHT" type="RayCast2D" parent="Detector"]
-target_position = Vector2(56, 0)
-
-[node name="DOWNRIGHT" type="RayCast2D" parent="Detector"]
-target_position = Vector2(39, 33)
-
-[node name="DOWNLEFT" type="RayCast2D" parent="Detector"]
-target_position = Vector2(-37, 37)
-
-[node name="UPLEFT" type="RayCast2D" parent="Detector"]
-target_position = Vector2(-35, -34)
-
-[node name="UPRIGHT" type="RayCast2D" parent="Detector"]
-target_position = Vector2(34, -32)
-
-[node name="Weapon" parent="Detector" instance=ExtResource("4_5uy6h")]
-
-[node name="Weapon" type="Node2D" parent="."]
-script = ExtResource("7_nenq2")
-bullet = ExtResource("8_md484")
-metadata/_custom_type_script = "uid://c5on0n684j21r"
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.289
-one_shot = true
+[node name="enemyweapon" parent="." instance=ExtResource("5_xwavj")]
+position = Vector2(25, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1.19209e-07, 7.15256e-07)
 rotation = -1.57069
 scale = Vector2(2.63235, 2.60294)
 sprite_frames = SubResource("SpriteFrames_w8i8w")
+
+[node name="invadetimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="invadetimer" to="." method="_on_invadetimer_timeout"]

@@ -7,6 +7,8 @@ class_name PlayerStats
 @export var bullet_amount:int
 @export var bullet_spread:float
 @export var bullet_lifetime:float
+@export var pierce:int
+@export var cooldown_reduction:float
 #movement stats
 @export var acceleration: float
 @export var top_speed:float

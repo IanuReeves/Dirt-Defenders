@@ -1,12 +1,76 @@
-[gd_scene load_steps=2 format=3 uid="uid://45cejs8ks8x3"]
+[gd_scene load_steps=10 format=3 uid="uid://45cejs8ks8x3"]
 
 [ext_resource type="Script" uid="uid://cevougcro6c8k" path="res://parts/exhaustpart/exhaustpart.gd" id="1_nln11"]
+[ext_resource type="Resource" uid="uid://bgx2orq3qajc7" path="res://parts/exhaustpart/exhaustpart.tres" id="2_iqdan"]
+[ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_dau06"]
+[ext_resource type="Texture2D" uid="uid://cjoblvn5i0va7" path="res://textures/Effects/Thruster Sprite.png" id="4_5hmlh"]
 
-[node name="exhaustpart" type="Node2D"]
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ggf22"]
+points = PackedVector2Array(2.1, 5.3, 3, -4, -3, -4, -2.1875, 5.3125, 0, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4whu"]
+atlas = ExtResource("4_5hmlh")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw1dx"]
+atlas = ExtResource("4_5hmlh")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bamvf"]
+atlas = ExtResource("4_5hmlh")
+region = Rect2(0, 17, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kjhao"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"boosting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4whu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw1dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bamvf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="exhuastpart" type="Node2D"]
 script = ExtResource("1_nln11")
+stats = ExtResource("2_iqdan")
 metadata/_custom_type_script = "uid://dkfjus4yds0xd"
 
 [node name="cooldowntimer" type="Timer" parent="."]
 wait_time = 0.1
 
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_mask = 2
+script = ExtResource("3_dau06")
+metadata/_custom_type_script = "uid://bu27sw7avjeew"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(18, 6.39488e-14)
+rotation = -1.5708
+scale = Vector2(3.5, 3.5)
+shape = SubResource("ConvexPolygonShape2D_ggf22")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="fireplayer" type="AnimatedSprite2D" parent="."]
+position = Vector2(14, 1)
+rotation = -1.57137
+scale = Vector2(1.11805, 3.80704)
+sprite_frames = SubResource("SpriteFrames_kjhao")
+autoplay = "default"
+frame_progress = 0.694634
+
 [connection signal="timeout" from="cooldowntimer" to="." method="_on_cooldowntimer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

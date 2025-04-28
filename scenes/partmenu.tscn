@@ -36,7 +36,7 @@ text = "dashbooster"
 
 [node name="attackbooster" type="Button" parent="GridContainer"]
 layout_mode = 2
-text = "attackbooster"
+text = "exaustpart"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
