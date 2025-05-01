@@ -6,69 +6,63 @@ var targetpos : Vector2
 var targetangle  
 var playerdir : Vector2
 
-
+@onready var health : HealthComponent = $HealthComponent
 @onready var invadetimer: Timer = $invadetimer
 @onready var player : Player = get_parent().get_node("Player")
 @onready var planet = get_parent().get_node("planet")
 @onready var weapon: Weapon = $enemyweapon
+@onready var damagesign: AnimatedSprite2D = $damagesign
+@onready var radar: Radar = $Radar
 
-
-
-var state 
+var state
+ 
 @export var stats : EnemyStats
 
 func _physics_process(delta: float) -> void:
-	player = get_parent().get_node("Player")
-	statecheck()
+	if planet: 
+		if planet.global_position.distance_to(global_position) < 150 and invadetimer.is_stopped():
+			invadetimer.start(3)
+	state.call()
+
 
 func _ready() -> void:
-	weapon.target_layer = 1
-	
-	invadingstate()
+	player = get_parent().get_node("Player")
+	state = invadingstate
 
 
-func statecheck():	
-	if player:
-		if player.position.distance_to(position) < stats.detect_range:
-			if player.position.distance_to(position) <= stats.desired_target_distance:
-				shootstate()
-			else:
-				chasingstate()
-		elif player.position.distance_to(position) > stats.detect_range:
-			invadingstate()
 
-func chasingstate():
+var chasingstate = func chasingstate():
 	movetowards(player)
-	invadetimer.stop()
-	if player.position.distance_to(position) > stats.detect_range or player.position.distance_to(position) <= stats.desired_target_distance:
-		statecheck()
-
 
 # checks if theres a planet, and if the planet is close enough it moves towards it.
-func invadingstate():
-		if planet and planet.position.distance_to(position) <= stats.desired_target_distance:	
+var invadingstate = func invadingstate():
+		if planet:
 			movetowards(planet)
 	# this checks if the enemy is 10 pixels away from the planet's radius 
 	# NOTE: THIS PART IS WIP ^^^
-		if planet and planet.position.distance_to(position) < 150:
-			planet.damage(stats.attack)
-			die()
-func die():
-	queue_free()
 
 
-func shootstate() -> void:
+
+var shootstate = func shootstate() -> void:
 	velocity = Vector2(0,0)
-	look_at(player.position + player.velocity/PI)
+	var playerdist = player.global_position.distance_to(global_position)
+	look_at(player.global_position + (player.velocity * playerdist/stats.bullet_speed) * randf_range((stats.accuracy/100),1))
 	# get angle of that vectors
-	weapon.fire(1,Vector2(0,0),stats.attack,stats.bullet_speed, 1, 1, 1, 1, 1.25)
+	weapon.fire(1,Vector2(0,0),
+	stats.attack,
+	stats.bullet_speed, 
+	1, #bullet amount 
+	1, #bullet spread 
+	1, #pierce 
+	1, #power 
+	1.25 ) #attack speed
+	
 
 func movetowards(target) -> void:
 	if target:
-		targetpos = to_local(target.position)
-		targetangle = position.direction_to(target.position)
+		targetangle = global_position.direction_to(target.global_position)
 		velocity = targetangle*stats.speed
-		look_at(target.position)
+		look_at(target.global_position)
 		move_and_slide()
 	else:
 		pass
@@ -77,5 +71,29 @@ func _on_timer_timeout() -> void:
 	weapon.canFire = true
 
 
+
+func _on_radar_detected() -> void:
+	state = chasingstate
+
+func _on_radar_exited(objectexited: Node2D) -> void:
+	state = invadingstate
+
+func _on_range_detected() -> void:
+	state = shootstate
+
+func _on_range_exited(objectexited: Node2D) -> void:
+	state = chasingstate
+
+func die():
+	damagesign.playexplosion()
+	await damagesign.animation_finished
+	queue_free()
+
+
+func _on_health_component_damaged() -> void:
+	damagesign.playexplosion()
+
+
 func _on_invadetimer_timeout() -> void:
-	pass
+	planet.damage(stats.attack)
+	die()

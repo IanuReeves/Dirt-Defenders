@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://b03d85g3b64k7"]
+[gd_scene load_steps=20 format=3 uid="uid://b03d85g3b64k7"]
 
 [ext_resource type="Script" uid="uid://b1gxf3fyppalx" path="res://scripts/ENEMY2.gd" id="1_4ra3w"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="1_md0e3"]
 [ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="2_4ra3w"]
 [ext_resource type="Resource" uid="uid://bqvpnqf6wsgxo" path="res://resources/baseenemy.tres" id="2_ipns3"]
 [ext_resource type="PackedScene" uid="uid://byxf5adsayotl" path="res://parts/enemyweapon.tscn" id="5_xwavj"]
+[ext_resource type="Texture2D" uid="uid://bcunc5dhuv12b" path="res://textures/Effects/Explosion Effect.png" id="7_nenq2"]
+[ext_resource type="Script" uid="uid://b5x37ha3tx3g3" path="res://scenes/damagesign.gd" id="8_md484"]
+[ext_resource type="Script" uid="uid://dekyvj4ult7vp" path="res://radar.gd" id="9_8qclf"]
 [ext_resource type="Texture2D" uid="uid://b6njmc0qkwi44" path="res://textures/sprites/ships/Enemies/Weed Killer.png" id="9_ipns3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
@@ -28,6 +31,41 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_md484"]
+atlas = ExtResource("7_nenq2")
+region = Rect2(50, 100, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipns3"]
+atlas = ExtResource("7_nenq2")
+region = Rect2(0, 100, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8i8w"]
+atlas = ExtResource("7_nenq2")
+region = Rect2(50, 50, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_otmr2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md484")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipns3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8i8w")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w8i8w"]
+radius = 364.005
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ipns3"]
+radius = 258.279
+
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 9
@@ -36,9 +74,11 @@ script = ExtResource("1_4ra3w")
 stats = ExtResource("2_ipns3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_5uy6h")
 
 [node name="HitBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+visible = false
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_md0e3")
@@ -46,14 +86,15 @@ health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://bu27sw7avjeew"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+visible = false
 shape = SubResource("CircleShape2D_c4w8v")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_4ra3w")
+max = 100.0
 metadata/_custom_type_script = "uid://wy7pwks6axut"
 
 [node name="enemyweapon" parent="." instance=ExtResource("5_xwavj")]
-position = Vector2(25, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1.19209e-07, 7.15256e-07)
@@ -62,7 +103,38 @@ scale = Vector2(2.63235, 2.60294)
 sprite_frames = SubResource("SpriteFrames_w8i8w")
 
 [node name="invadetimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
+[node name="damagesign" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 4
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_otmr2")
+frame = 2
+frame_progress = 1.0
+script = ExtResource("8_md484")
+
+[node name="Radar" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("9_8qclf")
+metadata/_custom_type_script = "uid://dekyvj4ult7vp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar"]
+shape = SubResource("CircleShape2D_w8i8w")
+
+[node name="range" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("9_8qclf")
+metadata/_custom_type_script = "uid://dekyvj4ult7vp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="range"]
+shape = SubResource("CircleShape2D_ipns3")
+
+[connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="timeout" from="invadetimer" to="." method="_on_invadetimer_timeout"]
+[connection signal="animation_finished" from="damagesign" to="damagesign" method="_on_animation_finished"]
+[connection signal="detected" from="Radar" to="." method="_on_radar_detected"]
+[connection signal="exited" from="Radar" to="." method="_on_radar_exited"]
+[connection signal="detected" from="range" to="." method="_on_range_detected"]
+[connection signal="exited" from="range" to="." method="_on_range_exited"]

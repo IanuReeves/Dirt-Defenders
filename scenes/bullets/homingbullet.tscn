@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxff4clwpba7o"]
+
+[ext_resource type="Script" uid="uid://cgu7fd1jmleuh" path="res://homing.gd" id="1_bpv2c"]
+[ext_resource type="Texture2D" uid="uid://5cxl2g0ht5in" path="res://textures/Effects/Fire Particle.png" id="2_qiqnd"]
+[ext_resource type="Script" uid="uid://dekyvj4ult7vp" path="res://radar.gd" id="3_dmcda"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1e0nq"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y71bd"]
+atlas = ExtResource("2_qiqnd")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6eyn"]
+atlas = ExtResource("2_qiqnd")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5566d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y71bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6eyn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v8waa"]
+radius = 34.0147
+
+[node name="homingbullet" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_bpv2c")
+SPEED = 50.0
+metadata/_custom_type_script = "uid://dpdnfibip0cho"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1e0nq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5566d")
+
+[node name="Radar" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_dmcda")
+detect_bullets = false
+metadata/_custom_type_script = "uid://dekyvj4ult7vp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar"]
+shape = SubResource("CircleShape2D_v8waa")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

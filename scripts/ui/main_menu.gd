@@ -11,7 +11,12 @@ class_name MainMenu
 # Pre-lods game for optimization (tie shit)
 @onready var start_level: PackedScene = preload("res://scenes/main.tscn")
 
+@onready var explanation: Control = $explanation
+
+
 @onready var tab_container: TabContainer = $TabContainer
+
+@onready var background: Node2D = $background
 
 #handles soundloop
 @onready var gamemusic: AudioStreamPlayer2D = $GameMusic
@@ -64,3 +69,15 @@ func handle_connecting_signals() -> void:
 func _on_audio_stream_player_2d_finished() -> void:
 	if playsound:
 		sound.play()
+
+
+func _on_button_pressed() -> void:
+	explanation.show()
+	background.hide()
+	v_box_container.hide()
+
+
+func _on_explanation_closed() -> void:
+	explanation.hide()
+	background.show()
+	v_box_container.show()

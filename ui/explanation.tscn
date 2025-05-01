@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://btet66dbi4a44"]
+
+[ext_resource type="Script" uid="uid://cu2y3dqqyju68" path="res://explanation.gd" id="1_51dk3"]
+
+[node name="explanation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 14.0
+offset_right = 19.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_51dk3")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 31.0
+offset_right = 1049.0
+offset_bottom = 601.0
+text = "welcome to dirt defenders!
+
+the goal is simple: protect earth from the plantonians, who will crash 
+into the planet to deal damage to it! 
+
+
+you can maneuver around the planets gravity by aiming with your mouse, and pushing [W] to accelerate, and try not to die!
+
+if you get close enough, you can get them to chase and fire at you.
+their aim is great, so it's a good idea to activate your [SHIELD] if you're going in!
+
+if your shield breaks and goes on cooldown, you can fire your [WAVE CANNON] with [E]
+to destroy the projectiles! it has a slow firing rate, but deals okay damage.
+
+by pushing [S] to break and slowdown you can charge your [[TURBO]], and if you have enough turbo charged and your dash cooldown is up you can push [Q] to DASH!
+
+you can also experiment with the parts in the part-shop by pushing [[ENTER]] 
+
+the ability you click on will equip, experiment to decide what works best for you, but no matter what:
+"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 582.0
+color = Color(0.192157, 0.188235, 0.25098, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 516.0
+offset_right = 431.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 27
+text = "DEFEND YOUR DIRT!!!"
+horizontal_alignment = 1

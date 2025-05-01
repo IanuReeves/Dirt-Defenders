@@ -9,4 +9,4 @@ func _process(delta: float) -> void:
 
 
 func _on_fired() -> void:
-	player.velocity.x -= 50
+	player.recoil(80)

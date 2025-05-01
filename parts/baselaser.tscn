@@ -25,9 +25,10 @@ max_hp = 0.0
 defense = 0.0
 metadata/_custom_type_script = "uid://clpd50adeck85"
 
-[node name="Weapon" type="Node2D"]
+[node name="baselaser" type="Node2D"]
 script = ExtResource("1_kya5s")
 bullet = ExtResource("2_cl752")
+target_layer = 2
 stats = SubResource("Resource_3v2ag")
 
 [node name="RateOfFire" type="Timer" parent="."]

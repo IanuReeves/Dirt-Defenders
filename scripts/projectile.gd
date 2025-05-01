@@ -12,35 +12,37 @@ var pierce:int
 var pierceTimer = Timer.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	set_collision_mask_value(3, true)
+	set_collision_layer_value(3, true)
 
-func _process(delta: float) -> void:
-	if pierce < 1:
-		queue_free()
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	position += transform.x * SPEED * delta
-	time += delta
+	basicmovement()
+
+func basicmovement():
+	position += transform.x * SPEED * get_physics_process_delta_time()
+	time += get_physics_process_delta_time()
 	if time >= LIFETIME:
 		time = 0
 		queue_free()
-
+	if pierce < 1:
+		queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is HitBoxComponent:
 		area.damage(damage)
 		pierce -= 1
-	if pierce >= 1 and pierceTimer.time_left == 0 and area is Projectile or HitBoxComponent:
-				print("pierce decreased by "+str(area.get_class())+" on layer "+str(area.collision_layer))
+	if pierce >= 1 and pierceTimer.time_left == 0 and area is HitBoxComponent:
 				pierceTimer.one_shot = true
 				add_child(pierceTimer)
 				pierceTimer.start(.5)
 	if area is Projectile and pierceTimer.time_left == 0:
-		if area.get_path() != get_path():
-			area.pierce -= 1
-			pierce -= 1
-			print("pierce reduced by projectile")
+			if block:
+				area.pierce -= 1
+				pierce -= 1
+				print("pierce reduced by projectile")
 	else:
 		pass

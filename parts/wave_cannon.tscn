@@ -13,7 +13,7 @@ bullet_amount = 0
 bullet_spread = 0.0
 bullet_lifetime = 0.0
 pierce = 0
-cooldown_reduction = 3.0
+cooldown_reduction = 6.0
 acceleration = 0.0
 top_speed = 0.0
 brake_strength = 0.0
@@ -28,8 +28,9 @@ metadata/_custom_type_script = "uid://clpd50adeck85"
 [node name="wave cannon" type="Node2D"]
 script = ExtResource("1_rou8q")
 bullet = ExtResource("2_hfbn1")
+target_layer = 2
 stats = SubResource("Resource_hfbn1")
-cooldown = 3.0
+cooldown = 8.0
 metadata/_custom_type_script = "uid://c5on0n684j21r"
 
 [node name="RateOfFire" type="Timer" parent="."]

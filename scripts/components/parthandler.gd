@@ -10,9 +10,9 @@ var stats:PlayerStats = PlayerStats.new()
 @export var primary_weapon:Weapon 
 @export var secondary_weapon:Weapon
 @export var hull:Hull
-
+@export var aux:Auxiliary
 @onready var ui = get_parent().get_node("UI/cooldowns")
-@onready var ABILITY1 : Part = $"wave cannon"
+
 
 var timerlist : VBoxContainer
 #handles cooldowns
@@ -47,11 +47,10 @@ func _process(delta: float) -> void:
 # fire primary weapon
 func fire_primary():
 	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread, stats.pierce, stats.power)
-
-func ability1():
-	ABILITY1.fire(2,get_velocity(),40, stats.bullet_speed,1,stats.bullet_spread,3, 50)
-
-
+func fire_secondary():
+	secondary_weapon.fire(2,get_velocity(),40, stats.bullet_speed,1,stats.bullet_spread,3, 50)
+func AUX():
+	aux.activate()
 func _on_child_entered_tree(node: Node) -> void:
 	if node is Part:
 		node.player = get_parent()

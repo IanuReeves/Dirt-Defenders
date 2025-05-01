@@ -6,3 +6,4 @@ class_name EnemyStats
 @export var detect_range:float
 @export var bullet_speed:float
 @export var desired_target_distance:float
+@export var accuracy : float

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://yo8xnph52dpl"]
+[gd_scene load_steps=16 format=3 uid="uid://yo8xnph52dpl"]
 
 [ext_resource type="Script" uid="uid://bbiofmlcs82bl" path="res://shield.gd" id="1_26p5x"]
 [ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="2_70jgx"]
 [ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="2_mrcw8"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_70jgx"]
+[ext_resource type="Texture2D" uid="uid://cp4i3fdcb27f" path="res://textures/Effects/Bubble Shield.png" id="5_70jgx"]
 
 [sub_resource type="Resource" id="Resource_arekc"]
 script = ExtResource("2_70jgx")
@@ -29,6 +30,63 @@ metadata/_custom_type_script = "uid://clpd50adeck85"
 [sub_resource type="CircleShape2D" id="CircleShape2D_arekc"]
 radius = 42.0476
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_arekc"]
+atlas = ExtResource("5_70jgx")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cq5ch"]
+atlas = ExtResource("5_70jgx")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35qfd"]
+atlas = ExtResource("5_70jgx")
+region = Rect2(34, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ar5xy"]
+atlas = ExtResource("5_70jgx")
+region = Rect2(0, 17, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujtve"]
+atlas = ExtResource("5_70jgx")
+region = Rect2(17, 17, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqq0h"]
+atlas = ExtResource("5_70jgx")
+region = Rect2(34, 17, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v06ye"]
+atlas = ExtResource("5_70jgx")
+region = Rect2(0, 34, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iav6h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arekc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cq5ch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35qfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ar5xy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujtve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqq0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v06ye")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="shield" type="Node2D"]
 script = ExtResource("1_26p5x")
 stats = SubResource("Resource_arekc")
@@ -49,6 +107,7 @@ script = ExtResource("3_70jgx")
 metadata/_custom_type_script = "uid://bu27sw7avjeew"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shieldarea"]
+position = Vector2(18, 0)
 shape = SubResource("CircleShape2D_arekc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -58,5 +117,12 @@ offset_left = 4.0
 offset_top = 457.0
 offset_right = 92.0
 offset_bottom = 512.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(18, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_iav6h")
+autoplay = "default"
+frame_progress = 0.825231
 
 [connection signal="timeout" from="cooldown" to="." method="_on_timer_timeout"]

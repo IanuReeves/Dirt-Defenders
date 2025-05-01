@@ -6,6 +6,7 @@ var stats:PlayerStats = PlayerStats.new()
 @export var health:HealthComponent
 @onready var deathscreen: CanvasLayer = $deathscreen
 @onready var world = get_parent()
+@onready var indsprite: AnimatedSprite2D = $indsprite
 
 
 
@@ -47,6 +48,7 @@ func _process(delta: float) -> void:
 	# update stats and health each frame
 	stats = parts.stats
 	health.max = stats.max_hp
+
 func rotate_to_mouse() -> void:
 	#smooth rotation stol--ADAPTED from reddit
 	# get vector from mouse to ship
@@ -102,7 +104,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire"):
 		parts.fire_primary()
 	if event.is_action_pressed("ability"):
-		parts.ability1()
+		parts.fire_secondary()
+	if event.is_action_released("aux"):
+		parts.AUX()
 
 func _on_timer_timeout() -> void:
 	if turbo > 0:
@@ -112,3 +116,6 @@ func _on_timer_timeout() -> void:
 func die():
 	queue_free()
 	get_tree().change_scene_to_packed(DEATHSCREEN)
+
+func recoil(input):
+	velocity -= transform.x * input

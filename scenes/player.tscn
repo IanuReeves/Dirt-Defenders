@@ -9,9 +9,9 @@
 [ext_resource type="Script" uid="uid://caeioa2lwlb8r" path="res://scripts/components/hull.gd" id="9_s5o61"]
 [ext_resource type="PackedScene" uid="uid://e6iuym7bl3xi" path="res://ui/game_overlay.tscn" id="12_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://bc6bhmxbn1lt3" path="res://parts/cannonability/cannon.tscn" id="12_a8ls1"]
-[ext_resource type="PackedScene" uid="uid://cccfurky2d5ek" path="res://parts/dashpart/dashpart.tscn" id="12_jej6c"]
 [ext_resource type="PackedScene" uid="uid://donb1jsom3j1l" path="res://parts/baselaser.tscn" id="12_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://d05o0hs6blill" path="res://textures/sprites/ships/SHips/Ships.png" id="13_a8ls1"]
+[ext_resource type="PackedScene" uid="uid://yo8xnph52dpl" path="res://parts/shield.tscn" id="13_fulsm"]
 [ext_resource type="PackedScene" uid="uid://11ir5xx3ykvq" path="res://parts/wave_cannon.tscn" id="13_qfm1y"]
 [ext_resource type="Script" uid="uid://cjg4t651gvsb3" path="res://scripts/animater.gd" id="14_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://cjoblvn5i0va7" path="res://textures/Effects/Thruster Sprite.png" id="15_fulsm"]
@@ -26,7 +26,7 @@ height = 30.0327
 script = ExtResource("8_d2wvv")
 power = 40.0
 attack = 10.0
-bullet_speed = 300.0
+bullet_speed = 500.0
 bullet_amount = 1
 bullet_spread = 0.0
 bullet_lifetime = 10.0
@@ -37,7 +37,7 @@ top_speed = 500.0
 brake_strength = 0.75
 rotation_speed = 250.0
 max_turbo = 10.0
-turbo_cooldown = 5.0
+turbo_cooldown = 2.0
 turbo_strength = 0.0
 max_hp = 100.0
 defense = 10.0
@@ -175,27 +175,29 @@ shape = SubResource("CapsuleShape2D_a8ls1")
 script = ExtResource("4_6bx4a")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
 
-[node name="PartHandler" type="Node2D" parent="." node_paths=PackedStringArray("healthcomponent", "primary_weapon", "hull")]
+[node name="PartHandler" type="Node2D" parent="." node_paths=PackedStringArray("healthcomponent", "primary_weapon", "secondary_weapon", "hull", "aux")]
 script = ExtResource("7_xkvgj")
 healthcomponent = NodePath("../HealthComponent")
 primary_weapon = NodePath("Weapon")
+secondary_weapon = NodePath("wave cannon")
 hull = NodePath("Hull")
+aux = NodePath("shield")
 
 [node name="Hull" type="Node2D" parent="PartHandler"]
 script = ExtResource("9_s5o61")
 stats = SubResource("Resource_d2wvv")
 
-[node name="dashpart" parent="PartHandler" instance=ExtResource("12_jej6c")]
-script = null
-
 [node name="cannon" parent="PartHandler" instance=ExtResource("12_a8ls1")]
 stats = SubResource("Resource_qfm1y")
 
-[node name="wave cannon" parent="PartHandler" instance=ExtResource("13_qfm1y")]
-
 [node name="Weapon" parent="PartHandler" instance=ExtResource("12_qfm1y")]
+
+[node name="shield" parent="PartHandler" instance=ExtResource("13_fulsm")]
+
+[node name="wave cannon" parent="PartHandler" instance=ExtResource("13_qfm1y")]
 
 [node name="TurboDecay" type="Timer" parent="."]
 wait_time = 0.05

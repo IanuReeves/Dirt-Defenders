@@ -8,7 +8,7 @@ class_name HitBoxComponent
 func _ready() -> void:
 	iFrameTimer.one_shot = true
 	iFrameTimer.autostart = false
-	iFrameTimer.wait_time = .5
+	iFrameTimer.wait_time = .25
 	add_child(iFrameTimer)
 
 

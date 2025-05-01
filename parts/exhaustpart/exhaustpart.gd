@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 	if player.velocity.length() < 300:
 		fireplayer.hide()
 		collision.collision_mask = 8
-	
+		scale *= player.velocity.length()/150
 
 
 func _on_cooldowntimer_timeout() -> void:

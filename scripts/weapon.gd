@@ -5,14 +5,26 @@ class_name Weapon
 @export var target_layer:int
 @onready var rate_of_fire: Timer = $RateOfFire
 
-
-
 var canFire = true
 signal fired
 
 #fire bullet out of weapon
-func fire(target_layer:int,speedmod:Vector2,damage:float,bullet_speed:float,bullet_amount:int = 1,bullet_spread:float = 0, pierce:int = 0, power:float = 0, cooldown: float = 0):
+func fire
+(target_layer:int,
+speedmod:Vector2,
+damage:float = stats.attack,
+bullet_speed:float = 100,
+bullet_amount:int = 1,
+bullet_spread:float = 0, 
+pierce:int = 0, 
+power:float = 0, 
+cooldown: float = 0):
 	if canFire:
+		shoot(target_layer,speedmod,damage,bullet_speed,bullet_amount,bullet_spread,pierce,power,cooldown)
+		fired.emit()
+		canFire = false
+
+func shoot(target_layer:int,speedmod:Vector2,damage:float,bullet_speed:float,bullet_amount:int = 1,bullet_spread:float = 0, pierce:int = 0, power:float = 0, cooldown: float = 0):
 		for i in range(0,bullet_amount):
 			# create a bullet and modify it's stats based on input
 			var b = bullet.instantiate()
@@ -26,9 +38,9 @@ func fire(target_layer:int,speedmod:Vector2,damage:float,bullet_speed:float,bull
 			b.origin = self
 			get_tree().root.add_child(b)
 			rate_of_fire.start(cooldown)
-		canFire = false
-		fired.emit()
 
-
-func _on_timer_timeout() -> void:
+func _on_timer_timeout():
 	canFire = true
+
+func _ready() -> void:
+	pass
