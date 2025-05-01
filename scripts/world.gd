@@ -19,6 +19,8 @@ var paused = false
 
 @onready var spawnerarray = [spawner, spawner2, spawner3]
 
+var camzoomed : bool
+
 var spawnertouse : int
 
 func _ready() -> void:

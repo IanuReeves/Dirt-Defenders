@@ -3,6 +3,7 @@ extends Camera2D
 @onready var Playercam = get_parent().get_parent().get_node("Player/Camera2D")
 @onready var planet = get_parent()
 @onready var player : Player = get_parent().get_parent().get_node("Player")
+@onready var world: Node2D = planet.get_parent()
 
 var PPdist : float
 var zoomneeded : float
@@ -24,7 +25,9 @@ func _input(event: InputEvent) -> void:
 			make_current()
 			playerfocus = false
 			player.indsprite.show()
+			world.camzoomed = true
 		else:
 			Playercam.make_current()
 			playerfocus = true
 			player.indsprite.hide()
+			world.camzoomed = false

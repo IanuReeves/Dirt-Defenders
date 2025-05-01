@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://6s3hfdcvwbxr"]
+[gd_scene load_steps=34 format=3 uid="uid://6s3hfdcvwbxr"]
 
 [ext_resource type="Script" uid="uid://d07bhxyosh33i" path="res://scripts/player.gd" id="1_clxn1"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_xelip"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cjg4t651gvsb3" path="res://scripts/animater.gd" id="14_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://cjoblvn5i0va7" path="res://textures/Effects/Thruster Sprite.png" id="15_fulsm"]
 [ext_resource type="Script" uid="uid://b14sgx6nv58ip" path="res://scenes/boost.gd" id="16_4r5pv"]
+[ext_resource type="Texture2D" uid="uid://d4ehi87u86jnv" path="res://textures/Effects/Hovercraft Thruster.png" id="17_qfm1y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oprun"]
 height = 30.0327
@@ -139,6 +140,28 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = ExtResource("17_qfm1y")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = ExtResource("17_qfm1y")
+region = Rect2(0, 17, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_60mlk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5pv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.1
+}]
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("parts", "health")]
 collision_mask = 9
 motion_mode = 1
@@ -221,6 +244,11 @@ sprite_frames = SubResource("SpriteFrames_31cv2")
 script = ExtResource("16_4r5pv")
 
 [node name="Timer" type="Timer" parent="AnimatedSprite2D/Boost"]
+
+[node name="indsprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_60mlk")
+autoplay = "default"
 
 [connection signal="dashed" from="." to="UI" method="_on_player_dashed"]
 [connection signal="damaged" from="HealthComponent" to="UI" method="_on_health_component_damaged"]

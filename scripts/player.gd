@@ -96,11 +96,12 @@ func _input(event: InputEvent) -> void:
 			# why even add miniturbo to this?
 			velocity += transform.x * ((stats.acceleration * 100) + miniturbo())
 			# turbo /= 2 lol
+			boosted.emit(miniturbo())
 			turbo -= miniturbo()
 			# emit gui shenanigains
 			dashed.emit(stats.turbo_cooldown)
+			
 			turbo_cooldown_timer.start(stats.turbo_cooldown)
-			boosted.emit()
 	if event.is_action_pressed("fire"):
 		parts.fire_primary()
 	if event.is_action_pressed("ability"):

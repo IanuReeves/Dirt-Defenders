@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 func fire_primary():
 	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread, stats.pierce, stats.power)
 func fire_secondary():
-	secondary_weapon.fire(2,get_velocity(),40, stats.bullet_speed,1,stats.bullet_spread,3, 50)
+	secondary_weapon.fire(2,get_velocity(),40, stats.bullet_speed,1,stats.bullet_spread,4, 100, 6)
 func AUX():
 	aux.activate()
 func _on_child_entered_tree(node: Node) -> void:

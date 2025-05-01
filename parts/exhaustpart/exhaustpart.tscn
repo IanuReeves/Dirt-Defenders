@@ -65,6 +65,7 @@ shape = SubResource("ConvexPolygonShape2D_ggf22")
 [node name="Timer" type="Timer" parent="."]
 
 [node name="fireplayer" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(14, 1)
 rotation = -1.57137
 scale = Vector2(1.11805, 3.80704)

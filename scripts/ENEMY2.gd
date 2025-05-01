@@ -13,22 +13,40 @@ var playerdir : Vector2
 @onready var weapon: Weapon = $enemyweapon
 @onready var damagesign: AnimatedSprite2D = $damagesign
 @onready var radar: Radar = $Radar
+@onready var world = get_parent()
+@onready var ind: ColorRect = $ColorRect
 
 var state
  
 @export var stats : EnemyStats
 
 func _physics_process(delta: float) -> void:
+	#sets minimap mode indicator
+	if world.camzoomed:
+		ind.show()
+	else: 
+		ind.hide()
+	#checks if the planet is close enough for the enemy to deal damage.
 	if planet: 
 		if planet.global_position.distance_to(global_position) < 150 and invadetimer.is_stopped():
 			invadetimer.start(3)
+	#performs assigned state variable.
 	state.call()
+
 
 
 func _ready() -> void:
 	player = get_parent().get_node("Player")
 	state = invadingstate
 
+
+
+''' 
+state variables are variables that contain functions, succh as the one below.
+the states are called each physics process tick in order to do whatever is in 
+the variables function. this can be looking at a player, moving towards the planet,
+etc etc or even getting formation later down the line
+'''
 
 
 var chasingstate = func chasingstate():

@@ -116,6 +116,7 @@ frame_progress = 1.0
 script = ExtResource("8_md484")
 
 [node name="Radar" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 script = ExtResource("9_8qclf")
 metadata/_custom_type_script = "uid://dekyvj4ult7vp"
@@ -124,12 +125,21 @@ metadata/_custom_type_script = "uid://dekyvj4ult7vp"
 shape = SubResource("CircleShape2D_w8i8w")
 
 [node name="range" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 script = ExtResource("9_8qclf")
 metadata/_custom_type_script = "uid://dekyvj4ult7vp"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="range"]
 shape = SubResource("CircleShape2D_ipns3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -41.0
+offset_top = -42.0
+offset_right = 42.0
+offset_bottom = 41.0
+color = Color(0.372549, 0.682353, 0.247059, 1)
 
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="timeout" from="invadetimer" to="." method="_on_invadetimer_timeout"]
