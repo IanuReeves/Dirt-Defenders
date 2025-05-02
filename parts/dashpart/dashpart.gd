@@ -6,11 +6,13 @@ extends Part
 func _ready() -> void:
 	cooldown = 0
 	sign.emitting = false
-	player.boosted.connect(dashing)
+	player.dashed.connect(dashed)
+
+
 func _process(delta: float) -> void:
 	if player.velocity.length() > 300: 
 		stats.turbo_cooldown = -2
-		stats.turbo_strength = 50
+		stats.turbo_strength = 100
 		stats.attack = 30
 		sign.emitting = true 
 	if player.velocity.length() < 250:
@@ -21,7 +23,7 @@ func _process(delta: float) -> void:
 		sign.emitting = false
 	
 
-func dashing():
+func dashed():
 	boosttime.start
 	stats.turbo_strength = 0
 	stats.turbo_cooldown = 0

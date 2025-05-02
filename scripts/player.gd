@@ -7,11 +7,15 @@ var stats:PlayerStats = PlayerStats.new()
 @onready var deathscreen: CanvasLayer = $deathscreen
 @onready var world = get_parent()
 @onready var indsprite: AnimatedSprite2D = $indsprite
+@onready var pointlabel: Label = $UI/Label
 
 
+var turnbykey:bool = false
 
 var isloaded : bool = false
 const DEATHSCREEN = preload("res://scenes/deathscreen.tscn")
+var canFire:bool = true
+var canMove:bool = true
 
 # turbo cooldown timer is no longer made in the player because fuck node shenanigains
 # I guess player.gd used to be a mom now, all of it's other children are adopted, and this one was murdered
@@ -23,8 +27,8 @@ const DEATHSCREEN = preload("res://scenes/deathscreen.tscn")
 
 # checks for actions:
 # signal emitted on dash for ui shenanigains
-signal dashed(cdtime:float)
-signal boosted
+signal dashed
+signal boosted(power)
 # why the fuck does this exist, oh well
 var accelerating : bool
 # add "taken damage" action here -> already done (see health_changed signal in HealthComponent) 
@@ -64,8 +68,10 @@ func rotate_to_mouse() -> void:
 	# set rotation
 	global_rotation = angle
 
+func turn():
+	pass
 func movement_input() -> void:
-	if Input.is_action_pressed("forward"):
+	if Input.is_action_pressed("forward") and canMove:
 		# accelerate
 		velocity += transform.x * stats.acceleration
 		sprite.play("moving")
@@ -82,13 +88,26 @@ func movement_input() -> void:
 			turbo += 2.5
 		elif velocity.length() < 5:
 			velocity = Vector2(0,0) 
+	if Input.is_action_just_released("switch to key"):
+		if turnbykey:
+			turnbykey = false
+		else:
+			turnbykey = true 
 	velocity = velocity.clampf(-stats.top_speed,stats.top_speed)
 	
+	
+func turn_by_key(delta):
+	rotate(((Input.get_axis("left","right")*5/360)*stats.rotation_speed) * delta)
+
+
 func _physics_process(delta: float) -> void:
-	rotate_to_mouse()
+	if turnbykey:
+		turn_by_key(delta)
+	else:
+		rotate_to_mouse()
 	movement_input()
 	move_and_slide()
-	
+
 func _input(event: InputEvent) -> void:
 	# dash if cooldown isn't a little shit
 	if event.is_action_released("dash") and turbo_cooldown_timer.time_left == 0:
@@ -99,15 +118,15 @@ func _input(event: InputEvent) -> void:
 			boosted.emit(miniturbo())
 			turbo -= miniturbo()
 			# emit gui shenanigains
-			dashed.emit(stats.turbo_cooldown)
-			
+			dashed.emit()
 			turbo_cooldown_timer.start(stats.turbo_cooldown)
-	if event.is_action_pressed("fire"):
-		parts.fire_primary()
-	if event.is_action_pressed("ability"):
+	if event.is_action_pressed("fire") and canFire:
+			parts.fire_primary()
+	if event.is_action_pressed("ability") and canFire:
 		parts.fire_secondary()
 	if event.is_action_released("aux"):
 		parts.AUX()
+#	if event.is_action_pressed():
 
 func _on_timer_timeout() -> void:
 	if turbo > 0:
@@ -120,3 +139,20 @@ func die():
 
 func recoil(input):
 	velocity -= transform.x * input
+
+
+func _on_world_pointtick(points: Variant) -> void:
+	pointlabel.text = ("score: "+str(points))
+
+
+@onready var stun_timer: Timer = $StunTimer
+
+
+func stun(time):
+	stun_timer.start(time)
+	canFire = false
+	canMove = false
+
+func _on_stun_timer_timeout() -> void:
+	canFire = true
+	canMove = true

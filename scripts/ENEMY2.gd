@@ -16,8 +16,9 @@ var playerdir : Vector2
 @onready var world = get_parent()
 @onready var ind: ColorRect = $ColorRect
 
+
 var state
- 
+signal died
 @export var stats : EnemyStats
 
 func _physics_process(delta: float) -> void:
@@ -29,9 +30,11 @@ func _physics_process(delta: float) -> void:
 	#checks if the planet is close enough for the enemy to deal damage.
 	if planet: 
 		if planet.global_position.distance_to(global_position) < 150 and invadetimer.is_stopped():
-			invadetimer.start(3)
+			invadetimer.start(5)
 	#performs assigned state variable.
 	state.call()
+
+
 
 
 
@@ -49,6 +52,8 @@ etc etc or even getting formation later down the line
 '''
 
 
+
+#simply moves towards player. triggered 
 var chasingstate = func chasingstate():
 	movetowards(player)
 
@@ -102,16 +107,29 @@ func _on_range_detected() -> void:
 func _on_range_exited(objectexited: Node2D) -> void:
 	state = chasingstate
 
+
+''' 
+this area of code handles all the dying. the damagesign plays an 
+animation, the invadetimer timeout damages the planet, then it plays an 
+explosion and dies. m
+
+the die function is called by the health component.
+'''
+
+
 func die():
 	damagesign.playexplosion()
 	await damagesign.animation_finished
+	world.score+=15
 	queue_free()
-
 
 func _on_health_component_damaged() -> void:
 	damagesign.playexplosion()
+	state = chasingstate
 
 
 func _on_invadetimer_timeout() -> void:
 	planet.damage(stats.attack)
+	damagesign.playexplosion()
+	await damagesign.animation_finished
 	die()

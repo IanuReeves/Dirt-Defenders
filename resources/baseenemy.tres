@@ -11,4 +11,5 @@ detect_range = 0.0
 bullet_speed = 400.0
 desired_target_distance = 500.0
 accuracy = 97.0
+value = 15
 metadata/_custom_type_script = "uid://bqs8g8lkjasxa"

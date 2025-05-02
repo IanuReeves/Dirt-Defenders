@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dekyvj4ult7vp" path="res://radar.gd" id="3_dmcda"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1e0nq"]
-radius = 6.0
+radius = 15.0333
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y71bd"]
 atlas = ExtResource("2_qiqnd")
@@ -30,23 +30,24 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8waa"]
-radius = 34.0147
+radius = 62.0081
 
 [node name="homingbullet" type="Area2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_bpv2c")
-SPEED = 50.0
+SPEED = 100.0
 metadata/_custom_type_script = "uid://dpdnfibip0cho"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1e0nq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_5566d")
 
 [node name="Radar" type="Area2D" parent="."]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_dmcda")
 detect_bullets = false
@@ -58,4 +59,6 @@ shape = SubResource("CircleShape2D_v8waa")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="detected" from="Radar" to="." method="_on_detect"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

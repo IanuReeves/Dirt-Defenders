@@ -7,3 +7,4 @@ class_name EnemyStats
 @export var bullet_speed:float
 @export var desired_target_distance:float
 @export var accuracy : float
+@export var value:int

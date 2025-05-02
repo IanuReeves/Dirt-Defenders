@@ -353,7 +353,7 @@ layer_0/tile_data = PackedInt32Array(-3473434, 0, 0, -3407898, 0, 1, -3342362, 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="background"]
 z_index = -4
-position = Vector2(755, 494)
+position = Vector2(883, 452)
 rotation = -2.18543
 scale = Vector2(12, 12)
 sprite_frames = SubResource("SpriteFrames_kaxbk")
@@ -379,6 +379,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_s1050")
 
 [node name="explanation" parent="." instance=ExtResource("3_arv2f")]
+visible = false
 layout_mode = 1
 
 [node name="Button" type="Button" parent="explanation"]
@@ -389,6 +390,15 @@ offset_right = 945.0
 offset_bottom = 574.0
 theme_override_font_sizes/font_size = 30
 text = "BACK"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1036.0
+offset_top = 595.0
+offset_right = 1197.0
+offset_bottom = 649.0
+theme_override_font_sizes/font_size = 20
+text = "alpha v1.3"
 
 [connection signal="exit_options_menu" from="options_menu" to="." method="_on_options_menu_exit_options_menu"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

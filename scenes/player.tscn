@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ig830hyaojuf" path="res://scripts/components/parthandler.gd" id="7_xkvgj"]
 [ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="8_d2wvv"]
 [ext_resource type="Script" uid="uid://caeioa2lwlb8r" path="res://scripts/components/hull.gd" id="9_s5o61"]
+[ext_resource type="PackedScene" uid="uid://dxff4clwpba7o" path="res://scenes/bullets/homingbullet.tscn" id="11_qfm1y"]
 [ext_resource type="PackedScene" uid="uid://e6iuym7bl3xi" path="res://ui/game_overlay.tscn" id="12_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://bc6bhmxbn1lt3" path="res://parts/cannonability/cannon.tscn" id="12_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://donb1jsom3j1l" path="res://parts/baselaser.tscn" id="12_qfm1y"]
@@ -16,7 +17,6 @@
 [ext_resource type="Script" uid="uid://cjg4t651gvsb3" path="res://scripts/animater.gd" id="14_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://cjoblvn5i0va7" path="res://textures/Effects/Thruster Sprite.png" id="15_fulsm"]
 [ext_resource type="Script" uid="uid://b14sgx6nv58ip" path="res://scenes/boost.gd" id="16_4r5pv"]
-[ext_resource type="Texture2D" uid="uid://d4ehi87u86jnv" path="res://textures/Effects/Hovercraft Thruster.png" id="17_qfm1y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oprun"]
 height = 30.0327
@@ -26,17 +26,17 @@ height = 30.0327
 [sub_resource type="Resource" id="Resource_d2wvv"]
 script = ExtResource("8_d2wvv")
 power = 40.0
-attack = 10.0
+attack = 20.0
 bullet_speed = 500.0
 bullet_amount = 1
 bullet_spread = 0.0
 bullet_lifetime = 10.0
-pierce = 4
+pierce = 0
 cooldown_reduction = 0.0
 acceleration = 7.0
 top_speed = 500.0
 brake_strength = 0.75
-rotation_speed = 250.0
+rotation_speed = 300.0
 max_turbo = 10.0
 turbo_cooldown = 2.0
 turbo_strength = 0.0
@@ -140,26 +140,26 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
-atlas = ExtResource("17_qfm1y")
-region = Rect2(0, 0, 17, 17)
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("13_a8ls1")
+region = Rect2(17, 0, 17, 17)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
-atlas = ExtResource("17_qfm1y")
-region = Rect2(0, 17, 17, 17)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("13_a8ls1")
+region = Rect2(34, 0, 17, 17)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_60mlk"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_fulsm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fulsm")
+"texture": SubResource("AtlasTexture_a8ls1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4r5pv")
+"texture": SubResource("AtlasTexture_qfm1y")
 }],
 "loop": true,
 "name": &"default",
-"speed": 1.1
+"speed": 5.0
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("parts", "health")]
@@ -178,6 +178,16 @@ offset_left = 34.0
 offset_top = 295.0
 offset_right = 145.0
 offset_bottom = 498.0
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = -4.0
+offset_top = 82.0
+offset_right = 109.0
+offset_bottom = 159.0
+theme_override_font_sizes/font_size = 20
+text = "points"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(11, 1)
@@ -217,6 +227,7 @@ stats = SubResource("Resource_d2wvv")
 stats = SubResource("Resource_qfm1y")
 
 [node name="Weapon" parent="PartHandler" instance=ExtResource("12_qfm1y")]
+bullet = ExtResource("11_qfm1y")
 
 [node name="shield" parent="PartHandler" instance=ExtResource("13_fulsm")]
 
@@ -241,17 +252,26 @@ script = ExtResource("14_qfm1y")
 position = Vector2(-0.419712, -9.65193)
 scale = Vector2(0.598944, 0.672596)
 sprite_frames = SubResource("SpriteFrames_31cv2")
+autoplay = "default"
 script = ExtResource("16_4r5pv")
 
 [node name="Timer" type="Timer" parent="AnimatedSprite2D/Boost"]
 
 [node name="indsprite" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(3, -2)
+rotation = -1.5708
 scale = Vector2(10, 10)
-sprite_frames = SubResource("SpriteFrames_60mlk")
+sprite_frames = SubResource("SpriteFrames_fulsm")
 autoplay = "default"
 
+[node name="StunTimer" type="Timer" parent="."]
+
 [connection signal="dashed" from="." to="UI" method="_on_player_dashed"]
+[connection signal="dashed" from="." to="AnimatedSprite2D/Boost" method="boost"]
 [connection signal="damaged" from="HealthComponent" to="UI" method="_on_health_component_damaged"]
 [connection signal="child_entered_tree" from="PartHandler" to="PartHandler" method="_on_child_entered_tree"]
 [connection signal="timeout" from="TurboDecay" to="." method="_on_timer_timeout"]
+[connection signal="hidden" from="AnimatedSprite2D/Boost" to="AnimatedSprite2D/Boost" method="_on_hidden"]
 [connection signal="timeout" from="AnimatedSprite2D/Boost/Timer" to="AnimatedSprite2D/Boost" method="_on_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

@@ -5,11 +5,13 @@
 [resource]
 script = ExtResource("1_odr27")
 power = 10.0
-attack = 30.0
+attack = 0.0
 bullet_speed = 15.0
 bullet_amount = 0
 bullet_spread = 0.0
 bullet_lifetime = 0.0
+pierce = 0
+cooldown_reduction = 0.0
 acceleration = 0.0
 top_speed = 0.0
 brake_strength = 0.0

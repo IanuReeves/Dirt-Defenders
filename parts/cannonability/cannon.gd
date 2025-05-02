@@ -15,8 +15,9 @@ func _input(event: InputEvent) -> void:
 			beam.inputpower = charge
 			duration.start()
 			stats.rotation_speed = -150
-			beam.scale.y = charge/40
-			beam.scale.x = charge/130
+			beam.scale.y = charge/35
+			beam.scale.x = charge/120
+			player.canFire = false
 
 
 func _process(delta: float) -> void:
@@ -36,9 +37,9 @@ func _on_duration_timeout() -> void:
 	beam.scale.x = 0.2
 	beam.inputpower = 0
 	beam.collision_mask = 0
-	cooldowntimer.start(8)
+	cooldowntimer.start()
 	charge = 0
-	
+	player.canFire = true
 	
 
 

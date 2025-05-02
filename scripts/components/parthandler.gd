@@ -42,13 +42,16 @@ func fetch_stats() -> PlayerStats:
 				
 	return value
 
+
+
+# NOTE: maybe fix pierce later????? cannot be modified rn.
 func _process(delta: float) -> void:
 	stats = fetch_stats()
 # fire primary weapon
 func fire_primary():
-	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread, stats.pierce, stats.power)
+	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread, primary_weapon.stats.pierce, stats.power)
 func fire_secondary():
-	secondary_weapon.fire(2,get_velocity(),40, stats.bullet_speed,1,stats.bullet_spread,4, 100, 6)
+	secondary_weapon.fire(2,get_velocity(),40, stats.bullet_speed,1,stats.bullet_spread,4, secondary_weapon.stats.pierce, 100)
 func AUX():
 	aux.activate()
 func _on_child_entered_tree(node: Node) -> void:

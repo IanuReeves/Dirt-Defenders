@@ -21,10 +21,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	basicmovement()
+	lifecheck()
 
 func basicmovement():
 	position += transform.x * SPEED * get_physics_process_delta_time()
 	time += get_physics_process_delta_time()
+
+
+func lifecheck():
 	if time >= LIFETIME:
 		time = 0
 		queue_free()

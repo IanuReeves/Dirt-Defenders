@@ -3,10 +3,11 @@ extends Projectile
 var sizemult:float = 1
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+@export var rateofchange: float = 0.05
 
 func _process(delta: float) -> void:
-	if sizemult < (power/30):
-		sizemult *= 1 + (power/2000)
+	if sizemult < (power/2):
+		sizemult *= 1 + (rateofchange)
 	scale.y = sizemult
 	scale.x = sizemult/2
 

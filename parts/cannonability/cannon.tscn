@@ -78,7 +78,7 @@ offset_right = 138.0
 offset_bottom = 455.0
 
 [node name="cooldown" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 
 [node name="damagetick" type="Timer" parent="."]

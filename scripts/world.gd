@@ -3,11 +3,14 @@ extends Node2D
 
 @onready var wavetimer: Timer = $wavetimer
 
+@onready var label: Label = $deathscreen/Label
 @onready var deathscreen: CanvasLayer = $deathscreen
 @onready var camera: Camera2D = $deathscreen/Camera2D
 @onready var pause_menu: Control = $Player/UI/pause_menu
 var paused = false
 
+var score: int = 0 
+signal pointtick(points)
 
 #adds a spawner array and gives paths to spawners
 #when the timer runs out it randomly selects an element from that array
@@ -42,7 +45,7 @@ func pauseMenu():
 
 func death():
 	deathscreen.show()
-	camera.make_current()
+
 
 
 
@@ -55,4 +58,10 @@ func restart() -> void:
 func _on_wavetimer_timeout() -> void:
 	spawnertouse = randi_range(0, 2)
 	spawnerarray[spawnertouse].Spawn_def()
-	wavetimer.start(randi_range(15,30))
+	wavetimer.start(randi_range(10,20))
+
+
+func _on_point_timer_timeout() -> void:
+	score+=10
+	pointtick.emit(score)
+	label.text = "you survived "+str(score)+" waves!"
