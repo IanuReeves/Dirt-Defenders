@@ -21,7 +21,9 @@ func _physics_process(delta: float) -> void:
 		if target:
 			rotate(get_angle_to(target.global_position))
 			position += transform.x * 500 * delta
-
+		else: 
+			queue_free()
+"res://scenes/bullets/homingbullet.tscn"
 func _on_timer_timeout() -> void:
 	pierce -= 1
 	if pierce >= 1:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://yo8xnph52dpl"]
 
-[ext_resource type="Script" uid="uid://bbiofmlcs82bl" path="res://shield.gd" id="1_26p5x"]
+[ext_resource type="Script" uid="uid://bbiofmlcs82bl" path="res://parts/shield.gd" id="1_26p5x"]
 [ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="2_70jgx"]
 [ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="2_mrcw8"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_70jgx"]
@@ -113,10 +113,11 @@ shape = SubResource("CircleShape2D_arekc")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 4.0
-offset_top = 457.0
-offset_right = 92.0
-offset_bottom = 512.0
+offset_left = 3.0
+offset_top = 343.0
+offset_right = 91.0
+offset_bottom = 398.0
+text = "shield text"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(18, 0)

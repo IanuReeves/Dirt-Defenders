@@ -119,11 +119,7 @@ func _input(event: InputEvent) -> void:
 			turbo -= miniturbo()
 			# emit gui shenanigains
 			dashed.emit()
-			turbo_cooldown_timer.start(stats.turbo_cooldown)
-	if event.is_action_pressed("fire") and canFire:
-			parts.fire_primary()
-	if event.is_action_pressed("ability") and canFire:
-		parts.fire_secondary()
+			turbo_cooldown_timer.start(stats.turbo_cooldown) 
 	if event.is_action_released("aux"):
 		parts.AUX()
 #	if event.is_action_pressed():

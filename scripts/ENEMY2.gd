@@ -10,12 +10,13 @@ var playerdir : Vector2
 @onready var invadetimer: Timer = $invadetimer
 @onready var player : Player = get_parent().get_node("Player")
 @onready var planet = get_parent().get_node("planet")
-@onready var weapon: Weapon = $enemyweapon
+
 @onready var damagesign: AnimatedSprite2D = $damagesign
 @onready var radar: Radar = $Radar
 @onready var world = get_parent()
 @onready var ind: ColorRect = $ColorRect
 
+@export var weapon:Weapon 
 
 var state
 signal died
@@ -71,15 +72,7 @@ var shootstate = func shootstate() -> void:
 	var playerdist = player.global_position.distance_to(global_position)
 	look_at(player.global_position + (player.velocity * playerdist/stats.bullet_speed) * randf_range((stats.accuracy/100),1))
 	# get angle of that vectors
-	weapon.fire(1,Vector2(0,0),
-	stats.attack,
-	stats.bullet_speed, 
-	1, #bullet amount 
-	1, #bullet spread 
-	1, #pierce 
-	1, #power 
-	1.25 ) #attack speed
-	
+	weapon.fire()
 
 func movetowards(target) -> void:
 	if target:

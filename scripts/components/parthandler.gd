@@ -11,6 +11,8 @@ var stats:PlayerStats = PlayerStats.new()
 @export var secondary_weapon:Weapon
 @export var hull:Hull
 @export var aux:Auxiliary
+@export var special:Weapon
+
 @onready var ui = get_parent().get_node("UI/cooldowns")
 
 
@@ -22,9 +24,13 @@ var partsloaded : bool = false
 # on ready configure sprite and HP if they exist
 func _ready() -> void:
 	stats = fetch_stats()
+	selectweapons()
 # fetch current player velocity
 func get_velocity() -> Vector2:
 	return get_parent().velocity
+
+
+
 # aggregate stats from child parts
 func fetch_stats() -> PlayerStats:
 	# init empty statsheet
@@ -48,10 +54,14 @@ func fetch_stats() -> PlayerStats:
 func _process(delta: float) -> void:
 	stats = fetch_stats()
 # fire primary weapon
-func fire_primary():
-	primary_weapon.fire(2,get_velocity(),stats.attack,stats.bullet_speed,stats.bullet_amount,stats.bullet_spread, primary_weapon.stats.pierce, stats.power)
-func fire_secondary():
-	secondary_weapon.fire(2,get_velocity(),40, stats.bullet_speed,1,stats.bullet_spread,4, secondary_weapon.stats.pierce, 100)
+
+func selectweapons():
+	primary_weapon.keybind = "fire"
+	secondary_weapon.keybind = "secondary"
+	aux.keybind = "aux"
+	special.keybind = "special"
+
+
 func AUX():
 	aux.activate()
 func _on_child_entered_tree(node: Node) -> void:

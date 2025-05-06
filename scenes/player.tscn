@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://6s3hfdcvwbxr"]
+[gd_scene load_steps=33 format=3 uid="uid://6s3hfdcvwbxr"]
 
 [ext_resource type="Script" uid="uid://d07bhxyosh33i" path="res://scripts/player.gd" id="1_clxn1"]
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="3_xelip"]
@@ -7,10 +7,9 @@
 [ext_resource type="Script" uid="uid://ig830hyaojuf" path="res://scripts/components/parthandler.gd" id="7_xkvgj"]
 [ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="8_d2wvv"]
 [ext_resource type="Script" uid="uid://caeioa2lwlb8r" path="res://scripts/components/hull.gd" id="9_s5o61"]
-[ext_resource type="PackedScene" uid="uid://dxff4clwpba7o" path="res://scenes/bullets/homingbullet.tscn" id="11_qfm1y"]
 [ext_resource type="PackedScene" uid="uid://e6iuym7bl3xi" path="res://ui/game_overlay.tscn" id="12_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://bc6bhmxbn1lt3" path="res://parts/cannonability/cannon.tscn" id="12_a8ls1"]
-[ext_resource type="PackedScene" uid="uid://donb1jsom3j1l" path="res://parts/baselaser.tscn" id="12_qfm1y"]
+[ext_resource type="PackedScene" uid="uid://dwtu1q08i4v5w" path="res://parts/baselaser.tscn" id="12_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://d05o0hs6blill" path="res://textures/sprites/ships/SHips/Ships.png" id="13_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://yo8xnph52dpl" path="res://parts/shield.tscn" id="13_fulsm"]
 [ext_resource type="PackedScene" uid="uid://11ir5xx3ykvq" path="res://parts/wave_cannon.tscn" id="13_qfm1y"]
@@ -171,19 +170,19 @@ health = NodePath("HealthComponent")
 
 [node name="UI" parent="." instance=ExtResource("12_3v2ag")]
 
-[node name="pause_menu" parent="UI" instance=ExtResource("6_3v2ag")]
-
 [node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 offset_left = 34.0
 offset_top = 295.0
 offset_right = 145.0
 offset_bottom = 498.0
 
+[node name="pause_menu" parent="UI" instance=ExtResource("6_3v2ag")]
+
 [node name="Label" type="Label" parent="UI"]
-offset_left = -4.0
-offset_top = 82.0
-offset_right = 109.0
-offset_bottom = 159.0
+offset_left = -26.0
+offset_top = 25.0
+offset_right = 87.0
+offset_bottom = 102.0
 theme_override_font_sizes/font_size = 20
 text = "points"
 horizontal_alignment = 1
@@ -211,13 +210,14 @@ script = ExtResource("4_6bx4a")
 zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
 
-[node name="PartHandler" type="Node2D" parent="." node_paths=PackedStringArray("healthcomponent", "primary_weapon", "secondary_weapon", "hull", "aux")]
+[node name="PartHandler" type="Node2D" parent="." node_paths=PackedStringArray("healthcomponent", "primary_weapon", "secondary_weapon", "hull", "aux", "special")]
 script = ExtResource("7_xkvgj")
 healthcomponent = NodePath("../HealthComponent")
 primary_weapon = NodePath("Weapon")
 secondary_weapon = NodePath("wave cannon")
 hull = NodePath("Hull")
 aux = NodePath("shield")
+special = NodePath("cannon")
 
 [node name="Hull" type="Node2D" parent="PartHandler"]
 script = ExtResource("9_s5o61")
@@ -226,12 +226,13 @@ stats = SubResource("Resource_d2wvv")
 [node name="cannon" parent="PartHandler" instance=ExtResource("12_a8ls1")]
 stats = SubResource("Resource_qfm1y")
 
-[node name="Weapon" parent="PartHandler" instance=ExtResource("12_qfm1y")]
-bullet = ExtResource("11_qfm1y")
+[node name="Weapon" parent="PartHandler" node_paths=PackedStringArray("handler") instance=ExtResource("12_qfm1y")]
+handler = NodePath("../..")
 
 [node name="shield" parent="PartHandler" instance=ExtResource("13_fulsm")]
 
-[node name="wave cannon" parent="PartHandler" instance=ExtResource("13_qfm1y")]
+[node name="wave cannon" parent="PartHandler" node_paths=PackedStringArray("handler") instance=ExtResource("13_qfm1y")]
+handler = NodePath("../..")
 
 [node name="TurboDecay" type="Timer" parent="."]
 wait_time = 0.05
@@ -258,7 +259,6 @@ script = ExtResource("16_4r5pv")
 [node name="Timer" type="Timer" parent="AnimatedSprite2D/Boost"]
 
 [node name="indsprite" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(3, -2)
 rotation = -1.5708
 scale = Vector2(10, 10)

@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://cy8ff1ku5mw5"]
+
+[ext_resource type="Texture2D" uid="uid://b6njmc0qkwi44" path="res://textures/sprites/ships/Enemies/Weed Killer.png" id="1_os8av"]
+[ext_resource type="Texture2D" uid="uid://cjoblvn5i0va7" path="res://textures/Effects/Thruster Sprite.png" id="2_l0dpe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnt7d"]
+atlas = ExtResource("1_os8av")
+region = Rect2(0, 17, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7enu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnt7d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3k7xx"]
+atlas = ExtResource("2_l0dpe")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvwja"]
+atlas = ExtResource("2_l0dpe")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6jqq"]
+atlas = ExtResource("2_l0dpe")
+region = Rect2(0, 17, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ju01b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3k7xx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvwja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6jqq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="carrot1" type="Node2D"]
+
+[node name="carrot" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_7enu8")
+
+[node name="carrotflame" type="AnimatedSprite2D" parent="carrot"]
+modulate = Color(0, 1, 1, 1)
+position = Vector2(0, -10.8985)
+scale = Vector2(0.97702, 0.63511)
+sprite_frames = SubResource("SpriteFrames_ju01b")

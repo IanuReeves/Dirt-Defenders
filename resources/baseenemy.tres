@@ -6,7 +6,7 @@
 script = ExtResource("1_snhma")
 speed = 150.0
 max_hp = 50.0
-attack = 20.0
+attack = 15.0
 detect_range = 0.0
 bullet_speed = 400.0
 desired_target_distance = 500.0

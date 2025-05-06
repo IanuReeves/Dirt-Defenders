@@ -4,40 +4,33 @@ class_name Weapon
 @export var bullet:PackedScene
 @export var target_layer:int
 @onready var rate_of_fire: Timer = $RateOfFire
+@export var handler: Node2D
+
 
 var canFire = true
 signal fired
+var keybind:String
 
-#fire bullet out of weapon
-func fire
-(target_layer:int,
-speedmod:Vector2,
-damage:float = stats.attack,
-bullet_speed:float = 100,
-bullet_amount:int = 1,
-bullet_spread:float = 0, 
-pierce:int = 0, 
-power:float = 0, 
-cooldown: float = 0):
+
+
+
+
+func shoot(stats:PlayerStats):
 	if canFire:
-		shoot(target_layer,speedmod,damage,bullet_speed,bullet_amount,bullet_spread,pierce,power,cooldown)
-		fired.emit()
-		canFire = false
-
-func shoot(target_layer:int,speedmod:Vector2,damage:float,bullet_speed:float,bullet_amount:int = 1,bullet_spread:float = 0, pierce:int = 0, power:float = 0, cooldown: float = 0):
-		for i in range(0,bullet_amount):
+		for i in range(0,stats.bullet_amount):
 			# create a bullet and modify it's stats based on input
 			var b = bullet.instantiate()
 			b.set_collision_mask_value(target_layer,true)
-			b.damage = damage
+			b.origin = get_parent()
+			b.damage = stats.attack
 			b.position = global_position
-			b.rotation = global_rotation + deg_to_rad(randf_range(-bullet_spread/2,bullet_spread/2))
-			b.SPEED = bullet_speed
-			b.pierce = pierce
-			b.power = power
-			b.origin = self
-			get_tree().root.add_child(b)
-			rate_of_fire.start(cooldown)
+			b.rotation = global_rotation + deg_to_rad(randf_range(-stats.bullet_spread/2,stats.bullet_spread/2))
+			b.SPEED = stats.bullet_speed + handler.velocity.length()
+			b.pierce = stats.pierce
+			b.power = stats.power
+			get_parent().get_parent().get_parent().add_child(b)
+			canFire = false
+	rate_of_fire.start(cooldown)
 
 func _on_timer_timeout():
 	canFire = true

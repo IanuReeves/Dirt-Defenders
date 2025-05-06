@@ -6,14 +6,14 @@
 
 [sub_resource type="Resource" id="Resource_hfbn1"]
 script = ExtResource("2_myduv")
-power = 8.0
+power = 3.0
 attack = 0.0
-bullet_speed = 0.0
-bullet_amount = 0
+bullet_speed = 100.0
+bullet_amount = 1
 bullet_spread = 0.0
-bullet_lifetime = 0.0
+bullet_lifetime = 200.0
 pierce = 4
-cooldown_reduction = 6.0
+cooldown_reduction = 0.0
 acceleration = 0.0
 top_speed = 0.0
 brake_strength = 0.0
@@ -34,6 +34,8 @@ cooldown = 8.0
 metadata/_custom_type_script = "uid://c5on0n684j21r"
 
 [node name="RateOfFire" type="Timer" parent="."]
+
+[node name="chargetimer" type="Timer" parent="."]
 
 [connection signal="fired" from="." to="." method="_on_fired"]
 [connection signal="timeout" from="RateOfFire" to="." method="_on_timer_timeout"]

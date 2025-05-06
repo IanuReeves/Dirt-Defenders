@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://e6iuym7bl3xi"]
+[gd_scene load_steps=3 format=3 uid="uid://e6iuym7bl3xi"]
 
 [ext_resource type="Script" uid="uid://8fhu8cc6ngcc" path="res://scripts/ui/game_overlay.gd" id="1_5gflo"]
 [ext_resource type="PackedScene" uid="uid://dcp5qcq14st1i" path="res://scenes/partmenu.tscn" id="3_ff03c"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_a01yc"]
-font_size = 24
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_5gflo")
@@ -69,24 +66,13 @@ layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Score" type="Label" parent="Control"]
-unique_name_in_owner = true
-layout_mode = 2
-offset_left = 5.0
-offset_top = 33.0
-offset_right = 118.0
-offset_bottom = 67.0
-size_flags_vertical = 0
-text = "Score: 0"
-label_settings = SubResource("LabelSettings_a01yc")
-
 [node name="Partmenu" parent="." instance=ExtResource("3_ff03c")]
 
 [node name="hplabel" type="Label" parent="."]
-offset_left = 6.0
-offset_top = 64.0
-offset_right = 46.0
-offset_bottom = 87.0
+offset_left = 2.0
+offset_top = 25.0
+offset_right = 52.0
+offset_bottom = 48.0
 text = "health"
 
 [connection signal="timeout" from="Control/ColorRect/Timer" to="." method="_on_timer_timeout"]

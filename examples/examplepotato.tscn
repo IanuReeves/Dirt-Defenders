@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://df8yae7kfojc"]
+
+[ext_resource type="Texture2D" uid="uid://b6njmc0qkwi44" path="res://textures/sprites/ships/Enemies/Weed Killer.png" id="1_gultr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw6dw"]
+atlas = ExtResource("1_gultr")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mpd4r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw6dw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="examplepotato" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_mpd4r")

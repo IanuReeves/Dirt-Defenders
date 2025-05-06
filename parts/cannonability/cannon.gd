@@ -1,4 +1,4 @@
-extends Part
+extends Weapon
 
 @onready var beam: Area2D = $beam
 @onready var duration: Timer = $duration
@@ -8,8 +8,10 @@ extends Part
 
 var charge:float
 
+
+
 func _input(event: InputEvent) -> void:
-	if event.is_action_released("special") and charge > 100 and duration.time_left <= 0:
+	if event.is_action_released(keybind) and charge > 100 and duration.time_left <= 0:
 		if cooldowntimer.time_left <= 0:
 			beam.collision_mask = 2
 			beam.inputpower = charge
@@ -22,7 +24,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	clampf(charge, 0, player.stats.power*10)
-	if Input.is_action_pressed("special") and charge < (player.stats.power*10) and duration.time_left <= 0 and cooldowntimer.time_left <= 0:
+	if Input.is_action_pressed(keybind) and charge < (player.stats.power*10) and duration.time_left <= 0 and cooldowntimer.time_left <= 0:
 		charge += (player.stats.power)/10
 	label.text = "CHARGE: "+str(charge)
 	if cooldowntimer.time_left:
