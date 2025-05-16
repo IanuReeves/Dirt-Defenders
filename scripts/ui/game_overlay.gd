@@ -25,6 +25,7 @@ var maxScore = 10000
 
 func _ready() -> void:
 	dashind.color = Color(0, 1, 0, 1)
+	player.dashed.connect(_on_player_dashed)
 
 func update_score(value):
 	score += value
@@ -52,7 +53,7 @@ func _process(delta: float) -> void:
 
 func _on_player_dashed(cdtime:float) -> void:
 	dashind.color = Color(1, 0, 0, 1)
-	dashingtimer.start(cdtime)
+	dashingtimer.start(player.stats.turbo_cooldown)
 	
 func _on_timer_timeout() -> void:
 	dashind.color = Color(0, 1, 0, 1)

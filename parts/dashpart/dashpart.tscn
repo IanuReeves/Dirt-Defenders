@@ -1,19 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://cccfurky2d5ek"]
+[gd_scene load_steps=4 format=3 uid="uid://cccfurky2d5ek"]
 
 [ext_resource type="Script" uid="uid://cldfn74vlsbit" path="res://parts/dashpart/dashpart.gd" id="1_5wucs"]
 [ext_resource type="Resource" uid="uid://n43c35t2wjlp" path="res://parts/dashpart/dashpart.tres" id="2_f4quf"]
+[ext_resource type="Texture2D" uid="uid://ci3kpt0vte0si" path="res://parts/dashpart/dash.png" id="3_1mqm8"]
 
-[node name="dashpart" type="Node2D"]
+[node name="dashpart" type="Node2D" node_paths=PackedStringArray("cooldowntimer")]
 script = ExtResource("1_5wucs")
 stats = ExtResource("2_f4quf")
+icon = ExtResource("3_1mqm8")
+cooldowntimer = NodePath("cooldowntimer")
+hascooldown = true
+cooldown = 10.0
 metadata/_edit_vertical_guides_ = [-15.0]
 
 [node name="cooldowntimer" type="Timer" parent="."]
 wait_time = 0.1
-autostart = true
+one_shot = true
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 12
 
 [node name="boosttime" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="cooldowntimer" to="." method="_on_cooldowntimer_timeout"]
+[connection signal="timeout" from="boosttime" to="." method="_on_boosttime_timeout"]

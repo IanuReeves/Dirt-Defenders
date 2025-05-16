@@ -4,14 +4,18 @@ extends Node2D
 @onready var wavetimer: Timer = $wavetimer
 @onready var spawnspread: Timer = $spawnspread
 
-@onready var label: Label = $deathscreen/Label
-@onready var deathscreen: CanvasLayer = $deathscreen
-@onready var camera: Camera2D = $deathscreen/Camera2D
+
+@onready var player: Player = $Player
 @onready var pause_menu: Control = $Player/UI/pause_menu
 var paused = false
 
 
 var score: int = 0 
+var currency : int = 0 
+
+@export var debugmode = false
+
+
 signal pointtick(points)
 
 #adds a spawner array and gives paths to spawners
@@ -33,7 +37,8 @@ func _ready() -> void:
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		pauseMenu()
-		label.text = str(score)
+	player.score = score
+	player.currency = currency
 func pauseMenu():
 	if paused:
 		pause_menu.hide()
@@ -43,9 +48,6 @@ func pauseMenu():
 		Engine.time_scale = 0
 		
 	paused = !paused
-
-func death():
-	deathscreen.show()
 
 
 
@@ -77,5 +79,10 @@ func _on_wavetimer_timeout() -> void:
 
 func _on_point_timer_timeout() -> void:
 	score+=10
-	pointtick.emit(score)
-	label.text = "you survived "+str(score)+" waves!"
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("clear projectiles") and debugmode == true:
+		for entity in get_children():
+			if entity is Projectile:
+				entity.queue_free()

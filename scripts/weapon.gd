@@ -21,7 +21,7 @@ func shoot(stats:PlayerStats):
 			# create a bullet and modify it's stats based on input
 			var b = bullet.instantiate()
 			b.set_collision_mask_value(target_layer,true)
-			b.origin = get_parent()
+			b.origin = handler
 			b.damage = stats.attack
 			b.position = global_position
 			b.rotation = global_rotation + deg_to_rad(randf_range(-stats.bullet_spread/2,stats.bullet_spread/2))
@@ -30,7 +30,7 @@ func shoot(stats:PlayerStats):
 			b.power = stats.power
 			get_parent().get_parent().get_parent().add_child(b)
 			canFire = false
-	rate_of_fire.start(cooldown)
+		rate_of_fire.start(cooldown)
 
 func _on_timer_timeout():
 	canFire = true

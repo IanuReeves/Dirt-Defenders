@@ -5,15 +5,18 @@ class_name Projectile
 @export var damage:float
 @export var power: float
 @export var block: bool
-@export var origin : Node
+@export var origin : Node2D
 
 var time:float = 0
 var pierce:int
 var pierceTimer = Timer.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	initialize()
+
+func initialize():
 	set_collision_mask_value(3, true)
-	set_collision_layer_value(3, true)
+	area_entered.connect(collision)
 
 
 
@@ -35,18 +38,18 @@ func lifecheck():
 	if pierce < 1:
 		queue_free()
 
-func _on_area_entered(area: Area2D) -> void:
-	if area is HitBoxComponent:
-		area.damage(damage)
-		pierce -= 1
-	if pierce >= 1 and pierceTimer.time_left == 0 and area is HitBoxComponent:
-				pierceTimer.one_shot = true
-				add_child(pierceTimer)
-				pierceTimer.start(.5)
-	if area is Projectile and pierceTimer.time_left == 0:
-			if block:
-				area.pierce -= 1
-				pierce -= 1
-				print("pierce reduced by projectile")
-	else:
-		pass
+func collision(area: Area2D) -> void:
+		if origin and (area is HitBoxComponent):
+			area.damage(damage, origin)
+			pierce -= 1
+		if pierce >= 1 and pierceTimer.time_left == 0 and area is HitBoxComponent:
+					pierceTimer.one_shot = true
+					add_child(pierceTimer)
+					pierceTimer.start(.5)
+		if area is Projectile and pierceTimer.time_left == 0:
+				if block:
+					area.pierce -= 1
+					pierce -= 1
+					print("pierce reduced by projectile")
+		else:
+			pass

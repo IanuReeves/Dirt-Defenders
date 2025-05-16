@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bu27sw7avjeew" path="res://scripts/components/hitboxcomponent.gd" id="1_md0e3"]
 [ext_resource type="Script" uid="uid://wy7pwks6axut" path="res://scripts/components/healthcomponent.gd" id="2_4ra3w"]
 [ext_resource type="Resource" uid="uid://bqvpnqf6wsgxo" path="res://resources/baseenemy.tres" id="2_ipns3"]
-[ext_resource type="PackedScene" uid="uid://colbbyedf7llg" path="res://parts/enemyweapon.tscn" id="5_xwavj"]
+[ext_resource type="PackedScene" uid="uid://colbbyedf7llg" path="res://parts/weapons/enemyweapon.tscn" id="5_xwavj"]
 [ext_resource type="Texture2D" uid="uid://bcunc5dhuv12b" path="res://textures/Effects/Explosion Effect.png" id="7_nenq2"]
 [ext_resource type="Script" uid="uid://b5x37ha3tx3g3" path="res://scenes/damagesign.gd" id="8_md484"]
 [ext_resource type="Script" uid="uid://dekyvj4ult7vp" path="res://radar.gd" id="9_8qclf"]
@@ -143,6 +143,7 @@ color = Color(0.372549, 0.682353, 0.247059, 1)
 [node name="enemyweapon" parent="." node_paths=PackedStringArray("handler") instance=ExtResource("5_xwavj")]
 handler = NodePath("..")
 
+[connection signal="died" from="." to="." method="_on_died"]
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="timeout" from="invadetimer" to="." method="_on_invadetimer_timeout"]
 [connection signal="animation_finished" from="damagesign" to="damagesign" method="_on_animation_finished"]

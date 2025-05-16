@@ -398,7 +398,7 @@ offset_top = 595.0
 offset_right = 1197.0
 offset_bottom = 649.0
 theme_override_font_sizes/font_size = 20
-text = "alpha v1.3"
+text = "alpha v1.3.5"
 
 [connection signal="exit_options_menu" from="options_menu" to="." method="_on_options_menu_exit_options_menu"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

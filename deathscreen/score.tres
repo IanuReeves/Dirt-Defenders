@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="scorefile" load_steps=2 format=3 uid="uid://hxxvjhvx703k"]
+
+[ext_resource type="Script" uid="uid://evjf3cnfmbdn" path="res://deathscreen/scorefile.gd" id="1_k1q30"]
+
+[resource]
+script = ExtResource("1_k1q30")
+highscore = 7810
+last_score = 860
+cause_of_loss = "nothin"
+metadata/_custom_type_script = "uid://evjf3cnfmbdn"

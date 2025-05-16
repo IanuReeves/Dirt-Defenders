@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdqiw3kbiimvj"]
+
+[ext_resource type="Script" uid="uid://cgu7fd1jmleuh" path="res://scenes/bullets/homing.gd" id="1_p7wx7"]
+[ext_resource type="Texture2D" uid="uid://5cxl2g0ht5in" path="res://textures/Effects/Fire Particle.png" id="2_gy2yb"]
+[ext_resource type="Script" uid="uid://dekyvj4ult7vp" path="res://radar.gd" id="3_gy2yb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ivuh"]
+radius = 24.8395
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y71bd"]
+atlas = ExtResource("2_gy2yb")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6eyn"]
+atlas = ExtResource("2_gy2yb")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_go0fr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y71bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6eyn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_go0fr"]
+radius = 398.126
+
+[node name="missile" type="Area2D" node_paths=PackedStringArray("radar", "timer", "delaytimer")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_p7wx7")
+radar = NodePath("Radar")
+timer = NodePath("Timer")
+delaytimer = NodePath("delaytimer")
+block = true
+metadata/_custom_type_script = "uid://cgu7fd1jmleuh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_2ivuh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_go0fr")
+
+[node name="Radar" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_gy2yb")
+metadata/_custom_type_script = "uid://dekyvj4ult7vp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar"]
+shape = SubResource("CircleShape2D_go0fr")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="delaytimer" type="Timer" parent="."]

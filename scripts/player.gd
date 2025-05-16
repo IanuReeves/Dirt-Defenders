@@ -7,15 +7,38 @@ var stats:PlayerStats = PlayerStats.new()
 @onready var deathscreen: CanvasLayer = $deathscreen
 @onready var world = get_parent()
 @onready var indsprite: AnimatedSprite2D = $indsprite
-@onready var pointlabel: Label = $UI/Label
 
+
+
+var score: int
+var currency: int 
+@onready var partmenu: PartMenu = $UI/Partmenu
+@onready var cashlabel: Label = $"UI/currency label"
+@onready var pointlabel: Label = $UI/pointlabel
+
+
+
+
+
+@onready var timerBox: VBoxContainer = $UI/timerBox
 
 var turnbykey:bool = false
 
 var isloaded : bool = false
-const DEATHSCREEN = preload("res://scenes/deathscreen.tscn")
+
+
+
+
+const DEATHSCREEN = preload("res://deathscreen/deathscreen.tscn")
+var scoredata:scorefile = load("res://deathscreen/score.tres")
+
+
 var canFire:bool = true
 var canMove:bool = true
+
+
+#determines whether or not turbo can decay at a given time
+var decay:bool
 
 # turbo cooldown timer is no longer made in the player because fuck node shenanigains
 # I guess player.gd used to be a mom now, all of it's other children are adopted, and this one was murdered
@@ -29,6 +52,7 @@ var canMove:bool = true
 # signal emitted on dash for ui shenanigains
 signal dashed
 signal boosted(power)
+signal killed
 # why the fuck does this exist, oh well
 var accelerating : bool
 # add "taken damage" action here -> already done (see health_changed signal in HealthComponent) 
@@ -52,6 +76,9 @@ func _process(delta: float) -> void:
 	# update stats and health each frame
 	stats = parts.stats
 	health.max = stats.max_hp
+	pointlabel.text = str(score)
+	partmenu.currency = currency
+	cashlabel.text = "CASH: "+str(currency)
 
 func rotate_to_mouse() -> void:
 	#smooth rotation stol--ADAPTED from reddit
@@ -110,7 +137,7 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	# dash if cooldown isn't a little shit
-	if event.is_action_released("dash") and turbo_cooldown_timer.time_left == 0:
+	if event.is_action_released("dash") and turbo_cooldown_timer.time_left == 0 and canMove:
 		if turbo > 50:
 			# why even add miniturbo to this?
 			velocity += transform.x * ((stats.acceleration * 100) + miniturbo())
@@ -120,25 +147,24 @@ func _input(event: InputEvent) -> void:
 			# emit gui shenanigains
 			dashed.emit()
 			turbo_cooldown_timer.start(stats.turbo_cooldown) 
-	if event.is_action_released("aux"):
-		parts.AUX()
+	if event.is_action_pressed("die"):
+		die(self)
 #	if event.is_action_pressed():
 
 func _on_timer_timeout() -> void:
-	if turbo > 0:
+	if turbo > 0 and decay:
 		turbo -= 1
 		turbo = clamp(turbo, 0, INF)
 
-func die():
+func die(cause):
 	queue_free()
+	scoredata.last_score = score
+	ResourceSaver.save(scoredata, "res://deathscreen/score.tres")
 	get_tree().change_scene_to_packed(DEATHSCREEN)
 
 func recoil(input):
 	velocity -= transform.x * input
 
-
-func _on_world_pointtick(points: Variant) -> void:
-	pointlabel.text = ("score: "+str(points))
 
 
 @onready var stun_timer: Timer = $StunTimer
@@ -152,3 +178,7 @@ func stun(time):
 func _on_stun_timer_timeout() -> void:
 	canFire = true
 	canMove = true
+
+func gotkill():
+	killed.emit
+	print("player got a kill")

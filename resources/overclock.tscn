@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmblhrhsk2la8"]
+
+[ext_resource type="Script" uid="uid://b5tpwda683tn6" path="res://parts/overclockpart/overclock.gd" id="1_hyr6m"]
+
+[node name="overclock" type="Node2D"]
+script = ExtResource("1_hyr6m")
+metadata/_custom_type_script = "uid://dkfjus4yds0xd"
+
+[node name="turbodecayer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="cooldown" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]

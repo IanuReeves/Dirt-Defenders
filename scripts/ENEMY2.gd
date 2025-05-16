@@ -16,10 +16,15 @@ var playerdir : Vector2
 @onready var world = get_parent()
 @onready var ind: ColorRect = $ColorRect
 
+
+
 @export var weapon:Weapon 
 
 var state
-signal died
+signal died(cause: Node2D)
+
+
+
 @export var stats : EnemyStats
 
 func _physics_process(delta: float) -> void:
@@ -42,6 +47,7 @@ func _physics_process(delta: float) -> void:
 func _ready() -> void:
 	player = get_parent().get_node("Player")
 	state = invadingstate
+
 
 
 
@@ -88,15 +94,19 @@ func _on_timer_timeout() -> void:
 
 
 
+
+''' 
+these functions are connected to signals for the detect radii of the enemy's 
+detection system. in other words, exiting and entering the areas determines 
+ta
+'''
+
 func _on_radar_detected() -> void:
 	state = chasingstate
-
 func _on_radar_exited(objectexited: Node2D) -> void:
 	state = invadingstate
-
 func _on_range_detected() -> void:
 	state = shootstate
-
 func _on_range_exited(objectexited: Node2D) -> void:
 	state = chasingstate
 
@@ -110,10 +120,10 @@ the die function is called by the health component.
 '''
 
 
-func die():
+func die(cause):
 	damagesign.playexplosion()
 	await damagesign.animation_finished
-	world.score+=15
+	died.emit(cause)
 	queue_free()
 
 func _on_health_component_damaged() -> void:
@@ -122,7 +132,15 @@ func _on_health_component_damaged() -> void:
 
 
 func _on_invadetimer_timeout() -> void:
-	planet.damage(stats.attack)
+	planet.damage(stats.attack, self)
 	damagesign.playexplosion()
 	await damagesign.animation_finished
-	die()
+	die(self)
+
+
+
+func _on_died(cause: Node2D) -> void:
+	if cause == player:
+		player.gotkill()
+		world.score+=(stats.value*10)
+		world.currency+=stats.value

@@ -12,9 +12,10 @@ func _ready() -> void:
 	add_child(iFrameTimer)
 
 
-func damage(amount:float):
+func damage(amount:float, origin:Node2D = null):
 	if health_component:
 		if !iFrameTimer.time_left > 0:
-			health_component.damage(amount)
+			health_component.damage(amount, origin)
+			if origin:
+				health_component.cause = origin
 			iFrameTimer.start()
-	

@@ -8,6 +8,9 @@ var current:float:
 signal health_changed(amount:float,component:HealthComponent)
 signal damaged
 
+var cause : Node2D
+
+
 '''
 this is the healthcomponent, it is meant to be used with the hitboxcomponent.
 when using the healthcomponent, ensure that you set it's maximum in either
@@ -27,18 +30,18 @@ on an ability that would normally take at most 20 minutes to finish T^T
 func _ready() -> void:
 	current = max
 
-func damage(amount:float):
+func damage(amount:float, cause:Node2D = null):
 	if canBeDamaged:
 		current -= amount
 		health_changed.emit(amount,self)
 		damaged.emit()
 		if current <= 0:
 			if get_parent().has_method("die"):
-				get_parent().die()
+				get_parent().die(cause)
 			else:
 				print("killed" + str(self))
 				get_parent().queue_free()
 		print(current)
 
 func heal(amount:float):
-	damage(-amount)
+	damage(-amount, get_parent())

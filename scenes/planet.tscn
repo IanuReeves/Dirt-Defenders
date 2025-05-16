@@ -209,6 +209,7 @@ shape = SubResource("CircleShape2D_3s4jt")
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_0k1rn")
 max = 500.0
+canBeDamaged = false
 metadata/_custom_type_script = "uid://wy7pwks6axut"
 
 [node name="Collision" type="CollisionShape2D" parent="."]

@@ -2,9 +2,7 @@ extends Weapon
 
 @onready var beam: Area2D = $beam
 @onready var duration: Timer = $duration
-@onready var label: Label = $CanvasLayer/Label
-@onready var cooldowntimer: Timer = $cooldown
-@onready var cooldownlabel: Label = $CanvasLayer/cooldownlabel
+
 
 var charge:float
 
@@ -26,11 +24,8 @@ func _process(delta: float) -> void:
 	clampf(charge, 0, player.stats.power*10)
 	if Input.is_action_pressed(keybind) and charge < (player.stats.power*10) and duration.time_left <= 0 and cooldowntimer.time_left <= 0:
 		charge += (player.stats.power)/10
-	label.text = "CHARGE: "+str(charge)
-	if cooldowntimer.time_left:
-		cooldownlabel.text = str(round(cooldowntimer.time_left))+" until ready to fire!"
-	else:
-		cooldownlabel.text = "ready to fire!"
+	set_cooltime()
+
 
 
 func _on_duration_timeout() -> void:
@@ -48,4 +43,4 @@ func _on_duration_timeout() -> void:
 func _on_damagetick_timeout() -> void:
 	for object in beam.get_overlapping_bodies():
 		if object is Alien:
-			object.health.damage(beam.inputpower/2.5)
+			object.health.damage(beam.inputpower/2.5, player)

@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://b27321tjalig4"]
+
+[ext_resource type="Script" uid="uid://b5tpwda683tn6" path="res://parts/overclockpart/overclock.gd" id="1_fdpk1"]
+[ext_resource type="Script" uid="uid://clpd50adeck85" path="res://scripts/resources/player_stats_resource.gd" id="2_asn82"]
+
+[sub_resource type="Resource" id="Resource_4ks0p"]
+script = ExtResource("2_asn82")
+power = 0.0
+attack = 0.0
+bullet_speed = 0.0
+bullet_amount = 0
+bullet_spread = 0.0
+bullet_lifetime = 0.0
+pierce = 0
+cooldown_reduction = 0.0
+acceleration = 0.0
+top_speed = 0.0
+brake_strength = 0.0
+rotation_speed = 0.0
+max_turbo = 0.0
+turbo_cooldown = 0.0
+turbo_strength = 0.0
+max_hp = 0.0
+defense = 0.0
+metadata/_custom_type_script = "uid://clpd50adeck85"
+
+[node name="overclock" type="Node2D"]
+script = ExtResource("1_fdpk1")
+target_layer = null
+stats = SubResource("Resource_4ks0p")
+descriptor = null
+cooldown = null
+metadata/_custom_type_script = "uid://dkfjus4yds0xd"
+
+[node name="cooldown" type="Timer" parent="."]
+
+[node name="decay" type="Timer" parent="."]
+wait_time = 0.05

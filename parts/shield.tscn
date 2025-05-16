@@ -87,9 +87,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="shield" type="Node2D"]
+[node name="shield" type="Node2D" node_paths=PackedStringArray("cooldowntimer")]
 script = ExtResource("1_26p5x")
 stats = SubResource("Resource_arekc")
+cooldowntimer = NodePath("cooldown")
+hascooldown = true
 metadata/_custom_type_script = "uid://dkfjus4yds0xd"
 
 [node name="cooldown" type="Timer" parent="."]
@@ -109,15 +111,6 @@ metadata/_custom_type_script = "uid://bu27sw7avjeew"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shieldarea"]
 position = Vector2(18, 0)
 shape = SubResource("CircleShape2D_arekc")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 3.0
-offset_top = 343.0
-offset_right = 91.0
-offset_bottom = 398.0
-text = "shield text"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(18, 0)

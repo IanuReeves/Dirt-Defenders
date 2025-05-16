@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://blvrw4btub433"]
-
-[ext_resource type="Script" uid="uid://c5on0n684j21r" path="res://scripts/weapon.gd" id="1_e5vu3"]
-
-[node name="Weapon" type="Node2D"]
-script = ExtResource("1_e5vu3")
-
-[node name="Cooldown" type="Timer" parent="."]

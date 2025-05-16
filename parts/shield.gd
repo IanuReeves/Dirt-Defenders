@@ -2,17 +2,17 @@ extends Auxiliary
 
 @onready var shieldhealth: HealthComponent = $shieldhealth
 @onready var shieldarea: HitBoxComponent = $shieldarea
-@onready var label: Label = $CanvasLayer/Label
-@onready var cooldowntimer: Timer = $cooldown
+
+
 
 var shielding : bool = false
 
-
+var charge : int 
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(keybind):
-		pass
+		activate()
 
 func activate():
 	if cooldowntimer.time_left <= 0 and shielding == false:
@@ -25,11 +25,12 @@ func activate():
 		used.emit()
 
 
-func die():
+func die(cause):
 	shielding = false
 	hide()
 	shieldarea.collision_layer = 0
 	cooldowntimer.start(cooldown)
+	print("shield destroyed by " + str(cause))
 
 
 func _ready() -> void:
@@ -46,7 +47,5 @@ func _on_timer_timeout() -> void:
 	pass # Replace with function body.
 
 func _process(delta: float) -> void:
-	if shielding:
-		label.text = "shield health: "+str(shieldhealth.current)
-	else:
-		label.text = "shield cooldown: "+str(round(cooldowntimer.time_left))
+	set_cooltime()
+	charge = shieldhealth.current

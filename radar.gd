@@ -38,8 +38,12 @@ func _ready() -> void:
 
 
 func get_nearest():
-	objects.sort_custom(sort_distance)
-	return objects[0]
+	var sortarray : Array = objects.duplicate()
+	sortarray.sort_custom(sort_distance)
+	if sortarray != []:
+		return sortarray[0]
+	else: 
+		print("target does not exist! refer to radar code.")
 
 
 func sort_distance(a,b):

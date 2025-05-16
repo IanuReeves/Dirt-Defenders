@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://e6iuym7bl3xi"]
+[gd_scene load_steps=2 format=3 uid="uid://e6iuym7bl3xi"]
 
 [ext_resource type="Script" uid="uid://8fhu8cc6ngcc" path="res://scripts/ui/game_overlay.gd" id="1_5gflo"]
-[ext_resource type="PackedScene" uid="uid://dcp5qcq14st1i" path="res://scenes/partmenu.tscn" id="3_ff03c"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_5gflo")
@@ -65,8 +64,6 @@ vertical_alignment = 1
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Partmenu" parent="." instance=ExtResource("3_ff03c")]
 
 [node name="hplabel" type="Label" parent="."]
 offset_left = 2.0

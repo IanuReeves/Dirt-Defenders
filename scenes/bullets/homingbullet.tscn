@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxff4clwpba7o"]
+[gd_scene load_steps=8 format=3 uid="uid://dxff4clwpba7o"]
 
-[ext_resource type="Script" uid="uid://cgu7fd1jmleuh" path="res://homing.gd" id="1_bpv2c"]
+[ext_resource type="Script" uid="uid://cgu7fd1jmleuh" path="res://scenes/bullets/homing.gd" id="1_bpv2c"]
 [ext_resource type="Texture2D" uid="uid://5cxl2g0ht5in" path="res://textures/Effects/Fire Particle.png" id="2_qiqnd"]
 [ext_resource type="Script" uid="uid://dekyvj4ult7vp" path="res://radar.gd" id="3_dmcda"]
 
@@ -29,13 +29,14 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v8waa"]
-radius = 62.0081
-
-[node name="homingbullet" type="Area2D"]
+[node name="homingbullet" type="Area2D" node_paths=PackedStringArray("radar", "timer", "delaytimer")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_bpv2c")
+radar = NodePath("Radar")
+timer = NodePath("Timer")
+delaytimer = NodePath("delaytimer")
+rotspeed = 80
 SPEED = 100.0
 metadata/_custom_type_script = "uid://dpdnfibip0cho"
 
@@ -53,12 +54,13 @@ script = ExtResource("3_dmcda")
 detect_bullets = false
 metadata/_custom_type_script = "uid://dekyvj4ult7vp"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar"]
-shape = SubResource("CircleShape2D_v8waa")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Radar"]
+scale = Vector2(1.5, 1.5)
+polygon = PackedVector2Array(1, -1, 104, -43, 118, -17, 118, 17, 103, 41)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="detected" from="Radar" to="." method="_on_detect"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="delaytimer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true

@@ -37,8 +37,10 @@ animations = [{
 "speed": 14.0
 }]
 
-[node name="cannon" type="Node2D"]
+[node name="cannon" type="Node2D" node_paths=PackedStringArray("cooldowntimer")]
 script = ExtResource("1_vnnkh")
+cooldowntimer = NodePath("cooldown")
+hascooldown = true
 metadata/_custom_type_script = "uid://c5on0n684j21r"
 
 [node name="beam" type="Area2D" parent="."]
@@ -62,20 +64,6 @@ frame_progress = 0.620225
 [node name="duration" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 26.0
-offset_top = 333.0
-offset_right = 142.0
-offset_bottom = 391.0
-
-[node name="cooldownlabel" type="Label" parent="CanvasLayer"]
-offset_left = 36.0
-offset_top = 407.0
-offset_right = 138.0
-offset_bottom = 455.0
 
 [node name="cooldown" type="Timer" parent="."]
 wait_time = 10.0
