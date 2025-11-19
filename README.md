@@ -1,3 +1,6 @@
+# Halted Development
+This project is no longer in active development, although that may change in the future!
+
 # Dirt Defenders
 Protect planet Earth against Dirt-hungry Capitalist Aliens!! Dodge past Asteroids and debris in this pixel-top-down-2D space battle fighting waves of enemies through Zero-G environments. 
 # Story
